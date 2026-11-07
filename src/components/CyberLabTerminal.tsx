@@ -105,39 +105,39 @@ export default function CyberLabTerminal() {
         <div className="max-w-4xl mx-auto rounded-2xl bg-[#090d16] border border-cyan-500/30 shadow-[0_0_50px_rgba(6,182,212,0.15)] overflow-hidden">
           
           {/* Terminal Title Bar */}
-          <div className="bg-[#0f172a] px-4 py-3 border-b border-slate-800 flex items-center justify-between">
-            <div className="flex items-center gap-2">
-              <span className="w-3 h-3 rounded-full bg-rose-500 inline-block"></span>
-              <span className="w-3 h-3 rounded-full bg-amber-500 inline-block"></span>
-              <span className="w-3 h-3 rounded-full bg-emerald-500 inline-block"></span>
-              <span className="text-xs font-mono text-slate-400 ml-2">
+          <div className="bg-[#0f172a] px-3.5 py-2.5 sm:px-4 sm:py-3 border-b border-slate-800 flex items-center justify-between gap-2 overflow-hidden">
+            <div className="flex items-center gap-2 min-w-0">
+              <span className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-rose-500 shrink-0 inline-block"></span>
+              <span className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-amber-500 shrink-0 inline-block"></span>
+              <span className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-emerald-500 shrink-0 inline-block"></span>
+              <span className="text-[11px] sm:text-xs font-mono text-slate-400 ml-1 sm:ml-2 truncate max-w-[160px] sm:max-w-none">
                 cyber-shakti-internship-lab:~# (root@lab-node-01)
               </span>
             </div>
 
-            <div className="flex items-center gap-2">
-              <span className="text-[11px] font-mono px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+            <div className="flex items-center gap-2 shrink-0">
+              <span className="text-[10px] sm:text-[11px] font-mono px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
                 LIVE SHELL
               </span>
             </div>
           </div>
 
           {/* Interactive Lab Tabs */}
-          <div className="bg-[#0b111e] px-4 pt-3 flex flex-wrap gap-2 border-b border-slate-800">
+          <div className="bg-[#0b111e] px-2.5 sm:px-4 pt-2 sm:pt-3 flex flex-wrap gap-1.5 sm:gap-2 border-b border-slate-800">
             <button
               onClick={() => setActiveTab('forensics')}
-              className={`px-3 py-1.5 rounded-t-lg text-xs font-mono font-semibold transition-colors flex items-center gap-2 ${
+              className={`px-2.5 sm:px-3 py-1.5 rounded-t-lg text-[11px] sm:text-xs font-mono font-semibold transition-colors flex items-center gap-1.5 ${
                 activeTab === 'forensics'
                   ? 'bg-[#090d16] text-cyan-400 border-t-2 border-cyan-400 border-x border-slate-800'
                   : 'text-slate-400 hover:text-white'
               }`}
             >
-              <span>1. Forensics Analysis</span>
+              <span>1. Forensics</span>
             </button>
 
             <button
               onClick={() => setActiveTab('hacking')}
-              className={`px-3 py-1.5 rounded-t-lg text-xs font-mono font-semibold transition-colors flex items-center gap-2 ${
+              className={`px-2.5 sm:px-3 py-1.5 rounded-t-lg text-[11px] sm:text-xs font-mono font-semibold transition-colors flex items-center gap-1.5 ${
                 activeTab === 'hacking'
                   ? 'bg-[#090d16] text-cyan-400 border-t-2 border-cyan-400 border-x border-slate-800'
                   : 'text-slate-400 hover:text-white'
@@ -148,7 +148,7 @@ export default function CyberLabTerminal() {
 
             <button
               onClick={() => setActiveTab('soc')}
-              className={`px-3 py-1.5 rounded-t-lg text-xs font-mono font-semibold transition-colors flex items-center gap-2 ${
+              className={`px-2.5 sm:px-3 py-1.5 rounded-t-lg text-[11px] sm:text-xs font-mono font-semibold transition-colors flex items-center gap-1.5 ${
                 activeTab === 'soc'
                   ? 'bg-[#090d16] text-cyan-400 border-t-2 border-cyan-400 border-x border-slate-800'
                   : 'text-slate-400 hover:text-white'
@@ -159,19 +159,19 @@ export default function CyberLabTerminal() {
 
             <button
               onClick={() => setActiveTab('dpdp')}
-              className={`px-3 py-1.5 rounded-t-lg text-xs font-mono font-semibold transition-colors flex items-center gap-2 ${
+              className={`px-2.5 sm:px-3 py-1.5 rounded-t-lg text-[11px] sm:text-xs font-mono font-semibold transition-colors flex items-center gap-1.5 ${
                 activeTab === 'dpdp'
                   ? 'bg-[#090d16] text-amber-400 border-t-2 border-amber-400 border-x border-slate-800'
                   : 'text-amber-300/80 hover:text-amber-300'
               }`}
             >
               <span className="w-1.5 h-1.5 rounded-full bg-amber-400"></span>
-              <span>4. DPDP Act Scanner (NEW)</span>
+              <span>4. DPDP Scanner</span>
             </button>
           </div>
 
           {/* Active Command Prompt */}
-          <div className="p-5 sm:p-6 font-mono text-xs sm:text-sm bg-[#090d16]">
+          <div className="p-4 sm:p-6 font-mono text-xs sm:text-sm bg-[#090d16]">
             
             <div className="flex items-center justify-between mb-4 pb-3 border-b border-slate-800/80">
               <div className="text-xs text-slate-400">

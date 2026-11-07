@@ -25,6 +25,7 @@ export default function App({ page = 'home' }) {
   const isAdminPage = page === 'admin';
   const isAboutPage = page === 'about';
   const isContactPage = page === 'contact';
+  const isHomePage = page === 'home';
 
   const navigate = useCallback((path, section = null) => {
     if (pathname !== path) router.push(path);
@@ -52,7 +53,7 @@ export default function App({ page = 'home' }) {
   return (
     <RegistrationProvider>
       <MotionConfig reducedMotion="user">
-        <div className="premium-light relative flex min-h-screen flex-col bg-[#040711] text-slate-100 selection:bg-cyan-500 selection:text-black">
+        <div className={`${isHomePage || isRegisterPage || isWinterPage ? 'premium-dark bg-[#040711]' : 'premium-light bg-[#f8fafc]'} relative flex min-h-screen flex-col text-slate-100 selection:bg-cyan-500 selection:text-black overflow-x-hidden`}>
           {!isAdminPage && <Navbar pathname={pathname} onNavigate={navigate} />}
           {isAdminPage ? <AdminPage />
             : isRegisterPage ? <RegistrationPage onNavigate={navigate} />

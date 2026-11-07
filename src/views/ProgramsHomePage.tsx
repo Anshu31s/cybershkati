@@ -1,130 +1,128 @@
 import React from 'react';
-import { ArrowRight, ArrowUpRight, Award, BrainCircuit, CheckCircle2, Clock3, Fingerprint, ShieldCheck, TerminalSquare, UsersRound, Wrench } from 'lucide-react';
-import { SUMMER_INTERNSHIP_PATH, WINTER_INTERNSHIP_PATH } from '../routes';
+import {
+  Activity, ArrowRight, ArrowUpRight, Award, BrainCircuit, CalendarDays,
+  CheckCircle2, Clock3, Fingerprint, Monitor, Network, ShieldCheck,
+  TerminalSquare, UsersRound, Wifi,
+} from 'lucide-react';
+import { WINTER_INTERNSHIP_PATH } from '../routes';
 import ScrollReveal from '../components/ScrollReveal';
 
-const speakerAreas = [
-  { title: 'Cybersecurity Researchers', detail: 'Learn security concepts, threat intelligence, and practical investigation methods.', icon: BrainCircuit },
-  { title: 'Ethical Hacking Practitioners', detail: 'Explore offensive security techniques through guided, hands-on learning.', icon: TerminalSquare },
-  { title: 'Cybercrime Investigation Advisors', detail: 'Understand digital evidence, investigation workflows, and cyber law in practice.', icon: Fingerprint }
+const learningAreas = [
+  { title: 'Cybersecurity Researchers', detail: 'Build practical skills in security analysis, threat intelligence, and investigation.', icon: BrainCircuit },
+  { title: 'Ethical Hacking Practitioners', detail: 'Explore ethical testing methods through guided, hands-on labs.', icon: TerminalSquare },
+  { title: 'Digital Forensics', detail: 'Learn evidence handling, forensic workflows, and cyber law in practice.', icon: Fingerprint },
 ];
 
-function SectionHeading({ eyebrow, title, description }) {
-  return (
-    <div className="mx-auto mb-12 max-w-3xl text-center">
-      <p className="mb-3 text-xs font-bold uppercase tracking-[0.2em] text-cyan-700">{eyebrow}</p>
-      <h2 className="text-3xl font-extrabold tracking-tight text-slate-950 sm:text-4xl">{title}</h2>
-      <p className="mx-auto mt-4 max-w-2xl text-sm leading-relaxed text-slate-600 sm:text-base">{description}</p>
-    </div>
-  );
-}
+const journeySteps = [
+  ['01', 'Learn through', 'practical scenarios'],
+  ['02', 'Explore specialist', 'learning tracks'],
+  ['03', 'Build job-relevant', 'skills'],
+  ['04', 'Work towards a', 'verifiable credential'],
+];
 
 export default function ProgramsHomePage({ onNavigate, onOpenRegister }) {
   return (
-    <main className="flex-1 overflow-hidden bg-white text-slate-900">
+    <main className="flex-1 overflow-hidden bg-[#06162a] text-slate-100">
       <ScrollReveal>
-        <section className="relative overflow-hidden bg-white pb-20 pt-36 sm:pb-28 sm:pt-44">
-          <div aria-hidden="true" className="pointer-events-none absolute inset-0 cyber-grid opacity-40" />
-          <div aria-hidden="true" className="pointer-events-none absolute -right-24 top-16 h-96 w-96 rounded-full bg-cyan-100/70 blur-[100px]" />
-          <div className="relative mx-auto grid max-w-7xl items-center gap-12 px-4 sm:px-6 lg:grid-cols-12 lg:gap-10 lg:px-8">
-            <div className="lg:col-span-7">
-              <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-emerald-200 bg-emerald-50 px-3.5 py-2 text-xs font-bold tracking-wide text-emerald-800 sm:text-sm">
-                <span className="h-2 w-2 rounded-full bg-emerald-500" /> Current program · Winter Internship 2026
+        <section className="relative isolate overflow-hidden border-b border-sky-950 bg-[#06162a] pb-16 pt-32 sm:pb-20 sm:pt-36 lg:pt-40">
+          <div aria-hidden="true" className="pointer-events-none absolute inset-0 cyber-grid opacity-50" />
+          <div aria-hidden="true" className="pointer-events-none absolute -right-32 top-10 h-[34rem] w-[34rem] rounded-full bg-sky-700/15 blur-[110px]" />
+          <div aria-hidden="true" className="pointer-events-none absolute -left-40 bottom-0 h-96 w-96 rounded-full bg-blue-700/10 blur-[100px]" />
+
+          <div className="relative mx-auto grid max-w-[1500px] items-center gap-12 px-5 sm:px-8 lg:grid-cols-2 lg:gap-8 lg:px-12">
+            <div className="max-w-3xl">
+              <div className="mb-7 inline-flex items-center gap-2.5 rounded-full border border-sky-400/25 bg-sky-500/10 px-4 py-2 text-[11px] font-extrabold uppercase tracking-[0.18em] text-sky-300 sm:text-xs">
+                <span className="h-2 w-2 rounded-full bg-emerald-400 shadow-[0_0_12px_rgba(52,211,153,.8)]" />
+                Winter Internship Program · 2026
               </div>
-              <p className="mb-4 text-sm font-bold uppercase tracking-[0.2em] text-cyan-800">Cyber Shakti Foundation</p>
-              <h1 className="max-w-3xl text-5xl font-extrabold leading-[1.02] tracking-[-0.055em] text-slate-950 sm:text-6xl lg:text-7xl">
-                Build a career in
-                <span className="mt-1 block text-cyan-700">cybersecurity.</span>
+              <h1 className="text-5xl font-extrabold leading-[1.02] tracking-[-0.055em] text-white sm:text-6xl lg:text-[4.4rem]">
+                Build skills.
+                <span className="mt-2 block text-sky-400">Defend the digital</span>
+                <span className="block text-sky-400">world.</span>
               </h1>
-              <p className="mt-6 max-w-2xl text-base leading-8 text-slate-600 sm:text-lg">
-                Learn to investigate, defend, and secure digital systems through practical training designed for aspiring cybersecurity professionals.
+              <p className="mt-6 max-w-2xl text-base leading-7 text-slate-300 sm:text-lg sm:leading-8">
+                A practical learning experience in cybersecurity, digital forensics, and cyber intelligence—designed for curious minds ready to make an impact.
               </p>
               <div className="mt-8 flex flex-wrap gap-3">
-                <button type="button" onClick={() => onNavigate(WINTER_INTERNSHIP_PATH)} className="inline-flex items-center gap-2 rounded-lg bg-slate-950 px-5 py-3.5 text-sm font-bold text-white shadow-lg shadow-slate-900/10 transition-all hover:bg-cyan-800">
-                  Explore current internship <ArrowRight className="h-4 w-4" />
+                <button type="button" onClick={onOpenRegister} className="inline-flex items-center gap-3 rounded-lg bg-blue-600 px-5 py-3.5 text-sm font-extrabold text-white shadow-lg shadow-blue-950/30 transition hover:bg-blue-500">
+                  Start your registration <ArrowRight className="h-4 w-4" />
                 </button>
-                <button type="button" onClick={() => onNavigate(WINTER_INTERNSHIP_PATH, 'details')} className="rounded-lg border border-slate-300 bg-white px-5 py-3.5 text-sm font-bold text-slate-800 transition-colors hover:border-slate-400 hover:bg-slate-50">
-                  View learning agenda
+                <button type="button" onClick={() => onNavigate(WINTER_INTERNSHIP_PATH, 'tracks')} className="rounded-lg border border-slate-600 bg-white/[0.02] px-5 py-3.5 text-sm font-bold text-slate-100 transition hover:border-sky-400/60 hover:bg-sky-400/5">
+                  Explore learning tracks
                 </button>
               </div>
-              <div className="mt-9 flex flex-wrap gap-x-7 gap-y-3 text-sm font-semibold text-slate-600">
-                <span className="inline-flex items-center gap-2"><Clock3 className="h-4 w-4 text-cyan-700" /> 28 days</span>
-                <span className="inline-flex items-center gap-2"><Wrench className="h-4 w-4 text-cyan-700" /> Hands-on labs</span>
-                <span className="inline-flex items-center gap-2"><Award className="h-4 w-4 text-cyan-700" /> Certificate</span>
+
+              <div className="mt-10 flex flex-wrap gap-x-8 gap-y-5 border-t border-slate-700/70 pt-6">
+                <div className="flex items-center gap-3"><CalendarDays className="h-5 w-5 text-sky-400" /><span><span className="block text-[9px] font-bold uppercase tracking-[0.16em] text-slate-500">Registration starts</span><span className="mt-1 block text-xs font-bold text-white">08 November 2026</span></span></div>
+                <div className="flex items-center gap-3"><Clock3 className="h-5 w-5 text-sky-400" /><span><span className="block text-[9px] font-bold uppercase tracking-[0.16em] text-slate-500">Learning format</span><span className="mt-1 block text-xs font-bold text-white">Online · Live sessions</span></span></div>
+                <div className="flex items-center gap-3"><Activity className="h-5 w-5 text-sky-400" /><span><span className="block text-[9px] font-bold uppercase tracking-[0.16em] text-slate-500">Program focus</span><span className="mt-1 block text-xs font-bold text-white">Hands-on learning</span></span></div>
               </div>
             </div>
 
-            <aside className="relative lg:col-span-5">
-              <div className="absolute -inset-4 rounded-[2rem] bg-gradient-to-br from-cyan-100 to-blue-50 blur-2xl" />
-              <div className="relative rounded-2xl border border-slate-200 bg-white p-6 shadow-[0_24px_80px_rgba(15,23,42,.12)] sm:p-8">
-                <div className="flex items-start justify-between gap-4">
-                  <div>
-                    <p className="text-xs font-bold uppercase tracking-[0.16em] text-cyan-800">Now running</p>
-                    <h2 className="mt-2 text-2xl font-extrabold tracking-tight text-slate-950">Winter Internship</h2>
-                    <p className="mt-1 text-sm font-medium text-slate-500">2026 · 28-day program</p>
-                  </div>
-                  <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-cyan-50 text-cyan-800"><ShieldCheck className="h-6 w-6" /></span>
-                </div>
-                <div className="my-6 h-px bg-slate-200" />
-                <p className="text-sm font-semibold text-slate-700">A practical path through:</p>
-                <ul className="mt-4 space-y-3">
-                  {['Digital forensics & investigation', 'Ethical hacking & OSINT', 'SOC defense & threat hunting', 'Cyber law, privacy & capstone'].map((item) => (
-                    <li key={item} className="flex items-start gap-3 text-sm text-slate-600"><CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-emerald-600" />{item}</li>
-                  ))}
-                </ul>
-                <button type="button" onClick={() => onOpenRegister()} className="mt-7 inline-flex w-full items-center justify-center gap-2 rounded-lg bg-cyan-700 px-4 py-3 text-sm font-bold text-white transition-colors hover:bg-cyan-800">
-                  Register now <ArrowRight className="h-4 w-4" />
-                </button>
-                <button type="button" onClick={() => onNavigate(SUMMER_INTERNSHIP_PATH)} className="mt-3 inline-flex w-full items-center justify-center gap-1 py-2 text-sm font-semibold text-slate-500 transition-colors hover:text-cyan-800">
-                  View our first Summer Internship <ArrowUpRight className="h-4 w-4" />
-                </button>
+            <div className="relative mx-auto flex min-h-[390px] w-full max-w-[620px] items-center justify-center sm:min-h-[480px]">
+              <div aria-hidden="true" className="absolute left-1/2 top-1/2 aspect-square w-[78%] -translate-x-1/2 -translate-y-1/2 rounded-full border border-sky-500/15" />
+              <div aria-hidden="true" className="absolute left-1/2 top-1/2 aspect-square w-[61%] -translate-x-1/2 -translate-y-1/2 rounded-full border border-dashed border-sky-400/15" />
+              <div aria-hidden="true" className="absolute left-1/2 top-1/2 h-56 w-56 -translate-x-1/2 -translate-y-1/2 rounded-full bg-blue-500/20 blur-3xl sm:h-72 sm:w-72" />
+              <svg aria-hidden="true" className="absolute inset-0 h-full w-full opacity-60" viewBox="0 0 600 500" fill="none">
+                <path d="M24 174 146 112 253 171 370 88 569 145M55 376l129-65 112 60 119-88 132 68M253 171l31 200M370 88l45 195M146 112l38 199" stroke="#1677b9" strokeOpacity=".42" />
+                <g fill="#38bdf8"><circle cx="24" cy="174" r="3"/><circle cx="146" cy="112" r="3"/><circle cx="253" cy="171" r="3"/><circle cx="370" cy="88" r="3"/><circle cx="569" cy="145" r="3"/><circle cx="55" cy="376" r="3"/><circle cx="184" cy="311" r="3"/><circle cx="296" cy="371" r="3"/><circle cx="415" cy="283" r="3"/><circle cx="547" cy="351" r="3"/></g>
+              </svg>
+
+              <div className="absolute left-0 top-[13%] z-10 w-52 -rotate-6 rounded-xl border border-sky-400/25 bg-[#061327]/95 p-4 shadow-2xl shadow-black/40 sm:left-2 sm:w-60">
+                <div className="flex items-center gap-1.5"><span className="h-1.5 w-1.5 rounded-full bg-sky-400"/><span className="h-1.5 w-1.5 rounded-full bg-sky-400/70"/><span className="h-1.5 w-1.5 rounded-full bg-sky-400/40"/><span className="ml-2 text-[8px] font-bold uppercase tracking-[0.15em] text-slate-500">Threat monitor</span></div>
+                <div className="mt-4 space-y-2 font-mono text-[9px] text-slate-400"><p>&gt; initialising security scan</p><p>&gt; analysing network traffic</p><p className="text-emerald-400">&gt; status: monitoring</p></div>
+                <div className="mt-3 flex h-7 items-end gap-1">{[8, 15, 10, 23, 13, 19, 27, 14, 21].map((height, index) => <span key={index} style={{ height }} className="w-2 rounded-t-sm bg-sky-500" />)}</div>
               </div>
-            </aside>
+
+              <div className="relative z-[1] flex h-64 w-56 flex-col items-center justify-center text-center sm:h-72 sm:w-64" style={{ clipPath: 'polygon(50% 0%, 95% 17%, 90% 74%, 50% 100%, 10% 74%, 5% 17%)', background: 'linear-gradient(145deg, rgba(14,116,194,.75), rgba(7,35,70,.95))', boxShadow: '0 0 80px rgba(14,165,233,.22)' }}>
+                <div className="absolute inset-[2px] flex flex-col items-center justify-center" style={{ clipPath: 'polygon(50% 0%, 95% 17%, 90% 74%, 50% 100%, 10% 74%, 5% 17%)', background: 'linear-gradient(145deg, rgba(9,75,133,.96), rgba(4,25,52,.98))' }}>
+                  <ShieldCheck className="h-12 w-12 text-sky-300 drop-shadow-[0_0_18px_rgba(56,189,248,.55)]" />
+                  <strong className="mt-1 text-3xl font-black tracking-wide text-sky-200">CSF</strong>
+                  <span className="mt-3 text-sm font-extrabold uppercase tracking-[0.18em] text-white">Cyber defence</span>
+                  <span className="mt-2 text-[7px] font-bold uppercase tracking-[0.23em] text-sky-300/80">Learn · Investigate · Secure</span>
+                </div>
+              </div>
+
+              <div className="absolute bottom-[16%] right-0 z-10 w-48 rotate-6 rounded-xl border border-sky-400/25 bg-[#061327]/95 p-4 shadow-2xl shadow-black/40 sm:right-1 sm:w-52">
+                <div className="flex items-center gap-2 text-[8px] font-bold uppercase tracking-[0.16em] text-slate-500"><Wifi className="h-3.5 w-3.5 text-sky-400"/>Network activity</div>
+                <div className="mt-2 font-mono text-sm font-bold text-slate-100">192.168.1.24</div>
+                <p className="mt-1 text-[8px] uppercase tracking-wider text-slate-500">Packets <span className="font-bold text-emerald-400">secure</span></p>
+              </div>
+              <p className="absolute bottom-1 left-1/2 -translate-x-1/2 whitespace-nowrap text-[9px] font-bold uppercase tracking-[0.22em] text-sky-300/70">Cybersecurity · Digital forensics</p>
+            </div>
           </div>
         </section>
       </ScrollReveal>
 
+      <section aria-label="Program journey" className="border-b border-sky-900/60 bg-[#0a2038]">
+        <div className="mx-auto grid max-w-[1500px] grid-cols-2 px-5 py-7 sm:px-8 md:grid-cols-4 lg:px-12">
+          {journeySteps.map(([number, first, second], index) => <div key={number} className={`flex items-center gap-4 py-3 md:px-5 ${index > 0 ? 'md:border-l md:border-slate-700' : ''}`}>
+            <span className="text-3xl font-extrabold tracking-tight text-sky-400 sm:text-4xl">{number}</span><span className="text-xs leading-5 text-slate-300">{first}<br/>{second}</span>
+          </div>)}
+        </div>
+      </section>
+
       <ScrollReveal>
-        <section id="speakers" className="scroll-mt-28 border-y border-slate-200 bg-slate-50 py-20 sm:py-24">
-          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-            <SectionHeading
-              eyebrow="Speakers & Mentors"
-              title="Learn from cybersecurity practitioners"
-              description="The internship includes expert guidance and practical sessions across investigation, offensive security, and cyber defense."
-            />
+        <section className="border-b border-slate-800 bg-[#071a30] py-20 sm:py-24">
+          <div className="mx-auto max-w-7xl px-5 sm:px-8 lg:px-12">
+            <div className="mx-auto mb-12 max-w-3xl text-center"><p className="mb-3 text-xs font-bold uppercase tracking-[0.2em] text-sky-400">Mentorship & practice</p><h2 className="text-3xl font-extrabold tracking-tight text-white sm:text-4xl">Learn from practitioners. Build real skills.</h2><p className="mt-4 text-sm leading-7 text-slate-400 sm:text-base">The Winter Internship combines guided expertise with practical sessions across investigation, offensive security, and cyber defense.</p></div>
             <div className="mx-auto grid max-w-5xl gap-4 md:grid-cols-3">
-              {speakerAreas.map(({ title, detail, icon: Icon }) => (
-                <article key={title} className="rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
-                  <span className="flex h-11 w-11 items-center justify-center rounded-lg border border-cyan-400/20 bg-cyan-400/10 text-cyan-300"><Icon className="h-5 w-5" /></span>
-                  <h3 className="mt-5 text-lg font-bold text-white">{title}</h3>
-                  <p className="mt-3 text-sm leading-relaxed text-slate-400">{detail}</p>
-                </article>
-              ))}
+              {learningAreas.map(({ title, detail, icon: Icon }) => <article key={title} className="rounded-2xl border border-slate-700 bg-[#0a2038] p-6 transition hover:border-sky-500/50"><span className="flex h-11 w-11 items-center justify-center rounded-xl border border-sky-400/20 bg-sky-400/10 text-sky-300"><Icon className="h-5 w-5"/></span><h3 className="mt-5 text-lg font-bold text-white">{title}</h3><p className="mt-3 text-sm leading-6 text-slate-400">{detail}</p></article>)}
             </div>
-            <p className="mx-auto mt-5 max-w-2xl text-center text-xs text-slate-500">Expert sessions support the internship’s practical labs, threat investigations, and capstone work.</p>
           </div>
         </section>
       </ScrollReveal>
 
       <ScrollReveal>
-        <section id="register" className="scroll-mt-28 bg-[#040711] py-20 sm:py-24">
-          <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
-            <div className="relative overflow-hidden rounded-2xl border border-cyan-200 bg-gradient-to-br from-cyan-50 via-white to-blue-50 p-7 text-center shadow-sm sm:p-12">
-              <div aria-hidden="true" className="pointer-events-none absolute -right-12 -top-16 h-56 w-56 rounded-full bg-cyan-200/40 blur-3xl" />
-              <div className="relative">
-                <span className="inline-flex items-center gap-2 rounded-full border border-cyan-400/20 bg-cyan-400/10 px-3 py-1 text-xs font-mono uppercase tracking-wider text-cyan-200"><CheckCircle2 className="h-3.5 w-3.5" /> Current Winter Internship</span>
-                <h2 className="mt-5 text-3xl font-extrabold text-white sm:text-4xl">Ready to start your cyber career?</h2>
-                <p className="mx-auto mt-4 max-w-2xl text-sm leading-relaxed text-slate-300 sm:text-base">Explore the current 28-day program or begin your registration for the Winter Internship 2026.</p>
-                <div className="mt-7 flex flex-wrap justify-center gap-3">
-                  <button type="button" onClick={() => onOpenRegister()} className="inline-flex items-center gap-2 rounded-lg bg-cyan-400 px-5 py-3 text-sm font-bold text-slate-950 transition-colors hover:bg-cyan-300">Register Now <ArrowRight className="h-4 w-4" /></button>
-                  <button type="button" onClick={() => onNavigate(WINTER_INTERNSHIP_PATH)} className="rounded-lg border border-slate-600 px-5 py-3 text-sm font-semibold text-white transition-colors hover:border-cyan-300 hover:bg-slate-800/70">Explore full internship</button>
-                </div>
-                <p className="mt-5 inline-flex items-center gap-2 text-xs text-slate-500"><UsersRound className="h-4 w-4" /> Guided learning, practical labs, and a capstone project</p>
-              </div>
-            </div>
+        <section className="bg-[#06162a] py-16 sm:py-20">
+          <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-6 rounded-2xl border border-sky-500/20 bg-gradient-to-br from-[#0b2542] to-[#07172b] px-6 py-8 text-center sm:px-10 md:flex-row md:text-left">
+            <div><p className="text-xs font-bold uppercase tracking-[0.18em] text-sky-400">Current cohort · Winter 2026</p><h2 className="mt-2 text-2xl font-extrabold text-white sm:text-3xl">Start building your cyber career.</h2><p className="mt-2 max-w-xl text-sm leading-6 text-slate-400">Explore the program, review all seven learning tracks, and register online.</p></div>
+            <div className="flex shrink-0 flex-wrap justify-center gap-3"><button type="button" onClick={onOpenRegister} className="inline-flex items-center gap-2 rounded-lg bg-blue-600 px-5 py-3 text-sm font-bold text-white transition hover:bg-blue-500">Register now <ArrowRight className="h-4 w-4"/></button><button type="button" onClick={() => onNavigate(WINTER_INTERNSHIP_PATH)} className="inline-flex items-center gap-2 rounded-lg border border-slate-600 px-5 py-3 text-sm font-bold text-slate-100 transition hover:border-sky-400/50">Program details <ArrowUpRight className="h-4 w-4"/></button></div>
           </div>
+          <div className="mx-auto mt-8 flex max-w-6xl flex-wrap justify-center gap-5 text-xs text-slate-500"><span className="inline-flex items-center gap-2"><CheckCircle2 className="h-4 w-4 text-emerald-400"/>28-day live cohort</span><span className="inline-flex items-center gap-2"><Monitor className="h-4 w-4 text-sky-400"/>Online learning</span><span className="inline-flex items-center gap-2"><Award className="h-4 w-4 text-sky-400"/>QR-verifiable certificate</span><span className="inline-flex items-center gap-2"><UsersRound className="h-4 w-4 text-sky-400"/>Mentor-led sessions</span><span className="inline-flex items-center gap-2"><Network className="h-4 w-4 text-sky-400"/>Practical labs</span></div>
         </section>
       </ScrollReveal>
+      <div className="sr-only"><span>seven learning tracks include cyber law</span></div>
     </main>
   );
 }

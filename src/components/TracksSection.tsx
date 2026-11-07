@@ -207,16 +207,16 @@ export default function TracksSection({ onOpenRegister }) {
         </motion.div>
 
         {/* Bottom Banner callout for 28-day certificate */}
-        <div className="mt-12 p-6 rounded-2xl bg-gradient-to-r from-slate-900 via-indigo-950/40 to-slate-900 border border-cyan-500/30 flex flex-col md:flex-row items-center justify-between gap-6">
-          <div className="flex items-center gap-4">
-            <div className="p-3.5 rounded-xl bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 shrink-0">
-              <Terminal className="w-8 h-8" />
+        <div className="mt-12 p-5 sm:p-6 rounded-2xl bg-gradient-to-r from-slate-900 via-indigo-950/40 to-slate-900 border border-cyan-500/30 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-4 sm:gap-6">
+          <div className="flex items-start sm:items-center gap-3 sm:gap-4">
+            <div className="p-2.5 sm:p-3.5 rounded-xl bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 shrink-0 mt-1 sm:mt-0">
+              <Terminal className="w-6 h-6 sm:w-8 sm:h-8" />
             </div>
             <div>
-              <h4 className="text-lg font-bold text-white">
+              <h4 className="text-base sm:text-lg font-bold text-white leading-snug">
                 All 7 Tracks are covered in the 28-Day Winter Internship Program
               </h4>
-              <p className="text-slate-400 text-sm">
+              <p className="text-slate-400 text-xs sm:text-sm mt-1">
                 You don't have to choose just one track — students gain multi-disciplinary exposure with hands-on labs and capstone case studies.
               </p>
             </div>
@@ -224,10 +224,10 @@ export default function TracksSection({ onOpenRegister }) {
 
           <button
             onClick={onOpenRegister}
-            className="shrink-0 px-6 py-3 rounded-xl font-bold text-sm text-white bg-gradient-to-r from-cyan-500 to-indigo-600 hover:from-cyan-400 hover:to-indigo-500 shadow-[0_0_20px_rgba(6,182,212,0.3)] transition-all flex items-center gap-2"
+            className="w-full lg:w-auto shrink-0 px-5 sm:px-6 py-3 rounded-xl font-bold text-xs sm:text-sm text-white bg-gradient-to-r from-cyan-500 to-indigo-600 hover:from-cyan-400 hover:to-indigo-500 shadow-[0_0_20px_rgba(6,182,212,0.3)] transition-all flex items-center justify-center gap-2"
           >
             <span>Register for All 7 Tracks (₹{currentPrice.toLocaleString('en-IN')})</span>
-            <ArrowRight className="w-4 h-4" />
+            <ArrowRight className="w-4 h-4 shrink-0" />
           </button>
         </div>
 
@@ -235,8 +235,8 @@ export default function TracksSection({ onOpenRegister }) {
 
       {/* Track Syllabus Modal */}
       {selectedTrack && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm animate-fadeIn">
-          <div className="bg-[#0b1220] border border-cyan-500/40 rounded-2xl max-w-xl w-full p-6 sm:p-8 relative shadow-2xl overflow-hidden">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-black/80 backdrop-blur-sm animate-fadeIn">
+          <div className="bg-[#0b1220] border border-cyan-500/40 rounded-2xl max-w-xl w-full p-5 sm:p-8 relative shadow-2xl overflow-y-auto max-h-[88vh]">
             <div className="absolute top-0 right-0 w-32 h-32 bg-cyan-500/10 rounded-full blur-2xl pointer-events-none" />
             
             <div className="flex items-start justify-between mb-4">

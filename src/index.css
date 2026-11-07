@@ -172,3 +172,45 @@
     linear-gradient(to right, rgba(14, 116, 144, 0.055) 1px, transparent 1px),
     linear-gradient(to bottom, rgba(14, 116, 144, 0.055) 1px, transparent 1px);
 }
+
+/* Light registration panel inside the dark internship registration page. */
+#registration-form label {
+  color: #1e293b !important;
+  font-size: 0.875rem !important;
+  font-weight: 600 !important;
+  font-family: 'Manrope', system-ui, sans-serif !important;
+  letter-spacing: normal !important;
+  text-transform: none !important;
+}
+
+#registration-form input:not([type="checkbox"]):not([type="radio"]),
+#registration-form select,
+#registration-form textarea {
+  border-color: #cbd5e1 !important;
+  background-color: #f8fafc !important;
+  color: #0f172a !important;
+}
+
+#registration-form input::placeholder,
+#registration-form textarea::placeholder {
+  color: #94a3b8 !important;
+}
+
+#registration-form input:not([type="checkbox"]):not([type="radio"]):focus,
+#registration-form select:focus,
+#registration-form textarea:focus {
+  border-color: #2563eb !important;
+  box-shadow: 0 0 0 3px rgb(37 99 235 / 14%);
+}
+
+#registration-form button[type="submit"] {
+  color: #ffffff !important;
+}
+
+#registration-form button[type="submit"] svg {
+  color: #ffffff !important;
+}
+
+#registration-form [role="alert"] {
+  color: #b91c1c !important;
+}

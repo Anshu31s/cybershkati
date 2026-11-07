@@ -64,66 +64,66 @@ export default function CertificateShowcase({ onOpenRegister }) {
             <div className="relative p-2 sm:p-4 rounded-3xl bg-gradient-to-b from-cyan-500/20 via-slate-800/40 to-indigo-500/20 border border-cyan-500/40 shadow-[0_0_50px_rgba(6,182,212,0.25)]">
               
               {/* The Certificate Canvas Card */}
-              <div className="bg-[#0b1324] border-2 border-cyan-500/30 rounded-2xl p-6 sm:p-10 relative overflow-hidden text-center shadow-2xl">
+              <div className="bg-[#0b1324] border-2 border-cyan-500/30 rounded-2xl p-4 sm:p-6 md:p-10 relative overflow-hidden text-center shadow-2xl">
                 
                 {/* Guilloche border accents */}
-                <div className="absolute inset-2 border border-cyan-500/15 pointer-events-none rounded-xl" />
-                <div className="absolute inset-3 border border-dashed border-cyan-500/20 pointer-events-none rounded-lg" />
+                <div className="absolute inset-1.5 sm:inset-2 border border-cyan-500/15 pointer-events-none rounded-xl" />
+                <div className="absolute inset-2.5 sm:inset-3 border border-dashed border-cyan-500/20 pointer-events-none rounded-lg" />
                 
                 {/* Top Badge & Foundation Header */}
-                <div className="relative z-10 mb-6">
-                  <div className="inline-flex items-center gap-2 text-cyan-400 font-mono text-xs tracking-widest uppercase font-bold mb-2">
-                    <ShieldCheck className="w-4 h-4" />
+                <div className="relative z-10 mb-4 sm:mb-6">
+                  <div className="inline-flex items-center gap-2 text-cyan-400 font-mono text-[10px] sm:text-xs tracking-widest uppercase font-bold mb-1 sm:mb-2">
+                    <ShieldCheck className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
                     Cyber Shakti Foundation
                   </div>
-                  <h3 className="text-xl sm:text-3xl font-black text-white uppercase tracking-wider font-serif">
+                  <h3 className="text-lg sm:text-2xl md:text-3xl font-black text-white uppercase tracking-wider font-serif">
                     Certificate of Internship
                   </h3>
-                  <div className="text-xs text-slate-400 font-mono mt-1">
+                  <div className="text-[11px] sm:text-xs text-slate-400 font-mono mt-0.5 sm:mt-1">
                     Winter Internship Program • 2026
                   </div>
                 </div>
 
                 {/* Recipient body */}
-                <div className="relative z-10 my-6">
-                  <p className="text-xs text-slate-400 font-serif italic mb-1">
+                <div className="relative z-10 my-4 sm:my-6">
+                  <p className="text-[11px] sm:text-xs text-slate-400 font-serif italic mb-1">
                     This is proudly presented to
                   </p>
-                  <div className="text-xl sm:text-2xl font-bold text-cyan-300 border-b border-cyan-500/30 pb-2 inline-block px-8 font-sans">
+                  <div className="text-base sm:text-xl md:text-2xl font-bold text-cyan-300 border-b border-cyan-500/30 pb-2 inline-block px-4 sm:px-8 font-sans max-w-full break-words">
                     [ Candidate Full Name ]
                   </div>
-                  <p className="text-xs sm:text-sm text-slate-300 max-w-lg mx-auto mt-4 leading-relaxed">
+                  <p className="text-xs sm:text-sm text-slate-300 max-w-lg mx-auto mt-3 sm:mt-4 leading-relaxed">
                     for successfully completing the <strong>28-Day Winter Internship Program</strong> in 
                     <strong> Cybersecurity, Digital Forensics, Ethical Hacking, SOC, and DPDP Act Compliance</strong> with distinction.
                   </p>
                 </div>
 
                 {/* Bottom verification, QR, and signatures */}
-                <div className="relative z-10 pt-6 mt-6 border-t border-slate-800/80 grid grid-cols-3 items-center gap-4 text-left">
+                <div className="relative z-10 pt-4 sm:pt-6 mt-4 sm:mt-6 border-t border-slate-800/80 grid grid-cols-3 items-center gap-2 sm:gap-4 text-left">
                   
                   {/* Issue Date & ID */}
                   <div>
-                    <div className="text-[10px] uppercase font-mono text-slate-500">Credential ID</div>
-                    <div className="text-xs font-mono font-bold text-slate-200">CSF-WIP26-8942</div>
-                    <div className="text-[10px] text-slate-400 mt-1">Duration: 28 Days</div>
+                    <div className="text-[9px] sm:text-[10px] uppercase font-mono text-slate-500">Credential ID</div>
+                    <div className="text-[11px] sm:text-xs font-mono font-bold text-slate-200">CSF-WIP26-8942</div>
+                    <div className="text-[9px] sm:text-[10px] text-slate-400 mt-0.5 sm:mt-1">28 Days Live</div>
                   </div>
 
                   {/* Foundation Gold Seal */}
                   <div className="flex flex-col items-center justify-center">
-                    <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-gradient-to-tr from-amber-500 via-yellow-400 to-amber-600 p-[2px] shadow-lg">
+                    <div className="w-12 h-12 sm:w-16 sm:h-16 rounded-full bg-gradient-to-tr from-amber-500 via-yellow-400 to-amber-600 p-[2px] shadow-lg">
                       <div className="w-full h-full rounded-full bg-[#070e1e] flex flex-col items-center justify-center text-center p-1">
-                        <Award className="w-6 h-6 text-amber-400" />
-                        <span className="text-[7px] font-black uppercase text-amber-300 tracking-tighter">OFFICIAL SEAL</span>
+                        <Award className="w-4 h-4 sm:w-6 sm:h-6 text-amber-400" />
+                        <span className="text-[6px] sm:text-[7px] font-black uppercase text-amber-300 tracking-tighter">OFFICIAL SEAL</span>
                       </div>
                     </div>
                   </div>
 
                   {/* QR Code Validation */}
                   <div className="flex flex-col items-end">
-                    <div className="w-12 h-12 bg-white p-1 rounded-lg shadow-sm flex items-center justify-center">
-                      <QrCode className="w-10 h-10 text-black" />
+                    <div className="w-10 h-10 sm:w-12 sm:h-12 bg-white p-1 rounded-lg shadow-sm flex items-center justify-center">
+                      <QrCode className="w-8 h-8 sm:w-10 sm:h-10 text-black" />
                     </div>
-                    <span className="text-[9px] font-mono text-cyan-400 mt-1">Scan to Verify</span>
+                    <span className="text-[8px] sm:text-[9px] font-mono text-cyan-400 mt-1">Scan to Verify</span>
                   </div>
 
                 </div>

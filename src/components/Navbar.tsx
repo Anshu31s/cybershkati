@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { ChevronDown, Menu, X } from 'lucide-react';
-import { SUMMER_INTERNSHIP_PATH, WINTER_INTERNSHIP_PATH } from '../routes';
+import { ArrowUpRight, ChevronDown, Menu, ShieldCheck, X } from 'lucide-react';
+import { REGISTER_PATH, SUMMER_INTERNSHIP_PATH, WINTER_INTERNSHIP_PATH } from '../routes';
 
 const internshipItems = [
   { label: 'Winter Internship 2026', detail: 'Current program', href: WINTER_INTERNSHIP_PATH },
@@ -39,9 +39,17 @@ export default function Navbar({ pathname, onNavigate }) {
     setMobileOpen(false);
   };
 
+  const goToTracks = () => {
+    onNavigate(WINTER_INTERNSHIP_PATH, 'tracks');
+    setInternshipOpen(false);
+    setMobileOpen(false);
+  };
+
+  const isDarkHeader = pathname === '/' || pathname === '/register';
   const linkClass = (isActive = false) => `inline-flex items-center gap-1.5 rounded-md px-3 py-2 text-sm font-semibold transition-colors ${
-    isActive ? 'text-cyan-800' : 'text-slate-600 hover:text-cyan-700'
+    isDarkHeader ? (isActive ? 'text-cyan-300' : 'text-slate-300 hover:text-white') : (isActive ? 'text-cyan-800' : 'text-slate-600 hover:text-cyan-700')
   }`;
+  const mobileLinkClass = `w-full rounded-md px-3 py-2.5 text-left text-sm transition-colors ${isDarkHeader ? 'text-slate-300 hover:text-white hover:bg-white/5' : 'text-slate-700 hover:text-cyan-800'}`;
 
   const internshipMenu = (
     <div className="absolute left-0 top-full z-50 mt-2 w-80 rounded-lg border border-slate-700 bg-[#0b1220] p-1.5 shadow-xl shadow-black/40">
@@ -62,22 +70,22 @@ export default function Navbar({ pathname, onNavigate }) {
   );
 
   return (
-    <header className="fixed inset-x-0 top-3 z-50 px-3 sm:top-4 sm:px-6">
+    <header className="fixed inset-x-0 top-0 z-50">
       <nav
         ref={navRef}
         aria-label="Main navigation"
-        className="relative mx-auto flex max-w-6xl items-center justify-between gap-3 rounded-xl border border-slate-800 bg-[#090e1a]/95 px-3 py-2.5 shadow-lg shadow-black/20 backdrop-blur-xl sm:px-4"
+        className="relative mx-auto flex w-full max-w-[1600px] items-center justify-between gap-3 border-b border-slate-800 bg-[#06162a]/95 px-4 py-3 shadow-lg shadow-black/10 backdrop-blur-xl sm:px-8 lg:px-12"
       >
         <button
           type="button"
           onClick={() => goTo('/')}
-          className="flex shrink-0 items-center gap-2.5 rounded-md text-left group"
+          className="flex min-w-0 shrink-0 items-center gap-3 rounded-md text-left group"
           aria-label="Cyber Shakti Foundation home"
         >
           <img
             src="/logo.png"
             alt="Cyber Shakti Foundation"
-            className="h-8 sm:h-9 md:h-10 w-auto object-contain transition-transform duration-200 group-hover:scale-105"
+            className="h-8 sm:h-10 md:h-11 w-auto max-w-[190px] sm:max-w-none object-contain transition-transform duration-200 group-hover:scale-105"
           />
         </button>
 
@@ -96,17 +104,21 @@ export default function Navbar({ pathname, onNavigate }) {
             </button>
             {internshipOpen && internshipMenu}
           </div>
+          <button type="button" onClick={goToTracks} className={linkClass()}>Learning Tracks</button>
           <button type="button" onClick={() => goTo('/about')} className={linkClass(pathname === '/about')}>About us</button>
           <button type="button" onClick={() => goTo('/contact')} className={linkClass(pathname === '/contact')}>Contact us</button>
         </div>
 
         <div className="flex items-center gap-2">
+          <button type="button" onClick={() => goTo(REGISTER_PATH)} className="hidden items-center gap-2 rounded-lg bg-blue-600 px-4 py-2.5 text-sm font-bold text-white shadow-lg shadow-blue-950/30 transition hover:bg-blue-500 sm:inline-flex">
+            Register now <ArrowUpRight className="h-4 w-4" />
+          </button>
           <button
             type="button"
             aria-label={mobileOpen ? 'Close navigation menu' : 'Open navigation menu'}
             aria-expanded={mobileOpen}
             onClick={() => setMobileOpen((open) => !open)}
-            className="inline-flex h-9 w-9 items-center justify-center rounded-md border border-slate-300 text-slate-600 transition-colors hover:text-cyan-800 md:hidden"
+            className={`inline-flex h-9 w-9 items-center justify-center rounded-md border transition-colors md:hidden ${isDarkHeader ? 'border-slate-600 text-slate-200 hover:text-white' : 'border-slate-300 text-slate-600 hover:text-cyan-800'}`}
           >
             {mobileOpen ? <X className="h-4 w-4" /> : <Menu className="h-4 w-4" />}
           </button>
@@ -114,22 +126,24 @@ export default function Navbar({ pathname, onNavigate }) {
 
         {mobileOpen && (
           <div className="absolute left-0 right-0 top-[calc(100%+0.5rem)] rounded-xl border border-slate-800 bg-[#090e1a] p-2 shadow-xl md:hidden">
-            <button type="button" onClick={() => goTo('/')} className="w-full rounded-md px-3 py-2.5 text-left text-sm text-slate-700 transition-colors hover:text-cyan-800">Home</button>
-            <button type="button" onClick={() => setInternshipOpen((open) => !open)} className="flex w-full items-center justify-between rounded-md px-3 py-2.5 text-left text-sm text-slate-700 transition-colors hover:text-cyan-800">
+            <button type="button" onClick={() => goTo('/')} className={mobileLinkClass}>Home</button>
+            <button type="button" onClick={() => setInternshipOpen((open) => !open)} className={`flex items-center justify-between ${mobileLinkClass}`}>
               Explore Internship <ChevronDown className={`h-4 w-4 transition-transform ${internshipOpen ? 'rotate-180' : ''}`} />
             </button>
             {internshipOpen && (
               <div className="mb-1 ml-3 border-l border-slate-700 pl-2">
                 {internshipItems.map((item) => (
-                  <button key={item.href} type="button" onClick={() => goTo(item.href)} className="block w-full rounded-md px-3 py-2 text-left text-sm text-slate-600 transition-colors hover:text-cyan-800">
+                  <button key={item.href} type="button" onClick={() => goTo(item.href)} className={`block ${mobileLinkClass}`}>
                     <span className="block">{item.label}</span>
                     <span className="block text-xs text-slate-500">{item.detail}</span>
                   </button>
                 ))}
               </div>
             )}
-            <button type="button" onClick={() => goTo('/about')} className="w-full rounded-md px-3 py-2.5 text-left text-sm text-slate-700 transition-colors hover:text-cyan-800">About us</button>
-            <button type="button" onClick={() => goTo('/contact')} className="w-full rounded-md px-3 py-2.5 text-left text-sm text-slate-700 transition-colors hover:text-cyan-800">Contact us</button>
+            <button type="button" onClick={goToTracks} className={mobileLinkClass}>Learning tracks</button>
+            <button type="button" onClick={() => goTo('/about')} className={mobileLinkClass}>About us</button>
+            <button type="button" onClick={() => goTo('/contact')} className={mobileLinkClass}>Contact us</button>
+            <button type="button" onClick={() => goTo(REGISTER_PATH)} className="mt-1 flex w-full items-center justify-center gap-2 rounded-lg bg-blue-600 px-3 py-2.5 text-left text-sm font-bold text-white transition hover:bg-blue-500">Register now <ArrowUpRight className="h-4 w-4" /></button>
           </div>
         )}
       </nav>

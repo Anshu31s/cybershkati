@@ -78,19 +78,19 @@ export default function ProgramDetailsSection({ onOpenRegister }) {
 
         {/* Official Category Table Card Grid */}
         <div className="bg-slate-900/80 border border-slate-800 rounded-2xl overflow-hidden shadow-2xl backdrop-blur-xl mb-16">
-          <div className="p-6 sm:p-8 border-b border-slate-800 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 bg-slate-950/60">
+          <div className="p-4 sm:p-6 sm:p-8 border-b border-slate-800 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-4 bg-slate-950/60">
             <div>
               <span className="text-xs font-mono uppercase text-cyan-400 tracking-wider font-semibold">Cohort Overview</span>
-              <h3 className="text-xl sm:text-2xl font-bold text-white">
+              <h3 className="text-lg sm:text-2xl font-bold text-white">
                 Winter Internship Program Matrix
               </h3>
             </div>
-            <div className="flex items-center gap-3">
-              <span className="px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs font-mono">
-                Registration: {PROGRAM_DATA.registrationStarts}
+            <div className="flex flex-wrap items-center gap-2">
+              <span className="px-2.5 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-[11px] sm:text-xs font-mono">
+                Starts: {PROGRAM_DATA.registrationStarts}
               </span>
-              <span className="px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 text-xs font-mono font-bold">
-                Current fee: ₹{currentPrice.toLocaleString('en-IN')}
+              <span className="px-2.5 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 text-[11px] sm:text-xs font-mono font-bold">
+                Fee: ₹{currentPrice.toLocaleString('en-IN')}
               </span>
             </div>
           </div>
@@ -99,22 +99,22 @@ export default function ProgramDetailsSection({ onOpenRegister }) {
             {PROGRAM_DATA.detailsTable.map((item, index) => (
               <div 
                 key={index}
-                className="grid grid-cols-1 md:grid-cols-12 p-5 sm:p-6 hover:bg-slate-850/50 transition-colors items-center gap-4"
+                className="grid grid-cols-1 md:grid-cols-12 p-4 sm:p-6 hover:bg-slate-850/50 transition-colors items-start md:items-center gap-2 sm:gap-4"
               >
                 {/* Category column */}
                 <div className="md:col-span-3 flex items-center gap-3">
-                  <div className="p-2.5 rounded-xl bg-cyan-500/10 text-cyan-400 border border-cyan-500/20 shrink-0">
+                  <div className="p-2 sm:p-2.5 rounded-xl bg-cyan-500/10 text-cyan-400 border border-cyan-500/20 shrink-0">
                     {getDetailIcon(item.icon)}
                   </div>
                   <div>
-                    <span className="text-xs text-slate-400 font-mono uppercase">Category</span>
+                    <span className="text-[10px] text-slate-400 font-mono uppercase">Category</span>
                     <h4 className="text-sm sm:text-base font-bold text-white">{item.category}</h4>
                   </div>
                 </div>
 
                 {/* Details Value column */}
                 <div className="md:col-span-4">
-                  <div className="inline-block px-3 py-1 rounded-lg bg-cyan-950/40 border border-cyan-800/40 text-cyan-300 font-semibold text-sm sm:text-base">
+                  <div className="inline-block px-2.5 py-1 rounded-lg bg-cyan-950/40 border border-cyan-800/40 text-cyan-300 font-semibold text-xs sm:text-base">
                     {item.value}
                   </div>
                 </div>
@@ -130,16 +130,16 @@ export default function ProgramDetailsSection({ onOpenRegister }) {
 
         {/* 28-Day Milestone Roadmap */}
         <div className="mt-8">
-          <div className="text-center mb-10">
-            <h3 className="text-2xl font-bold text-white mb-2">
+          <div className="text-center mb-8 sm:mb-10">
+            <h3 className="text-xl sm:text-2xl font-bold text-white mb-2">
               Your 28-Day Learning Journey
             </h3>
-            <p className="text-slate-400 text-sm">
+            <p className="text-slate-400 text-xs sm:text-sm max-w-xl mx-auto">
               Structured progressive curriculum taking you from fundamental concepts to live forensic defense.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
             {weeklyMilestones.map((m, idx) => (
               <div
                 key={idx}

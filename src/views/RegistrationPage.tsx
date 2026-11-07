@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import {
   ShieldCheck,
+  ArrowRight,
   Flame,
   ArrowLeft,
   CheckCircle2,
@@ -25,6 +26,7 @@ import {
   GraduationCap,
   History,
   FileText,
+  Monitor,
 } from "lucide-react";
 import confetti from "canvas-confetti";
 import { PROGRAM_DATA } from "../data/programData";
@@ -32,6 +34,7 @@ import { createRazorpayOrder, verifyRazorpayPayment } from "../lib/api";
 import { useRegistration } from "../context/RegistrationContext";
 import ScrollReveal from "../components/ScrollReveal";
 import { useRegistrationFormStore } from "../store/registration-form";
+import { WINTER_INTERNSHIP_PATH } from "../routes";
 
 declare global {
   interface Window {
@@ -144,6 +147,12 @@ export default function RegistrationPage({ onNavigate }) {
     "6. DPDP Act 2023 & Privacy Compliance",
     "7. Cyber Law & Electronic Evidence",
   ];
+  const programFacts = [
+    { icon: Calendar, label: 'Registration starts', value: '08 November 2026' },
+    { icon: Clock, label: 'Duration', value: '28 days · Online' },
+    { icon: Monitor, label: 'Mode', value: 'Live sessions' },
+    { icon: Award, label: 'Certificate', value: 'QR-verifiable' },
+  ];
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -252,22 +261,36 @@ export default function RegistrationPage({ onNavigate }) {
   };
 
   return (
-    <main className="min-h-screen bg-[#040711] text-slate-100 relative pt-24 pb-20 cyber-grid overflow-hidden">
-      {/* Background neon ambient lighting */}
-      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gradient-to-tr from-cyan-500/10 via-blue-600/10 to-indigo-600/15 rounded-full blur-[140px] pointer-events-none" />
-      <div className="absolute top-1/3 -left-40 w-96 h-96 bg-cyan-600/10 rounded-full blur-[120px] pointer-events-none" />
+    <main className="relative min-h-screen overflow-hidden bg-[#06162a] pb-20 pt-24 text-slate-100 cyber-grid">
+      <div aria-hidden="true" className="pointer-events-none absolute -right-24 top-24 h-[34rem] w-[34rem] rounded-full bg-sky-700/15 blur-[120px]" />
+      <div aria-hidden="true" className="pointer-events-none absolute -left-40 top-[35rem] h-96 w-96 rounded-full bg-blue-700/10 blur-[100px]" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        {/* Back Navigation Bar */}
-        <div className="mb-8 flex items-center justify-between">
-          <button
-            onClick={() => onNavigate("/")}
-            className="inline-flex items-center gap-2 text-xs sm:text-sm font-mono text-cyan-400 hover:text-cyan-300 transition-colors group px-3.5 py-1.5 rounded-lg bg-slate-900/60 border border-slate-800 hover:border-cyan-500/40"
-          >
-            <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
-            <span>Back to Home</span>
-          </button>
-        </div>
+        {!isSubmitted && <section className="relative mb-8 overflow-hidden rounded-2xl border border-sky-500/20 bg-gradient-to-r from-[#071a30] via-[#082342] to-[#06162a] px-5 py-7 sm:px-8 sm:py-9 lg:px-10">
+          <div aria-hidden="true" className="pointer-events-none absolute inset-0 cyber-grid opacity-50" />
+          <div aria-hidden="true" className="pointer-events-none absolute right-0 top-0 h-full w-[55%] bg-gradient-to-l from-sky-500/10 to-transparent" />
+          <div className="relative grid items-center gap-7 lg:grid-cols-[1.1fr_0.9fr]">
+            <div>
+              <button onClick={() => onNavigate("/")} className="mb-5 inline-flex items-center gap-2 text-xs font-semibold text-slate-400 transition hover:text-white"><ArrowLeft className="h-3.5 w-3.5" /> Back to home</button>
+              <span className="mb-4 inline-flex items-center gap-2 rounded-full border border-blue-300/25 bg-blue-500/15 px-3.5 py-1.5 text-xs font-bold text-blue-200"><span className="h-2 w-2 rounded-full bg-emerald-400" />Winter 2026 · Registration opens 08 November</span>
+              <h1 className="max-w-3xl text-3xl font-extrabold leading-tight tracking-tight text-white sm:text-4xl lg:text-5xl">Cyber Shakti<br className="hidden sm:block"/> Winter Internship Program</h1>
+              <p className="mt-3 max-w-2xl text-sm leading-6 text-slate-300 sm:text-base">A hands-on, industry-oriented cybersecurity and digital forensics internship.</p>
+              <div className="mt-6 grid grid-cols-2 gap-4 sm:grid-cols-4">
+                {programFacts.map(({ icon: Icon, label, value }) => <div key={label} className="flex items-start gap-2.5"><Icon className="mt-0.5 h-4 w-4 shrink-0 text-sky-400"/><span><span className="block text-[9px] font-bold uppercase tracking-wider text-slate-500">{label}</span><span className="mt-1 block text-[11px] font-semibold text-slate-200">{value}</span></span></div>)}
+              </div>
+              <div className="mt-6 flex flex-wrap gap-3">
+                <button type="button" onClick={() => document.getElementById('registration-form')?.scrollIntoView({ behavior: 'smooth', block: 'start' })} className="inline-flex items-center gap-2 rounded-full bg-white px-5 py-2.5 text-sm font-extrabold text-slate-900 shadow-lg transition hover:bg-sky-50">Register for internship <ArrowRight className="h-4 w-4 text-blue-700"/></button>
+                <button type="button" onClick={() => onNavigate(WINTER_INTERNSHIP_PATH)} className="rounded-full border border-white/40 px-5 py-2.5 text-sm font-bold text-white transition hover:border-sky-300 hover:bg-white/5">View program details</button>
+              </div>
+            </div>
+            <div className="relative hidden min-h-[250px] items-center justify-center lg:flex">
+              <div className="absolute h-64 w-64 rounded-full border border-sky-400/20"/><div className="absolute h-48 w-48 rounded-full border border-dashed border-sky-400/20"/><div className="absolute h-40 w-40 rounded-full bg-sky-500/15 blur-3xl"/>
+              <div className="absolute left-1 top-4 w-48 -rotate-6 rounded-xl border border-sky-400/30 bg-[#041327]/95 p-4 shadow-2xl"><div className="flex items-center gap-1.5"><span className="h-1.5 w-1.5 rounded-full bg-sky-400"/><span className="h-1.5 w-1.5 rounded-full bg-sky-400/60"/><span className="h-1.5 w-1.5 rounded-full bg-sky-400/30"/><span className="ml-2 text-[8px] uppercase tracking-widest text-slate-500">Threat monitor</span></div><p className="mt-3 font-mono text-[9px] text-slate-400">&gt; analysing network traffic</p><p className="mt-2 font-mono text-[9px] text-emerald-400">&gt; status: monitoring</p><div className="mt-3 flex h-6 items-end gap-1">{[8,15,10,22,13,20,26,14].map((height,index)=><span key={index} style={{height}} className="w-2 rounded-t-sm bg-sky-500"/>)}</div></div>
+              <div className="relative z-10 flex h-52 w-44 flex-col items-center justify-center text-center" style={{clipPath:'polygon(50% 0%,95% 18%,89% 75%,50% 100%,11% 75%,5% 18%)',background:'linear-gradient(145deg,#0e5d9e,#071a32)'}}><ShieldCheck className="h-11 w-11 text-sky-300"/><span className="mt-2 text-2xl font-black text-white">CSF</span><span className="mt-1 text-[10px] font-bold uppercase tracking-[.16em] text-sky-200">Cyber defence</span></div>
+              <div className="absolute bottom-4 right-0 w-44 rotate-6 rounded-xl border border-sky-400/30 bg-[#041327]/95 p-4 shadow-2xl"><span className="text-[8px] uppercase tracking-widest text-slate-500">Network activity</span><p className="mt-2 font-mono text-sm font-bold text-slate-100">192.168.1.24</p><p className="mt-1 text-[8px] uppercase text-slate-500">Packets <span className="text-emerald-400">secure</span></p></div>
+            </div>
+          </div>
+        </section>}
 
         {isSubmitted ? (
           /* ================= SUCCESS CONFIRMATION SCREEN ================= */
@@ -345,22 +368,18 @@ export default function RegistrationPage({ onNavigate }) {
           /* ================= MAIN DEDICATED REGISTRATION FORM ================= */
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
             {/* Left Column: Program Summary & Urgency Card (5 cols) */}
-            <ScrollReveal className="lg:col-span-5 space-y-6">
+            <ScrollReveal className="lg:col-span-4 space-y-6">
               <div className="p-6 sm:p-8 rounded-3xl bg-gradient-to-b from-slate-900/90 to-[#070b14]/90 border border-cyan-500/30 shadow-2xl relative overflow-hidden">
                 <div className="absolute top-0 right-0 w-48 h-48 bg-cyan-500/10 rounded-full blur-3xl pointer-events-none" />
 
                 <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-500/10 text-cyan-300 font-mono text-xs uppercase tracking-wider mb-4 border border-cyan-500/30">
                   <ShieldCheck className="w-3.5 h-3.5" />
-                  Official Registration
+                  Program Highlights
                 </div>
 
-                <h1 className="text-2xl sm:text-3xl font-extrabold text-white mb-2 leading-tight">
-                  Winter Internship Program 2026
-                </h1>
+                <h2 className="text-2xl sm:text-3xl font-extrabold text-white mb-2 leading-tight">What you’ll learn</h2>
                 <p className="text-xs sm:text-sm text-slate-300 leading-relaxed mb-6">
-                  Join Cyber Shakti Foundation's premier 28-day live
-                  cybersecurity cohort. Learn Digital Forensics, Ethical
-                  Hacking, OSINT, SOC Defense, and India's DPDP Act 2023.
+                  Practice core cybersecurity and digital forensics skills with guided labs and live sessions.
                 </p>
 
                 {/* Live Seat Status Box */}
@@ -390,35 +409,20 @@ export default function RegistrationPage({ onNavigate }) {
                   </div>
                 </div>
 
-                {/* Key Program Highlights */}
-                <div className="space-y-3 text-xs text-slate-300 mb-6">
-                  <div className="flex items-start gap-2.5">
-                    <CheckCircle2 className="w-4 h-4 text-cyan-400 shrink-0 mt-0.5" />
-                    <span>
-                      <strong>Duration:</strong> 28 Days live & interactive
-                      cohort
-                    </span>
-                  </div>
-                  <div className="flex items-start gap-2.5">
-                    <CheckCircle2 className="w-4 h-4 text-cyan-400 shrink-0 mt-0.5" />
-                    <span>
-                      <strong>Registration Starts:</strong> 08 November 2026
-                    </span>
-                  </div>
-                  <div className="flex items-start gap-2.5">
-                    <CheckCircle2 className="w-4 h-4 text-cyan-400 shrink-0 mt-0.5" />
-                    <span>
-                      <strong>Certification:</strong> Official QR-authenticated
-                      credential
-                    </span>
-                  </div>
-                  <div className="flex items-start gap-2.5">
-                    <CheckCircle2 className="w-4 h-4 text-cyan-400 shrink-0 mt-0.5" />
-                    <span>
-                      <strong>Eligibility:</strong> Students, researchers &
-                      young professionals
-                    </span>
-                  </div>
+                <div className="mb-6 space-y-1.5">
+                  {[
+                    ['01', 'Digital forensics & evidence analysis'],
+                    ['02', 'Ethical hacking & penetration testing'],
+                    ['03', 'OSINT & cyber intelligence'],
+                    ['04', 'Network & mobile forensics'],
+                    ['05', 'SOC monitoring & threat analysis'],
+                    ['06', 'Cyber law, privacy & investigation'],
+                  ].map(([number, title]) => <div key={number} className="flex items-center gap-3 border-b border-slate-800/80 py-2.5"><span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border border-sky-400/20 bg-sky-500/10 text-[10px] font-extrabold text-sky-300">{number}</span><span className="text-xs font-semibold text-slate-200">{title}</span></div>)}
+                </div>
+
+                <div className="relative mb-5 h-36 overflow-hidden rounded-2xl border border-sky-400/20 bg-gradient-to-b from-sky-900/50 to-[#07182a]">
+                  <svg aria-hidden="true" viewBox="0 0 420 150" className="absolute inset-0 h-full w-full" preserveAspectRatio="xMidYMid slice"><defs><linearGradient id="snow" x1="0" y1="0" x2="0" y2="1"><stop stopColor="#e0f2fe"/><stop offset="1" stopColor="#60a5fa"/></linearGradient></defs><circle cx="345" cy="34" r="20" fill="#7dd3fc" fillOpacity=".32"/><path d="M0 120 92 42l65 72 62-62 110 89H0Z" fill="#16446b"/><path d="m63 66 29-24 29 32-20-7-10 6-12-8-11 6ZM187 76l32-24 35 32-23-8-12 6-13-8-11 7Z" fill="url(#snow)"/><path d="M0 138 117 82l79 47 82-56 142 75H0Z" fill="#0b3152"/><path d="M0 140h420v10H0Z" fill="#07182a"/></svg>
+                  <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-[#041326] to-transparent px-4 pb-3 pt-10"><p className="text-sm font-extrabold text-white">Learn. Investigate. Secure.</p><p className="mt-0.5 text-[10px] font-semibold uppercase tracking-[0.14em] text-sky-300">Winter internship · 2026</p></div>
                 </div>
 
                 {/* Contact Helpline */}
@@ -438,22 +442,14 @@ export default function RegistrationPage({ onNavigate }) {
             </ScrollReveal>
 
             {/* Right Column: Full Registration Form (7 cols) */}
-            <ScrollReveal className="lg:col-span-7">
-              <div className="p-6 sm:p-10 rounded-3xl bg-slate-900/80 border border-slate-800 shadow-2xl backdrop-blur-xl">
-                <div className="mb-8">
-                  
-                  <h2 className="text-xl sm:text-2xl font-bold text-white mb-1">
-                    Candidate Registration Form
-                  </h2>
-                  <p className="text-xs sm:text-sm text-slate-400">
-                    Please provide accurate information for background
-                    evaluation, cohort allotment, and official certification
-                    issuance.
-                  </p>
+            <ScrollReveal className="lg:col-span-8">
+              <div id="registration-form" className="premium-light scroll-mt-24 rounded-3xl border border-slate-200 bg-white p-5 shadow-2xl sm:p-8 lg:p-9">
+                <div className="mb-7 rounded-2xl border border-blue-100 bg-gradient-to-r from-blue-50 to-cyan-50 p-5 sm:p-6">
+                  <div className="flex items-start gap-3"><span className="mt-0.5 flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-blue-700 text-white"><User className="h-5 w-5"/></span><div><h2 className="text-xl font-extrabold text-slate-950 sm:text-2xl">Internship Registration Form</h2><p className="mt-1 text-sm leading-6 text-slate-600">Please provide your personal and professional details to register for the Cyber Shakti Winter Internship Program.</p></div></div>
                 </div>
 
                 {submitError && (
-                  <div className="mb-6 p-4 rounded-xl bg-red-500/10 border border-red-500/30 text-red-300 text-xs sm:text-sm flex items-start gap-3">
+                  <div role="alert" className="mb-6 p-4 rounded-xl bg-red-500/10 border border-red-500/30 text-red-300 text-xs sm:text-sm flex items-start gap-3">
                     <AlertCircle className="w-5 h-5 shrink-0 mt-0.5 text-red-400" />
                     <div>
                       <strong className="block font-semibold">
@@ -464,7 +460,7 @@ export default function RegistrationPage({ onNavigate }) {
                   </div>
                 )}
 
-                <form onSubmit={handleSubmit} className="space-y-6">
+                <form onSubmit={handleSubmit} className="space-y-5">
                   {/* ================= SECTION 1: IDENTITY & CONTACT ================= */}
                   <div className="space-y-4">
                     <div className="flex items-center gap-2 pb-2 border-b border-slate-800 text-xs font-mono text-cyan-400 uppercase tracking-wider">
@@ -472,6 +468,7 @@ export default function RegistrationPage({ onNavigate }) {
                       <span>1. Identity & Contact Details</span>
                     </div>
 
+                    <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                     {/* 1. Full Name (As per Official ID) */}
                     <div>
                       <label className="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2 font-mono flex items-center justify-between">
@@ -521,6 +518,7 @@ export default function RegistrationPage({ onNavigate }) {
                     </div>
 
                     {/* 3 & 4. Primary Contact Number & Alternative Contact Number */}
+                    </div>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                       {/* 3. Primary Contact Number */}
                       <div>
@@ -622,7 +620,7 @@ export default function RegistrationPage({ onNavigate }) {
                             max="2015-12-31"
                             value={formData.dob}
                             onChange={handleChange}
-                            className="w-full px-3.5 py-3 rounded-xl bg-black/60 border border-slate-700 text-white text-sm focus:outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400 transition-colors [color-scheme:dark]"
+                            className="w-full px-3.5 py-3 rounded-xl bg-black/60 border border-slate-700 text-white text-sm focus:outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400 transition-colors [color-scheme:light]"
                           />
                         </div>
                       </div>
@@ -902,11 +900,11 @@ export default function RegistrationPage({ onNavigate }) {
                     <button
                       type="submit"
                       disabled={isSubmitting || !formData.agreeTerms}
-                      className="w-full py-4 rounded-xl font-bold text-sm text-black bg-cyan-400 hover:bg-cyan-300 disabled:opacity-50 disabled:cursor-not-allowed shadow-[0_0_25px_rgba(34,211,238,0.4)] transition-all flex items-center justify-center gap-2 active:scale-98"
+                      className="w-full py-4 rounded-xl font-bold text-sm text-white bg-gradient-to-r from-sky-500 to-blue-700 hover:from-sky-400 hover:to-blue-600 disabled:opacity-50 disabled:cursor-not-allowed shadow-[0_0_25px_rgba(34,130,255,0.28)] transition-all flex items-center justify-center gap-2 active:scale-98"
                     >
                       {isSubmitting ? (
                         <>
-                          <Loader2 className="w-4 h-4 animate-spin text-black" />
+                          <Loader2 className="w-4 h-4 animate-spin text-white" />
                           <span>Submitting Registration...</span>
                         </>
                       ) : (
