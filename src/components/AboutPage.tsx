@@ -22,16 +22,6 @@ const organizations = [
       'Through hands-on courses for learners, professionals, and enterprises, the Foundation focuses on practical training, industry-recognized certifications, and real-world applications.',
   },
   {
-    name: 'CrimeX Intelligence',
-    image: '/about/crimex-intelligence.png',
-    icon: Crosshair,
-    accent: 'from-rose-500/20 via-orange-500/10 to-transparent',
-    description:
-      'CrimeX Intelligence is an educational, investigation, podcast, and research platform sharing knowledge in forensic science, cybersecurity, and cybercrime investigation.',
-    detail:
-      'It supports students, researchers, and professionals with learning resources, career guidance, research support, and industry insights across digital investigations.',
-  },
-  {
     name: 'Cybersecurity Council of India',
     image: '/about/cybersecurity-council.png',
     icon: Landmark,

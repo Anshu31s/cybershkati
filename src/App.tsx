@@ -95,7 +95,7 @@ export default function App({ page = "home" }) {
           ) : isContactPage ? (
             <ContactPage />
           ) : isSpeakersPage ? (
-            <SpeakersPage onNavigate={navigate} onOpenRegister={openRegistrationPage} />
+            <SpeakersPage onOpenRegister={openRegistrationPage} />
           ) : isSummerPage ? (
             <SummerInternshipPage onBackHome={() => navigate("/")} />
           ) : isWinterPage ? (

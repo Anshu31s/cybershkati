@@ -31,7 +31,7 @@ const partners = [
   { name: 'M Cyber Academy', url: 'https://mcyberacademy.in/', image: '/partners/pt-m-cyber-academy.png' },
   { name: 'Unique Infosolution', url: 'https://uniqueinfosolution.com/', image: '/partners/pt-unique-infosolution.png' },
   { name: 'BSides Noida', url: 'https://bsidesnoida.in/', image: '/partners/pt-bsides-noida.jpeg' },
-  { name: 'BSides Jaipur', url: 'https://bsidesjaipur.in/', image: '/partners/pt-bsides-jaipur.jpeg' },
+  { name: 'BSides Jaipur', url: 'https://bsidesjaipur.in/', image: '/partners/pt-bsides-jaipur.png' },
   { name: 'CRACCON', url: 'https://craccon.com/', image: '/partners/pt-craccon.png' },
   { name: 'Pirates', url: 'https://0x0pirates.com/', image: '/partners/pirates-DuHydTHF.png' },
 ];
@@ -132,18 +132,28 @@ export default function ProgramsHomePage({ onNavigate, onOpenRegister }) {
       </ScrollReveal>
 
       <ScrollReveal>
-        <section aria-labelledby="partners-heading" className="border-b border-slate-800 bg-[#071a30] py-16 sm:py-20">
-          <div className="mx-auto max-w-7xl px-5 sm:px-8 lg:px-12">
-            <div className="mb-9 text-center">
-              <p className="mb-3 text-xs font-bold uppercase tracking-[0.2em] text-sky-400">Trusted collaborations</p>
-              <h2 id="partners-heading" className="text-3xl font-extrabold tracking-tight text-white sm:text-4xl">Our partners</h2>
-              <p className="mx-auto mt-3 max-w-2xl text-sm leading-6 text-slate-400">We’re grateful to the organizations and communities supporting cybersecurity learning and collaboration.</p>
-            </div>
-            <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
-              {partners.map((partner) => <a key={partner.name} href={partner.url} target="_blank" rel="noopener noreferrer" className="group flex min-h-28 flex-col items-center justify-center gap-3 rounded-xl border border-slate-700/80 bg-white px-4 py-4 text-center transition hover:border-sky-500/50 hover:bg-slate-100">
-                <span className="flex h-16 w-full items-center justify-center"><img src={partner.image} alt={`${partner.name} logo`} loading="lazy" className="max-h-16 w-full object-contain transition duration-300 group-hover:scale-105" /></span>
-                <span className="text-xs font-bold text-slate-700">{partner.name}</span>
-              </a>)}
+        <section aria-labelledby="partners-heading" className="relative isolate overflow-hidden border-b border-slate-800 bg-[#030811] py-16 sm:py-20">
+          <div aria-hidden="true" className="pointer-events-none absolute inset-0 -z-10 cyber-grid opacity-30" />
+          <div aria-hidden="true" className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(ellipse_at_50%_45%,rgba(14,116,194,.13),transparent_55%),linear-gradient(180deg,rgba(3,8,17,.08),#030811)]" />
+          <div aria-hidden="true" className="pointer-events-none absolute -left-24 top-12 -z-10 h-72 w-72 rounded-full bg-indigo-600/10 blur-[100px]" />
+          <div className="mx-auto mb-10 max-w-3xl px-5 text-center sm:mb-12">
+            <p className="inline-flex rounded-full border border-cyan-400/35 bg-cyan-400/[0.06] px-4 py-2 text-[11px] font-bold uppercase tracking-[0.18em] text-cyan-300">Trusted collaborations</p>
+            <h2 id="partners-heading" className="mt-4 text-3xl font-extrabold uppercase tracking-tight text-white sm:text-4xl">Our <span className="text-cyan-400">partners</span></h2>
+          </div>
+          <div className="partners-marquee" aria-label="Partner organizations">
+            <div className="partners-marquee-track">
+              <div className="partners-marquee-group">
+                {partners.map((partner) => <a key={partner.name} href={partner.url} target="_blank" rel="noopener noreferrer" className="partners-logo-item group">
+                  <span className="partners-logo-surface"><img src={partner.image} alt={`${partner.name} logo`} loading="lazy" /></span>
+                  <span className="partners-logo-name">{partner.name}</span>
+                </a>)}
+              </div>
+              <div className="partners-marquee-group" aria-hidden="true" data-marquee-duplicate="true">
+                {partners.map((partner) => <div key={partner.name} className="partners-logo-item">
+                  <span className="partners-logo-surface"><img src={partner.image} alt="" loading="lazy" /></span>
+                  <span className="partners-logo-name">{partner.name}</span>
+                </div>)}
+              </div>
             </div>
           </div>
         </section>

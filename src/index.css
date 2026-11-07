@@ -35,6 +35,121 @@
     linear-gradient(to bottom, rgba(6, 182, 212, 0.06) 1px, transparent 1px);
 }
 
+.partners-marquee {
+  width: 100%;
+  overflow: hidden;
+  padding: 0.5rem 0 0.75rem;
+  mask-image: linear-gradient(to right, transparent, #000 4%, #000 96%, transparent);
+}
+
+.partners-marquee-track {
+  display: flex;
+  width: max-content;
+  animation: partners-marquee-scroll 48s linear infinite;
+  will-change: transform;
+}
+
+.partners-marquee:hover .partners-marquee-track,
+.partners-marquee:focus-within .partners-marquee-track {
+  animation-play-state: paused;
+}
+
+.partners-marquee-group {
+  display: flex;
+  flex: none;
+  align-items: flex-start;
+  gap: 1.125rem;
+  padding-right: 1.125rem;
+}
+
+.partners-logo-item {
+  display: flex;
+  width: 11.25rem;
+  flex: 0 0 11.25rem;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.65rem;
+  text-align: center;
+  text-decoration: none;
+}
+
+.partners-logo-surface {
+  display: flex;
+  width: 100%;
+  height: 6.75rem;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  border: 1px solid transparent;
+  border-radius: 1rem;
+  background: transparent;
+  padding: 0.5rem;
+  transition: transform 220ms ease, filter 220ms ease;
+}
+
+.partners-logo-surface img {
+  display: block;
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  filter: drop-shadow(0 0 12px rgba(56, 189, 248, 0.1));
+}
+
+.partners-logo-item:hover .partners-logo-surface,
+.partners-logo-item:focus-visible .partners-logo-surface {
+  transform: translateY(-3px);
+  filter: drop-shadow(0 8px 18px rgba(6, 182, 212, 0.22));
+}
+
+.partners-logo-name {
+  max-width: 100%;
+  color: #94a3b8;
+  font-size: 0.75rem;
+  font-weight: 600;
+  line-height: 1.25rem;
+}
+
+@keyframes partners-marquee-scroll {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@media (max-width: 640px) {
+  .partners-marquee-group {
+    gap: 0.875rem;
+    padding-right: 0.875rem;
+  }
+
+  .partners-logo-item {
+    width: 9.25rem;
+    flex-basis: 9.25rem;
+  }
+
+  .partners-logo-surface {
+    height: 6rem;
+    border-radius: 0.875rem;
+    padding: 0.875rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .partners-marquee {
+    overflow-x: auto;
+    mask-image: none;
+    scrollbar-width: thin;
+  }
+
+  .partners-marquee-track {
+    animation: none;
+    will-change: auto;
+  }
+
+  .partners-marquee-group[data-marquee-duplicate="true"] {
+    display: none;
+  }
+}
+
 .cyber-glow-cyan {
   text-shadow:
     0 0 12px rgba(6, 182, 212, 0.6),
