@@ -41,13 +41,13 @@ export default function Footer({ onOpenRegister, actionLabel, programContext = '
 
   return (
     <footer className="bg-[#03060d] border-t border-slate-800 text-slate-400 text-xs sm:text-sm relative">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-12">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 pb-5 sm:pt-10 sm:pb-6">
         
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-10 mb-12 justify-between">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mb-6 justify-between">
           
           {/* Brand info */}
-          <div className="space-y-4 max-w-md">
-            <div className="space-y-3">
+          <div className="space-y-3 max-w-md">
+            <div className="space-y-2">
               <div className="flex items-center gap-3 flex-wrap">
                 <a href="/" className="inline-block group" aria-label="Cyber Shakti Foundation Home">
                   <img
@@ -71,7 +71,7 @@ export default function Footer({ onOpenRegister, actionLabel, programContext = '
               {description}
             </p>
 
-            <div className="flex items-center gap-2 pt-2">
+            <div className="flex items-center gap-2 pt-1">
               {PROGRAM_DATA.contact.socials.map((social, idx) => (
                 <a
                   key={idx}
@@ -89,7 +89,7 @@ export default function Footer({ onOpenRegister, actionLabel, programContext = '
 
           {/* Contact Details */}
           <div className="md:ml-auto max-w-xs w-full">
-            <h4 className="text-xs font-bold uppercase tracking-wider text-white font-mono mb-4">
+            <h4 className="text-xs font-bold uppercase tracking-wider text-white font-mono mb-3">
               Contact Foundation
             </h4>
             <ul className="space-y-2.5 text-xs">
@@ -125,7 +125,7 @@ export default function Footer({ onOpenRegister, actionLabel, programContext = '
         </div>
 
         {/* Bottom copyright line */}
-        <div className="pt-8 border-t border-slate-900 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500">
+        <div className="pt-4 border-t border-slate-900 flex flex-col sm:flex-row items-center justify-between gap-2 text-xs text-slate-500">
           <div>
             © {new Date().getFullYear()} Cyber Shakti Foundation. All rights reserved. Registered Not-For-Profit Cyber Initiative.
           </div>
