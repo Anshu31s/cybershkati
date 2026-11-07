@@ -69,6 +69,15 @@
   background: #06b6d4;
 }
 
+/* Keep the home and Winter 2026 pages scrollable without showing the scrollbar. */
+html:has(.scrollbar-hidden-page) {
+  scrollbar-width: none;
+}
+
+html:has(.scrollbar-hidden-page)::-webkit-scrollbar {
+  display: none;
+}
+
 /* Premium light theme shared by the home page and both program pages. */
 .premium-light {
   color-scheme: light;
