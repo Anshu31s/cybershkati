@@ -1,11 +1,13 @@
 import React from 'react';
 import {
-  Activity, ArrowRight, ArrowUpRight, Award, BrainCircuit, CalendarDays,
-  CheckCircle2, Clock3, Fingerprint, Monitor, Network, ShieldCheck,
-  TerminalSquare, UsersRound, Wifi,
+  Activity, ArrowRight, ArrowUpRight, Award, BadgeCheck, BrainCircuit,
+  BriefcaseBusiness, CalendarDays, CheckCircle2, Clock3, Cpu, Fingerprint,
+  GraduationCap, Monitor, Network, ShieldCheck, Target, TerminalSquare,
+  UsersRound, Wifi,
 } from 'lucide-react';
-import { WINTER_INTERNSHIP_PATH } from '../routes';
+import { WINTER_INTERNSHIP_PATH, SPEAKERS_PATH } from '../routes';
 import ScrollReveal from '../components/ScrollReveal';
+import MatrixRain from '../components/MatrixRain';
 
 const learningAreas = [
   { title: 'Cybersecurity Researchers', detail: 'Build practical skills in security analysis, threat intelligence, and investigation.', icon: BrainCircuit },
@@ -18,6 +20,25 @@ const journeySteps = [
   ['02', 'Explore specialist', 'learning tracks'],
   ['03', 'Build job-relevant', 'skills'],
   ['04', 'Work towards a', 'verifiable credential'],
+];
+
+const impactMetrics = [
+  { value: '25,000+', label: 'Law enforcement & cybersecurity professionals trained', icon: ShieldCheck, tone: 'text-sky-400' },
+  { value: '500+', label: 'Awareness programs, technical workshops & sessions', icon: TerminalSquare, tone: 'text-sky-400' },
+  { value: '350+', label: 'National & international speakers and subject experts', icon: UsersRound, tone: 'text-violet-400' },
+  { value: '94%', label: 'Satisfaction rate of learners and course participants', icon: Award, tone: 'text-emerald-400' },
+  { value: '100%', label: 'CSA practical impact and outcomes delivered', icon: Activity, tone: 'text-sky-300' },
+];
+
+const mouBenefits = [
+  { text: 'Establishment of a Cybersecurity Centre of Excellence (CoE)', icon: ShieldCheck },
+  { text: 'Expert-Led Training Programs', icon: Monitor },
+  { text: 'Industry Certification Courses', icon: BadgeCheck },
+  { text: 'Internship & Live Project Opportunities', icon: BriefcaseBusiness },
+  { text: 'Research & Innovation Collaboration', icon: Cpu },
+  { text: 'Faculty Development Programs (FDPs)', icon: GraduationCap },
+  { text: 'Placement & Career Readiness Support', icon: Award },
+  { text: 'Hands-on Learning in Cybersecurity, Forensics & AI Security', icon: TerminalSquare },
 ];
 
 const partners = [
@@ -44,6 +65,7 @@ export default function ProgramsHomePage({ onNavigate, onOpenRegister }) {
           <div aria-hidden="true" className="pointer-events-none absolute inset-0 cyber-grid opacity-50" />
           <div aria-hidden="true" className="pointer-events-none absolute -right-32 top-10 h-[34rem] w-[34rem] rounded-full bg-sky-700/15 blur-[110px]" />
           <div aria-hidden="true" className="pointer-events-none absolute -left-40 bottom-0 h-96 w-96 rounded-full bg-blue-700/10 blur-[100px]" />
+          <MatrixRain />
 
           <div className="relative mx-auto grid max-w-[1500px] items-center gap-12 px-5 sm:px-8 lg:grid-cols-2 lg:gap-8 lg:px-12">
             <div className="max-w-3xl">
@@ -53,18 +75,39 @@ export default function ProgramsHomePage({ onNavigate, onOpenRegister }) {
               </div>
               <h1 className="text-5xl font-extrabold leading-[1.02] tracking-[-0.055em] text-white sm:text-6xl lg:text-[4.4rem]">
                 Build skills.
-                <span className="mt-2 block text-sky-400">Defend the digital</span>
-                <span className="block text-sky-400">world.</span>
+                <span className="mt-2 block text-sky-400">that Defend the digital world.</span>
               </h1>
               <p className="mt-6 max-w-2xl text-base leading-7 text-slate-300 sm:text-lg sm:leading-8">
-                A practical learning experience in cybersecurity, digital forensics, and cyber intelligence—designed for curious minds ready to make an impact.
+                Cyber Shakti Winter Internship Program
               </p>
-              <div className="mt-8 flex flex-wrap gap-3">
-                <button type="button" onClick={onOpenRegister} className="inline-flex items-center gap-3 rounded-lg bg-blue-600 px-5 py-3.5 text-sm font-extrabold text-white shadow-lg shadow-blue-950/30 transition hover:bg-blue-500">
-                  Start your registration <ArrowRight className="h-4 w-4" />
+              <div className="mt-8 grid max-w-xl grid-cols-2 gap-3">
+                <button
+                  type="button"
+                  onClick={() => onNavigate(WINTER_INTERNSHIP_PATH)}
+                  className="inline-flex min-h-12 items-center justify-center gap-2 rounded-lg border border-sky-400/30 bg-sky-500/10 px-4 py-3.5 text-center text-sm font-bold text-sky-300 transition hover:border-sky-400/60 hover:bg-sky-500/20 active:scale-95"
+                >
+                  Explore Internship
                 </button>
-                <button type="button" onClick={() => onNavigate(WINTER_INTERNSHIP_PATH, 'tracks')} className="rounded-lg border border-slate-600 bg-white/[0.02] px-5 py-3.5 text-sm font-bold text-slate-100 transition hover:border-sky-400/60 hover:bg-sky-400/5">
-                  Explore learning tracks
+                <button
+                  type="button"
+                  onClick={() => onNavigate(WINTER_INTERNSHIP_PATH, 'agenda')}
+                  className="inline-flex min-h-12 items-center justify-center gap-2 rounded-lg bg-blue-600 px-4 py-3.5 text-center text-sm font-bold text-white transition hover:bg-blue-500 active:scale-95"
+                >
+                  Agenda
+                </button>
+                <button
+                  type="button"
+                  onClick={onOpenRegister}
+                  className="inline-flex min-h-12 items-center justify-center gap-2 rounded-lg bg-blue-600 px-4 py-3.5 text-center text-sm font-extrabold text-white shadow-lg shadow-blue-950/30 transition hover:bg-blue-500 active:scale-95"
+                >
+                  Register Now <ArrowRight className="h-4 w-4" />
+                </button>
+                <button
+                  type="button"
+                  onClick={() => onNavigate(SPEAKERS_PATH)}
+                  className="inline-flex min-h-12 items-center justify-center gap-2 rounded-lg border border-slate-600 bg-white/[0.02] px-4 py-3.5 text-center text-sm font-bold text-slate-100 transition hover:border-sky-400/60 hover:bg-sky-400/5 active:scale-95"
+                >
+                  Speakers
                 </button>
               </div>
 
@@ -126,6 +169,47 @@ export default function ProgramsHomePage({ onNavigate, onOpenRegister }) {
             <div className="mx-auto mb-12 max-w-3xl text-center"><p className="mb-3 text-xs font-bold uppercase tracking-[0.2em] text-sky-400">Mentorship & practice</p><h2 className="text-3xl font-extrabold tracking-tight text-white sm:text-4xl">Learn from practitioners. Build real skills.</h2><p className="mt-4 text-sm leading-7 text-slate-400 sm:text-base">The Winter Internship combines guided expertise with practical sessions across investigation, offensive security, and cyber defense.</p></div>
             <div className="mx-auto grid max-w-5xl gap-4 md:grid-cols-3">
               {learningAreas.map(({ title, detail, icon: Icon }) => <article key={title} className="rounded-2xl border border-slate-700 bg-[#0a2038] p-6 transition hover:border-sky-500/50"><span className="flex h-11 w-11 items-center justify-center rounded-xl border border-sky-400/20 bg-sky-400/10 text-sky-300"><Icon className="h-5 w-5"/></span><h3 className="mt-5 text-lg font-bold text-white">{title}</h3><p className="mt-3 text-sm leading-6 text-slate-400">{detail}</p></article>)}
+            </div>
+          </div>
+        </section>
+      </ScrollReveal>
+
+      <ScrollReveal>
+        <section aria-labelledby="national-impact-heading" className="relative isolate overflow-hidden border-b border-slate-800 bg-[#080c16] py-16 sm:py-20">
+          <div aria-hidden="true" className="pointer-events-none absolute inset-0 -z-10 cyber-grid opacity-25" />
+          <div aria-hidden="true" className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(ellipse_at_50%_0%,rgba(14,165,233,.08),transparent_46%)]" />
+          <div className="mx-auto max-w-7xl px-5 sm:px-8 lg:px-12">
+            <header className="mx-auto mb-12 max-w-3xl text-center">
+              <p className="inline-flex items-center gap-2 rounded-full border border-sky-400/30 bg-sky-400/[.08] px-4 py-2 text-[11px] font-extrabold uppercase tracking-[.16em] text-sky-300"><ShieldCheck className="h-3.5 w-3.5" /> National training &amp; defense impact</p>
+              <h2 id="national-impact-heading" className="mt-5 text-3xl font-extrabold tracking-tight text-white sm:text-5xl">Demonstrated Impact Across India</h2>
+              <p className="mx-auto mt-4 max-w-2xl text-sm leading-7 text-slate-400 sm:text-base">Trusted by law enforcement, defense veterans, academic institutions &amp; enterprise teams.</p>
+            </header>
+
+            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
+              {impactMetrics.map(({ value, label, icon: Icon, tone }) => <article key={value} className="rounded-2xl border border-slate-800 bg-[#0b111e]/90 p-5 shadow-lg shadow-black/10 transition hover:-translate-y-1 hover:border-sky-400/25">
+                <Icon aria-hidden="true" className={`h-6 w-6 ${tone}`} />
+                <p className={`mt-5 text-3xl font-black tracking-tight ${tone}`}>{value}</p>
+                <p className="mt-2 text-sm font-semibold leading-6 text-slate-400">{label}</p>
+              </article>)}
+            </div>
+
+            <div className="mt-16 grid items-center gap-8 lg:grid-cols-[1.2fr_.9fr] lg:gap-10">
+              <div>
+                <p className="inline-flex items-center gap-2 rounded-full border border-sky-400/30 bg-sky-400/[.08] px-4 py-2 text-[11px] font-extrabold uppercase tracking-[.16em] text-sky-300"><GraduationCap className="h-3.5 w-3.5" /> Academic-industry partnership</p>
+                <h3 className="mt-5 text-2xl font-extrabold leading-tight tracking-tight text-white sm:text-3xl">MoU Between <span className="text-sky-400">Noida International University</span> &amp; Cyber Shakti Foundation</h3>
+                <div className="mt-5 rounded-xl border border-slate-800 border-l-4 border-l-sky-500 bg-[#0b111e] p-5">
+                  <p className="flex items-center gap-2 text-xs font-extrabold uppercase tracking-[.14em] text-sky-300"><Target className="h-4 w-4" /> Objective</p>
+                  <p className="mt-2 text-sm leading-6 text-slate-300">To bridge the gap between academic learning and industry requirements through practical cybersecurity education, research, and innovation.</p>
+                </div>
+                <div className="mt-3 grid gap-2 sm:grid-cols-2">
+                  {mouBenefits.map(({ text, icon: Icon }) => <div key={text} className="flex min-h-14 items-center gap-3 rounded-lg border border-slate-800/80 bg-[#0a0f19] px-3.5 py-3 text-sm font-semibold leading-5 text-slate-300"><Icon aria-hidden="true" className="h-4 w-4 shrink-0 text-sky-400" />{text}</div>)}
+                </div>
+              </div>
+
+              <figure className="overflow-hidden rounded-2xl border border-sky-400/20 bg-[#0b111e] shadow-[0_18px_60px_rgba(0,0,0,.35)]">
+                <img src="/mou-niu-cybershakti.png" alt="Representatives at the official MoU signing ceremony between Noida International University and Cyber Shakti Foundation" loading="lazy" className="aspect-[4/3] w-full object-cover object-center" />
+                <figcaption className="flex flex-wrap items-center justify-between gap-2 px-4 py-4 text-sm font-bold text-white sm:px-5"><span className="inline-flex items-center gap-2"><Award className="h-4 w-4 text-amber-400" />Official MoU Signing Ceremony</span><span className="text-sky-400">Noida International University</span></figcaption>
+              </figure>
             </div>
           </div>
         </section>

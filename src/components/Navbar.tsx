@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { ArrowUpRight, ChevronDown, Menu, ShieldCheck, X } from 'lucide-react';
-import { REGISTER_PATH, SPEAKERS_PATH, SUMMER_INTERNSHIP_PATH, WINTER_INTERNSHIP_PATH } from '../routes';
+import { ChevronDown, House, Info, Mail, Menu, Rocket, X } from 'lucide-react';
+import { SPEAKERS_PATH, SUMMER_INTERNSHIP_PATH, WINTER_INTERNSHIP_PATH } from '../routes';
 
 const internshipItems = [
   { label: 'Winter Internship 2026', detail: 'Current program', href: WINTER_INTERNSHIP_PATH },
@@ -39,9 +39,9 @@ export default function Navbar({ pathname, onNavigate }) {
     setMobileOpen(false);
   };
 
-  const isDarkHeader = ['/', '/register', '/about', '/contact', SPEAKERS_PATH].includes(pathname);
-  const linkClass = (isActive = false) => `inline-flex items-center gap-1.5 rounded-md px-3 py-2 text-sm font-semibold transition-colors ${
-    isDarkHeader ? (isActive ? 'text-cyan-300' : 'text-slate-300 hover:text-white') : (isActive ? 'text-cyan-800' : 'text-slate-600 hover:text-cyan-700')
+  const isDarkHeader = ['/', '/register', '/about', '/contact', SPEAKERS_PATH, WINTER_INTERNSHIP_PATH, SUMMER_INTERNSHIP_PATH].includes(pathname);
+  const linkClass = (isActive = false) => `inline-flex min-h-11 items-center justify-center gap-2 rounded-full px-4 text-sm font-semibold transition-colors ${
+    isActive ? 'bg-sky-500 text-white shadow-[0_0_22px_rgba(14,165,233,.28)]' : 'text-slate-300 hover:bg-white/[.06] hover:text-white'
   }`;
   const mobileLinkClass = `w-full rounded-md px-3 py-2.5 text-left text-sm transition-colors ${isDarkHeader ? 'text-slate-300 hover:text-white hover:bg-white/5' : 'text-slate-700 hover:text-cyan-800'}`;
 
@@ -68,7 +68,7 @@ export default function Navbar({ pathname, onNavigate }) {
       <nav
         ref={navRef}
         aria-label="Main navigation"
-        className="relative mx-auto flex w-full max-w-[1600px] items-center justify-between gap-3 border-b border-slate-800 bg-[#06162a]/95 px-4 py-3 shadow-lg shadow-black/10 backdrop-blur-xl sm:px-8 lg:px-12"
+        className="relative mx-auto flex w-full max-w-[1600px] items-center gap-3 border-b border-slate-800 bg-[#06162a]/95 px-4 py-3 shadow-lg shadow-black/10 backdrop-blur-xl sm:px-8 lg:px-12"
       >
         <button
           type="button"
@@ -79,40 +79,36 @@ export default function Navbar({ pathname, onNavigate }) {
           <img
             src="/logo.png"
             alt="Cyber Shakti Foundation"
-            className="h-8 sm:h-10 md:h-11 w-auto max-w-[190px] sm:max-w-none object-contain transition-transform duration-200 group-hover:scale-105"
+            className="h-10 sm:h-12 md:h-14 w-auto max-w-[230px] sm:max-w-none object-contain transition-transform duration-200 group-hover:scale-105"
           />
-          <span aria-hidden="true" className="h-8 w-px shrink-0 bg-white/80 sm:h-10 md:h-11" />
+          <span aria-hidden="true" className="h-10 w-px shrink-0 bg-white/80 sm:h-12 md:h-14" />
           <img
             src="/cybersecurity_council_logo.png"
             alt="Cybersecurity Council"
-            className="h-7 sm:h-8 md:h-9 w-auto object-contain transition-transform duration-200 group-hover:scale-105"
+            className="h-9 sm:h-10 md:h-11 w-auto object-contain transition-transform duration-200 group-hover:scale-105"
           />
         </button>
 
-        <div className="hidden items-center gap-1 md:flex">
-          <button type="button" onClick={() => goTo('/')} className={linkClass(pathname === '/')}>Home</button>
+        <div className="ml-auto hidden items-center gap-1 rounded-full border border-slate-700/70 bg-[#121a2a]/95 p-1.5 shadow-lg shadow-black/20 md:flex">
+          <button type="button" onClick={() => goTo('/')} className={linkClass(pathname === '/')}><House className="h-4 w-4" />Home</button>
           <div className="relative">
             <button
               type="button"
               aria-haspopup="menu"
               aria-expanded={internshipOpen}
               onClick={() => setInternshipOpen((open) => !open)}
-              className={linkClass(pathname !== '/')}
+              className={linkClass(pathname === WINTER_INTERNSHIP_PATH || pathname === SUMMER_INTERNSHIP_PATH)}
             >
-              Explore Internship
+              <Rocket className="h-4 w-4" />Internship
               <ChevronDown className={`h-3.5 w-3.5 transition-transform ${internshipOpen ? 'rotate-180' : ''}`} />
             </button>
             {internshipOpen && internshipMenu}
           </div>
-          <button type="button" onClick={() => goTo(SPEAKERS_PATH)} className={linkClass(pathname === SPEAKERS_PATH)}>Speakers</button>
-          <button type="button" onClick={() => goTo('/about')} className={linkClass(pathname === '/about')}>About us</button>
-          <button type="button" onClick={() => goTo('/contact')} className={linkClass(pathname === '/contact')}>Contact us</button>
+          <button type="button" onClick={() => goTo('/about')} className={linkClass(pathname === '/about')}><Info className="h-4 w-4" />About</button>
+          <button type="button" onClick={() => goTo('/contact')} className={linkClass(pathname === '/contact')}><Mail className="h-4 w-4" />Contact</button>
         </div>
 
-        <div className="flex items-center gap-2">
-          <button type="button" onClick={() => goTo(REGISTER_PATH)} className="hidden items-center gap-2 rounded-lg bg-blue-600 px-4 py-2.5 text-sm font-bold text-white shadow-lg shadow-blue-950/30 transition hover:bg-blue-500 sm:inline-flex">
-            Register now <ArrowUpRight className="h-4 w-4" />
-          </button>
+        <div className="ml-auto flex items-center gap-2 md:hidden">
           <button
             type="button"
             aria-label={mobileOpen ? 'Close navigation menu' : 'Open navigation menu'}
@@ -140,10 +136,8 @@ export default function Navbar({ pathname, onNavigate }) {
                 ))}
               </div>
             )}
-            <button type="button" onClick={() => goTo(SPEAKERS_PATH)} className={mobileLinkClass}>Speakers</button>
             <button type="button" onClick={() => goTo('/about')} className={mobileLinkClass}>About us</button>
             <button type="button" onClick={() => goTo('/contact')} className={mobileLinkClass}>Contact us</button>
-            <button type="button" onClick={() => goTo(REGISTER_PATH)} className="mt-1 flex w-full items-center justify-center gap-2 rounded-lg bg-blue-600 px-3 py-2.5 text-left text-sm font-bold text-white transition hover:bg-blue-500">Register now <ArrowUpRight className="h-4 w-4" /></button>
           </div>
         )}
       </nav>

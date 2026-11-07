@@ -129,7 +129,7 @@ export default function ProgramDetailsSection({ onOpenRegister }) {
         </div>
 
         {/* 28-Day Milestone Roadmap */}
-        <div className="mt-8">
+        <div id="agenda" className="mt-8 scroll-mt-24">
           <div className="text-center mb-8 sm:mb-10">
             <h3 className="text-xl sm:text-2xl font-bold text-white mb-2">
               Your 28-Day Learning Journey

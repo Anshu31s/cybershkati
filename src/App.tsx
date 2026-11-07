@@ -78,7 +78,7 @@ export default function App({ page = "home" }) {
     <RegistrationProvider>
       <MotionConfig reducedMotion="user">
         <div
-          className={`${isHomePage || isRegisterPage || isWinterPage || isAboutPage || isContactPage || isSpeakersPage ? "premium-dark bg-[#040711]" : "premium-light bg-[#f8fafc]"} ${isHomePage || isWinterPage ? "" : ""} relative flex min-h-screen flex-col text-slate-100 selection:bg-cyan-500 selection:text-black `}
+          className={`${isHomePage || isRegisterPage || isWinterPage || isSummerPage || isAboutPage || isContactPage || isSpeakersPage ? "premium-dark bg-[#040711]" : "premium-light bg-[#f8fafc]"} ${isHomePage || isWinterPage ? "" : ""} relative flex min-h-screen flex-col text-slate-100 selection:bg-cyan-500 selection:text-black `}
         >
           {!isAdminPage && <Navbar pathname={pathname} onNavigate={navigate} />}
           {isAdminPage ? (
