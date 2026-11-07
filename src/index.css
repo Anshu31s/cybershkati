@@ -16,31 +16,35 @@
   body {
     background-color: #040711;
     color: #e2e8f0;
-    font-family: 'Manrope', system-ui, sans-serif;
+    font-family: "Manrope", system-ui, sans-serif;
   }
 }
 
 /* Custom Cyber Grid & Glow effects */
 .cyber-grid {
   background-size: 40px 40px;
-  background-image: 
+  background-image:
     linear-gradient(to right, rgba(14, 165, 233, 0.04) 1px, transparent 1px),
     linear-gradient(to bottom, rgba(14, 165, 233, 0.04) 1px, transparent 1px);
 }
 
 .cyber-grid-dense {
   background-size: 20px 20px;
-  background-image: 
+  background-image:
     linear-gradient(to right, rgba(6, 182, 212, 0.06) 1px, transparent 1px),
     linear-gradient(to bottom, rgba(6, 182, 212, 0.06) 1px, transparent 1px);
 }
 
 .cyber-glow-cyan {
-  text-shadow: 0 0 12px rgba(6, 182, 212, 0.6), 0 0 30px rgba(6, 182, 212, 0.3);
+  text-shadow:
+    0 0 12px rgba(6, 182, 212, 0.6),
+    0 0 30px rgba(6, 182, 212, 0.3);
 }
 
 .cyber-glow-green {
-  text-shadow: 0 0 12px rgba(16, 185, 129, 0.6), 0 0 30px rgba(16, 185, 129, 0.3);
+  text-shadow:
+    0 0 12px rgba(16, 185, 129, 0.6),
+    0 0 30px rgba(16, 185, 129, 0.3);
 }
 
 /* Subtle forensic activity in the landing page's security illustration. */
@@ -101,7 +105,7 @@
 }
 
 .forensic-status-line::after {
-  content: '▌';
+  content: "▌";
   margin-left: 2px;
   animation: forensic-cursor 0.8s steps(2, end) infinite;
 }
@@ -117,51 +121,93 @@
 }
 
 @keyframes forensic-orbit-pulse {
-  0%, 100% { opacity: 0.45; }
-  50% { opacity: 0.9; }
+  0%,
+  100% {
+    opacity: 0.45;
+  }
+  50% {
+    opacity: 0.9;
+  }
 }
 
 @keyframes forensic-wave-expand {
-  0% { scale: 0.86; opacity: 0.1; }
-  35% { opacity: 0.65; }
-  100% { scale: 1.12; opacity: 0.08; }
+  0% {
+    scale: 0.86;
+    opacity: 0.1;
+  }
+  35% {
+    opacity: 0.65;
+  }
+  100% {
+    scale: 1.12;
+    opacity: 0.08;
+  }
 }
 
 @keyframes forensic-data-flow {
-  to { stroke-dashoffset: -84; }
+  to {
+    stroke-dashoffset: -84;
+  }
 }
 
 @keyframes forensic-node-pulse {
-  0%, 100% { opacity: 0.55; }
-  50% { opacity: 1; }
+  0%,
+  100% {
+    opacity: 0.55;
+  }
+  50% {
+    opacity: 1;
+  }
 }
 
 @keyframes forensic-float {
-  0%, 100% { translate: 0 0; }
-  50% { translate: 0 -7px; }
+  0%,
+  100% {
+    translate: 0 0;
+  }
+  50% {
+    translate: 0 -7px;
+  }
 }
 
 @keyframes forensic-scan {
-  from { translate: 0 0; }
-  to { translate: 0 150px; }
+  from {
+    translate: 0 0;
+  }
+  to {
+    translate: 0 150px;
+  }
 }
 
 @keyframes forensic-type {
-  to { width: 100%; }
+  to {
+    width: 100%;
+  }
 }
 
 @keyframes forensic-cursor {
-  to { visibility: hidden; }
+  to {
+    visibility: hidden;
+  }
 }
 
 @keyframes forensic-signal {
-  from { scale: 1 0.45; }
-  to { scale: 1 1; }
+  from {
+    scale: 1 0.45;
+  }
+  to {
+    scale: 1 1;
+  }
 }
 
 @keyframes forensic-shield-pulse {
-  0%, 100% { scale: 1; }
-  50% { scale: 1.08; }
+  0%,
+  100% {
+    scale: 1;
+  }
+  50% {
+    scale: 1.08;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -194,11 +240,15 @@
 }
 
 .neon-border-cyan {
-  box-shadow: 0 0 15px -3px rgba(6, 182, 212, 0.3), inset 0 0 15px -3px rgba(6, 182, 212, 0.1);
+  box-shadow:
+    0 0 15px -3px rgba(6, 182, 212, 0.3),
+    inset 0 0 15px -3px rgba(6, 182, 212, 0.1);
 }
 
 .neon-border-green {
-  box-shadow: 0 0 15px -3px rgba(16, 185, 129, 0.3), inset 0 0 15px -3px rgba(16, 185, 129, 0.1);
+  box-shadow:
+    0 0 15px -3px rgba(16, 185, 129, 0.3),
+    inset 0 0 15px -3px rgba(16, 185, 129, 0.1);
 }
 
 /* Custom Scrollbar */
@@ -220,11 +270,11 @@
 }
 
 /* Keep the home and Winter 2026 pages scrollable without showing the scrollbar. */
-html:has(.scrollbar-hidden-page) {
+html:has(.) {
   scrollbar-width: none;
 }
 
-html:has(.scrollbar-hidden-page)::-webkit-scrollbar {
+html:has(.)::-webkit-scrollbar {
   display: none;
 }
 
@@ -351,7 +401,7 @@ html:has(.scrollbar-hidden-page)::-webkit-scrollbar {
   color: #1e293b !important;
   font-size: 0.875rem !important;
   font-weight: 600 !important;
-  font-family: 'Manrope', system-ui, sans-serif !important;
+  font-family: "Manrope", system-ui, sans-serif !important;
   letter-spacing: normal !important;
   text-transform: none !important;
 }
