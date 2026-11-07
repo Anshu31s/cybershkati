@@ -15,6 +15,7 @@ import AboutPage from "./components/AboutPage";
 import ContactPage from "./components/ContactPage";
 import SpeakersPage from "./components/SpeakersPage";
 import ScrollReveal from "./components/ScrollReveal";
+import WhatsAppButton from "./components/WhatsAppButton";
 import {
   SUMMER_INTERNSHIP_PATH,
   WINTER_INTERNSHIP_PATH,
@@ -117,6 +118,7 @@ export default function App({ page = "home" }) {
               />
             </ScrollReveal>
           )}
+          {!isAdminPage && <WhatsAppButton />}
         </div>
       </MotionConfig>
     </RegistrationProvider>
