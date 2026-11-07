@@ -64,23 +64,23 @@ export default function PricingSection({ onOpenRegister }) {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch mb-16">
           
           {/* Main Pricing Box (7 cols) */}
-          <div className="lg:col-span-7 rounded-3xl bg-gradient-to-b from-slate-900 via-[#0c1424] to-[#070b14] border-2 border-cyan-500/40 p-6 sm:p-10 shadow-2xl relative flex flex-col justify-between">
+          <div className="lg:col-span-7 rounded-3xl bg-gradient-to-b from-slate-900 via-[#0c1424] to-[#070b14] border-2 border-cyan-500/40 p-5 sm:p-8 md:p-10 shadow-2xl relative flex flex-col justify-between">
             
             {/* Top Corner Ribbon */}
-            <div className="absolute -top-3 right-6 px-4 py-1 rounded-full bg-gradient-to-r from-amber-500 to-orange-500 text-black font-black text-xs uppercase tracking-wider shadow-lg flex items-center gap-1.5 animate-pulse">
+            <div className="absolute -top-3 right-3 sm:right-6 px-3 sm:px-4 py-1 rounded-full bg-gradient-to-r from-amber-500 to-orange-500 text-black font-black text-[10px] sm:text-xs uppercase tracking-wider shadow-lg flex items-center gap-1.5 animate-pulse">
               <Flame className="w-3.5 h-3.5" />
               Tier {currentTier?.min}–{currentTier?.max ?? '1000+'} Students
             </div>
 
             <div>
-              <div className="flex items-center gap-2 text-xs font-mono text-cyan-400 uppercase tracking-wider mb-2">
+              <div className="flex items-center gap-2 text-[11px] sm:text-xs font-mono text-cyan-400 uppercase tracking-wider mb-2">
                 <span>Winter Internship Program 2026</span>
                 <span>•</span>
                 <span>28 Days Complete Access</span>
               </div>
 
-              <div className="flex items-baseline gap-4 mb-4">
-                <span className="text-4xl sm:text-6xl font-black text-white font-mono tracking-tight">
+              <div className="flex flex-wrap items-baseline gap-3 sm:gap-4 mb-4">
+                <span className="text-3xl sm:text-5xl md:text-6xl font-black text-white font-mono tracking-tight">
                   ₹{currentPrice.toLocaleString('en-IN')}
                 </span>
                 <span className="px-2.5 py-1 rounded-lg bg-cyan-500/10 text-cyan-300 font-bold text-xs font-mono">
@@ -89,13 +89,13 @@ export default function PricingSection({ onOpenRegister }) {
               </div>
 
               {/* Urgency Progress Bar */}
-              <div className="p-4 rounded-xl bg-slate-950/70 border border-slate-800 mb-8">
-                <div className="flex items-center justify-between text-xs mb-2">
+              <div className="p-3.5 sm:p-4 rounded-xl bg-slate-950/70 border border-slate-800 mb-6 sm:mb-8">
+                <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between text-xs gap-1 sm:gap-2 mb-2">
                   <span className="text-amber-300 font-semibold flex items-center gap-1.5">
                     <Clock className="w-3.5 h-3.5" />
                     {totalSeats ? 'Registrations in Current Tier' : 'Current registrations'}
                   </span>
-                  <span className={`font-mono transition-all duration-300 ${
+                  <span className={`font-mono text-[11px] sm:text-xs transition-all duration-300 ${
                     justDecremented ? 'text-amber-300 scale-105 font-black' : 'text-cyan-300 font-bold'
                   }`}>
                     {totalSeats ? `${totalEnrolled} / ${totalSeats} Enrolled (${seatsRemaining} until next tier)` : `${totalEnrolled} enrolled · no tier cap`}
@@ -288,7 +288,7 @@ export default function PricingSection({ onOpenRegister }) {
                   </div>
                   <div>
                     <span className="text-[11px] uppercase font-mono text-slate-400">Official Support</span>
-                    <div className="text-sm font-bold text-white font-mono truncate max-w-[180px]">
+                    <div className="text-xs sm:text-sm font-bold text-white font-mono break-all">
                       {PROGRAM_DATA.contact.email}
                     </div>
                   </div>
