@@ -89,6 +89,7 @@ export default function RegistrationPage({ onNavigate }: { onNavigate: (path: st
   const { notifyNewRegistration } = useRegistration();
 
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submissionStage, setSubmissionStage] = useState<'checkout' | 'verification'>('checkout');
   const [submitError, setSubmitError] = useState<string | null>(null);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [confirmationEmailSent, setConfirmationEmailSent] = useState(false);
@@ -162,7 +163,9 @@ export default function RegistrationPage({ onNavigate }: { onNavigate: (path: st
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (isSubmitting) return;
     setIsSubmitting(true);
+    setSubmissionStage('checkout');
     setSubmitError(null);
 
     if (
@@ -211,6 +214,8 @@ export default function RegistrationPage({ onNavigate }: { onNavigate: (path: st
         notes: { applicationId: order.applicationId },
         theme: { color: "#0e7490" },
         handler: async (paymentResponse: any) => {
+          setSubmissionStage('verification');
+          setIsSubmitting(true);
           try {
             const verification = await verifyRazorpayPayment({
               ...paymentResponse,
@@ -241,6 +246,7 @@ export default function RegistrationPage({ onNavigate }: { onNavigate: (path: st
         setSubmitError(failure.error?.description || "Payment failed. Please try again.");
         setIsSubmitting(false);
       });
+      setIsSubmitting(false);
       checkout.open();
     } catch (err: any) {
       console.error("Submission error:", err);
@@ -258,6 +264,22 @@ export default function RegistrationPage({ onNavigate }: { onNavigate: (path: st
 
   return (
     <main className="relative min-h-screen overflow-hidden bg-[#07172c]">
+      {isSubmitting && (
+        <div role="status" aria-live="assertive" className="fixed inset-0 z-[100] flex items-center justify-center bg-[#020817]/80 px-5 backdrop-blur-md">
+          <div className="relative w-full max-w-sm overflow-hidden rounded-3xl border border-cyan-400/30 bg-[#07172c]/95 p-8 text-center shadow-[0_0_70px_rgba(6,182,212,.18)]">
+            <div aria-hidden="true" className="absolute left-1/2 top-0 h-32 w-32 -translate-x-1/2 -translate-y-1/2 rounded-full bg-cyan-400/20 blur-3xl" />
+            <div className="relative mx-auto flex h-20 w-20 items-center justify-center rounded-full border border-cyan-300/30 bg-cyan-400/10 text-cyan-300">
+              <span aria-hidden="true" className="absolute inset-0 rounded-full border border-cyan-300/50 animate-ping opacity-30" />
+              <ShieldCheck className="h-9 w-9 animate-pulse" />
+            </div>
+            <Loader2 aria-hidden="true" className="relative mx-auto mt-5 h-5 w-5 animate-spin text-sky-300" />
+            <h2 className="relative mt-4 text-lg font-extrabold text-white">
+              {submissionStage === 'verification' ? 'Verifying your payment' : 'Preparing secure checkout'}
+            </h2>
+            <p className="relative mt-2 text-sm leading-6 text-slate-400">Please wait while we securely process your registration.</p>
+          </div>
+        </div>
+      )}
       {/* ===================== HERO BANNER ===================== */}
       {!isSubmitted && (
         <section className="relative overflow-hidden pt-20 pb-10 bg-gradient-to-r from-[#06162a] via-[#092244] to-[#071a32]">
