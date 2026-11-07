@@ -68,7 +68,7 @@ export default function Navbar({ pathname, onNavigate }) {
       <nav
         ref={navRef}
         aria-label="Main navigation"
-        className="relative mx-auto flex w-full max-w-[1600px] items-center gap-3 border-b border-slate-800 bg-[#06162a]/95 px-4 py-3 shadow-lg shadow-black/10 backdrop-blur-xl sm:px-8 lg:px-12"
+        className="relative mx-auto flex w-full max-w-[1600px] items-center gap-3 border-b border-slate-800 bg-[#06162a]/95 px-4 py-1.5 shadow-lg shadow-black/10 backdrop-blur-xl sm:px-8 lg:px-12"
       >
         <button
           type="button"
