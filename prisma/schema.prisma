@@ -1,5 +1,5 @@
 // Prisma Schema for Cyber Shakti Foundation Winter Internship Program 2026
-// Database: PostgreSQL on Supabase (db.snjolnrzoxyizmooaqvp.supabase.co:5432)
+// Database: Supabase PostgreSQL; runtime queries use the transaction pooler.
 
 generator client {
   provider = "prisma-client-js"

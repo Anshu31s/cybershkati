@@ -2,8 +2,31 @@ import { PrismaClient } from '../generated/prisma';
 import { createHmac, randomUUID, timingSafeEqual } from 'node:crypto';
 
 const globalForPrisma = globalThis as typeof globalThis & { cyberShaktiPrisma?: PrismaClient };
-export const prisma = globalForPrisma.cyberShaktiPrisma || new PrismaClient({ log: ['warn', 'error'] });
-if (process.env.NODE_ENV !== 'production') globalForPrisma.cyberShaktiPrisma = prisma;
+
+function getRuntimeDatabaseUrl() {
+  const connectionString = process.env.DATABASE_URL;
+  if (!connectionString) return undefined;
+
+  const url = new URL(connectionString);
+  const isSupabasePooler = url.hostname.endsWith('.pooler.supabase.com');
+
+  // Supabase session mode (5432) caps application clients at the configured
+  // pool size. Use transaction mode for runtime requests and keep each Prisma
+  // instance's own pool small so multiple route instances can share it safely.
+  if (isSupabasePooler && url.port === '5432') {
+    url.port = '6543';
+    url.searchParams.set('pgbouncer', 'true');
+  }
+  url.searchParams.set('connection_limit', process.env.PRISMA_CONNECTION_LIMIT || '1');
+  return url.toString();
+}
+
+const datasourceUrl = getRuntimeDatabaseUrl();
+export const prisma = globalForPrisma.cyberShaktiPrisma || new PrismaClient({
+  ...(datasourceUrl ? { datasourceUrl } : {}),
+  log: ['warn', 'error'],
+});
+globalForPrisma.cyberShaktiPrisma = prisma;
 
 export const PRICING_ID = 'winter-2026';
 export type PriceTier = { id: string; min: number; max: number | null; amount: number };
