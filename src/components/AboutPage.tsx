@@ -138,7 +138,7 @@ export default function AboutPage({ onOpenRegister, onNavigate }) {
               <p className="mt-5 text-[10px] font-bold uppercase tracking-[0.22em] text-cyan-300">One shared purpose</p>
               <h2 className="mt-3 text-3xl font-extrabold tracking-[-0.04em] text-white sm:text-5xl">Building a Safer Digital India</h2>
               <p className="mx-auto mt-5 max-w-3xl text-sm leading-7 text-slate-300 sm:text-base sm:leading-8">
-                Through the combined efforts of Cyber Shakti Foundation, CrimeX Intelligence, and the Cybersecurity Council, we are building an ecosystem that helps the next generation develop the skills and confidence to secure the digital world.
+                Through the combined efforts of Cyber Shakti Foundation and the Cybersecurity Council, we are building an ecosystem that helps the next generation develop the skills and confidence to secure the digital world.
               </p>
               <div className="mt-8 grid gap-3 sm:grid-cols-3">
                 {pillars.map(({ title, icon: Icon }) => <div key={title} className="flex items-center justify-center gap-2 rounded-xl border border-white/10 bg-white/[0.035] px-4 py-4 text-xs font-bold uppercase tracking-wide text-slate-200"><Icon className="h-4 w-4 text-cyan-300" />{title}</div>)}
