@@ -196,7 +196,7 @@ export default function CyberLabTerminal() {
             </div>
 
             {/* Output Stream */}
-            <div className="space-y-1.5 text-slate-300 leading-relaxed max-h-72 overflow-y-auto pr-2">
+            <div className="space-y-1.5 text-slate-300 leading-relaxed">
               {labDemos[activeTab].output.map((line, idx) => {
                 let colorClass = "text-slate-300";
                 if (line.includes("[+]") || line.includes("[PASS]") || line.includes("VERIFIED")) colorClass = "text-emerald-400";

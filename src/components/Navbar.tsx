@@ -39,12 +39,6 @@ export default function Navbar({ pathname, onNavigate }) {
     setMobileOpen(false);
   };
 
-  const goToTracks = () => {
-    onNavigate(WINTER_INTERNSHIP_PATH, 'tracks');
-    setInternshipOpen(false);
-    setMobileOpen(false);
-  };
-
   const isDarkHeader = pathname === '/' || pathname === '/register';
   const linkClass = (isActive = false) => `inline-flex items-center gap-1.5 rounded-md px-3 py-2 text-sm font-semibold transition-colors ${
     isDarkHeader ? (isActive ? 'text-cyan-300' : 'text-slate-300 hover:text-white') : (isActive ? 'text-cyan-800' : 'text-slate-600 hover:text-cyan-700')
@@ -109,7 +103,6 @@ export default function Navbar({ pathname, onNavigate }) {
             </button>
             {internshipOpen && internshipMenu}
           </div>
-          <button type="button" onClick={goToTracks} className={linkClass()}>Learning Tracks</button>
           <button type="button" onClick={() => goTo('/about')} className={linkClass(pathname === '/about')}>About us</button>
           <button type="button" onClick={() => goTo('/contact')} className={linkClass(pathname === '/contact')}>Contact us</button>
         </div>

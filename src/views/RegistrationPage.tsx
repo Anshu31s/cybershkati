@@ -237,7 +237,7 @@ export default function RegistrationPage({ onNavigate }: { onNavigate: (path: st
             resetFormData();
             notifyNewRegistration();
             confetti({ particleCount: 150, spread: 90, origin: { y: 0.6 } });
-            window.scrollTo({ top: 0, behavior: "smooth" });
+            window.scrollTo({ top: 0, behavior: "auto" });
           } catch (verificationError: any) {
             setSubmitError(
               `${verificationError.message} If your account was charged, do not retry yet; contact the foundation with payment ID ${paymentResponse.razorpay_payment_id}.`
@@ -325,7 +325,7 @@ export default function RegistrationPage({ onNavigate }: { onNavigate: (path: st
                 <div className="mt-8 flex flex-wrap gap-3">
                   <button
                     type="button"
-                    onClick={() => document.getElementById("registration-form")?.scrollIntoView({ behavior: "smooth", block: "start" })}
+                    onClick={() => document.getElementById("registration-form")?.scrollIntoView({ behavior: "auto", block: "start" })}
                     className="inline-flex items-center gap-2 rounded-full bg-white px-6 py-2.5 text-sm font-extrabold text-slate-900 shadow-xl transition hover:bg-sky-50 active:scale-95"
                   >
                     Register for Internship <ArrowRight className="h-4 w-4 text-blue-700" />

@@ -30,9 +30,9 @@ export default function App({ page = 'home' }) {
   const navigate = useCallback((path, section = null) => {
     if (pathname !== path) router.push(path);
     if (section) {
-      window.setTimeout(() => document.getElementById(section)?.scrollIntoView({ behavior: 'smooth' }), 80);
+      window.setTimeout(() => document.getElementById(section)?.scrollIntoView({ behavior: 'auto' }), 80);
     } else {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+      window.scrollTo({ top: 0, behavior: 'auto' });
     }
   }, [pathname, router]);
 
@@ -46,7 +46,7 @@ export default function App({ page = 'home' }) {
   useEffect(() => {
     if (window.location.hash) {
       const section = window.location.hash.slice(1);
-      window.setTimeout(() => document.getElementById(section)?.scrollIntoView(), 100);
+      window.setTimeout(() => document.getElementById(section)?.scrollIntoView({ behavior: 'auto' }), 100);
     }
   }, []);
 

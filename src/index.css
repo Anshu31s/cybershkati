@@ -43,6 +43,156 @@
   text-shadow: 0 0 12px rgba(16, 185, 129, 0.6), 0 0 30px rgba(16, 185, 129, 0.3);
 }
 
+/* Subtle forensic activity in the landing page's security illustration. */
+.forensic-wave {
+  animation: forensic-wave-expand 8s ease-out infinite;
+}
+
+.forensic-wave-two {
+  animation-delay: -4s;
+}
+
+.forensic-orbit {
+  animation: forensic-orbit-pulse 7s ease-in-out infinite;
+}
+
+.forensic-network-lines {
+  stroke-dasharray: 5 16;
+  animation: forensic-data-flow 8s linear infinite;
+}
+
+.forensic-network-node {
+  animation: forensic-node-pulse 2.8s ease-in-out infinite;
+}
+
+.forensic-network-node:nth-child(2n) {
+  animation-delay: 0.7s;
+}
+
+.forensic-network-node:nth-child(3n) {
+  animation-delay: 1.4s;
+}
+
+.forensic-panel {
+  animation: forensic-float 6s ease-in-out infinite;
+}
+
+.forensic-panel-secondary {
+  animation: forensic-float 7s ease-in-out -2.5s infinite reverse;
+}
+
+.forensic-scanline {
+  animation: forensic-scan 4.5s linear 0.4s infinite;
+}
+
+.forensic-log-line {
+  width: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  animation: forensic-type 1.15s steps(36, end) forwards;
+}
+
+.forensic-log-line:nth-child(2) {
+  animation-delay: 1.35s;
+}
+
+.forensic-log-line:nth-child(3) {
+  animation-delay: 2.7s;
+}
+
+.forensic-status-line::after {
+  content: '▌';
+  margin-left: 2px;
+  animation: forensic-cursor 0.8s steps(2, end) infinite;
+}
+
+.forensic-signal-bar {
+  transform: scaleY(0.5);
+  transform-origin: bottom;
+  animation: forensic-signal 0.9s ease-in-out infinite alternate;
+}
+
+.forensic-shield {
+  animation: forensic-shield-pulse 2.8s ease-in-out infinite;
+}
+
+@keyframes forensic-orbit-pulse {
+  0%, 100% { opacity: 0.45; }
+  50% { opacity: 0.9; }
+}
+
+@keyframes forensic-wave-expand {
+  0% { scale: 0.86; opacity: 0.1; }
+  35% { opacity: 0.65; }
+  100% { scale: 1.12; opacity: 0.08; }
+}
+
+@keyframes forensic-data-flow {
+  to { stroke-dashoffset: -84; }
+}
+
+@keyframes forensic-node-pulse {
+  0%, 100% { opacity: 0.55; }
+  50% { opacity: 1; }
+}
+
+@keyframes forensic-float {
+  0%, 100% { translate: 0 0; }
+  50% { translate: 0 -7px; }
+}
+
+@keyframes forensic-scan {
+  from { translate: 0 0; }
+  to { translate: 0 150px; }
+}
+
+@keyframes forensic-type {
+  to { width: 100%; }
+}
+
+@keyframes forensic-cursor {
+  to { visibility: hidden; }
+}
+
+@keyframes forensic-signal {
+  from { scale: 1 0.45; }
+  to { scale: 1 1; }
+}
+
+@keyframes forensic-shield-pulse {
+  0%, 100% { scale: 1; }
+  50% { scale: 1.08; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .forensic-wave,
+  .forensic-orbit,
+  .forensic-network-lines,
+  .forensic-network-node,
+  .forensic-panel,
+  .forensic-panel-secondary,
+  .forensic-scanline,
+  .forensic-log-line,
+  .forensic-status-line::after,
+  .forensic-signal-bar,
+  .forensic-shield {
+    animation: none;
+  }
+
+  .forensic-log-line {
+    width: 100%;
+  }
+
+  .forensic-network-lines {
+    stroke-dasharray: none;
+  }
+
+  .forensic-signal-bar,
+  .forensic-shield {
+    scale: 1;
+  }
+}
+
 .neon-border-cyan {
   box-shadow: 0 0 15px -3px rgba(6, 182, 212, 0.3), inset 0 0 15px -3px rgba(6, 182, 212, 0.1);
 }

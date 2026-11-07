@@ -19,7 +19,7 @@ import { useRegistration } from '../context/RegistrationContext';
 export default function Footer({ onOpenRegister, actionLabel, programContext = 'general' }) {
   const { currentPrice } = useRegistration();
   const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    window.scrollTo({ top: 0, behavior: 'auto' });
   };
 
   const socialIcons = {

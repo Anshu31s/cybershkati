@@ -60,30 +60,32 @@ export default function ProgramsHomePage({ onNavigate, onOpenRegister }) {
             </div>
 
             <div className="relative mx-auto flex min-h-[390px] w-full max-w-[620px] items-center justify-center sm:min-h-[480px]">
-              <div aria-hidden="true" className="absolute left-1/2 top-1/2 aspect-square w-[78%] -translate-x-1/2 -translate-y-1/2 rounded-full border border-sky-500/15" />
-              <div aria-hidden="true" className="absolute left-1/2 top-1/2 aspect-square w-[61%] -translate-x-1/2 -translate-y-1/2 rounded-full border border-dashed border-sky-400/15" />
+              <div aria-hidden="true" className="forensic-wave forensic-wave-one absolute left-1/2 top-1/2 aspect-square w-[78%] -translate-x-1/2 -translate-y-1/2 rounded-full border border-sky-500/15" />
+              <div aria-hidden="true" className="forensic-wave forensic-wave-two absolute left-1/2 top-1/2 aspect-square w-[70%] -translate-x-1/2 -translate-y-1/2 rounded-full border border-sky-400/[0.08]" />
+              <div aria-hidden="true" className="forensic-orbit absolute left-1/2 top-1/2 aspect-square w-[61%] -translate-x-1/2 -translate-y-1/2 rounded-full border border-dashed border-sky-400/15" />
               <div aria-hidden="true" className="absolute left-1/2 top-1/2 h-56 w-56 -translate-x-1/2 -translate-y-1/2 rounded-full bg-blue-500/20 blur-3xl sm:h-72 sm:w-72" />
               <svg aria-hidden="true" className="absolute inset-0 h-full w-full opacity-60" viewBox="0 0 600 500" fill="none">
-                <path d="M24 174 146 112 253 171 370 88 569 145M55 376l129-65 112 60 119-88 132 68M253 171l31 200M370 88l45 195M146 112l38 199" stroke="#1677b9" strokeOpacity=".42" />
-                <g fill="#38bdf8"><circle cx="24" cy="174" r="3"/><circle cx="146" cy="112" r="3"/><circle cx="253" cy="171" r="3"/><circle cx="370" cy="88" r="3"/><circle cx="569" cy="145" r="3"/><circle cx="55" cy="376" r="3"/><circle cx="184" cy="311" r="3"/><circle cx="296" cy="371" r="3"/><circle cx="415" cy="283" r="3"/><circle cx="547" cy="351" r="3"/></g>
+                <path className="forensic-network-lines" d="M24 174 146 112 253 171 370 88 569 145M55 376l129-65 112 60 119-88 132 68M253 171l31 200M370 88l45 195M146 112l38 199" stroke="#1677b9" strokeOpacity=".42" />
+                <g fill="#38bdf8"><circle className="forensic-network-node" cx="24" cy="174" r="3"/><circle className="forensic-network-node" cx="146" cy="112" r="3"/><circle className="forensic-network-node" cx="253" cy="171" r="3"/><circle className="forensic-network-node" cx="370" cy="88" r="3"/><circle className="forensic-network-node" cx="569" cy="145" r="3"/><circle className="forensic-network-node" cx="55" cy="376" r="3"/><circle className="forensic-network-node" cx="184" cy="311" r="3"/><circle className="forensic-network-node" cx="296" cy="371" r="3"/><circle className="forensic-network-node" cx="415" cy="283" r="3"/><circle className="forensic-network-node" cx="547" cy="351" r="3"/></g>
               </svg>
 
-              <div className="absolute left-0 top-[13%] z-10 w-52 -rotate-6 rounded-xl border border-sky-400/25 bg-[#061327]/95 p-4 shadow-2xl shadow-black/40 sm:left-2 sm:w-60">
+              <div className="forensic-panel absolute left-0 top-[13%] z-10 w-52 -rotate-6 overflow-hidden rounded-xl border border-sky-400/25 bg-[#061327]/95 p-4 shadow-2xl shadow-black/40 sm:left-2 sm:w-60">
+                <div aria-hidden="true" className="forensic-scanline pointer-events-none absolute inset-x-0 top-0 h-10 bg-gradient-to-b from-sky-400/10 to-transparent" />
                 <div className="flex items-center gap-1.5"><span className="h-1.5 w-1.5 rounded-full bg-sky-400"/><span className="h-1.5 w-1.5 rounded-full bg-sky-400/70"/><span className="h-1.5 w-1.5 rounded-full bg-sky-400/40"/><span className="ml-2 text-[8px] font-bold uppercase tracking-[0.15em] text-slate-500">Threat monitor</span></div>
-                <div className="mt-4 space-y-2 font-mono text-[9px] text-slate-400"><p>&gt; initialising security scan</p><p>&gt; analysing network traffic</p><p className="text-emerald-400">&gt; status: monitoring</p></div>
-                <div className="mt-3 flex h-7 items-end gap-1">{[8, 15, 10, 23, 13, 19, 27, 14, 21].map((height, index) => <span key={index} style={{ height }} className="w-2 rounded-t-sm bg-sky-500" />)}</div>
+                <div className="relative mt-4 space-y-2 font-mono text-[9px] text-slate-400"><p className="forensic-log-line">&gt; initialising security scan</p><p className="forensic-log-line">&gt; analysing network traffic</p><p className="forensic-log-line forensic-status-line text-emerald-400">&gt; status: monitoring</p></div>
+                <div className="mt-3 flex h-7 items-end gap-1">{[8, 15, 10, 23, 13, 19, 27, 14, 21].map((height, index) => <span key={index} style={{ height, animationDelay: `${index * -0.12}s` }} className="forensic-signal-bar w-2 rounded-t-sm bg-sky-500" />)}</div>
               </div>
 
               <div className="relative z-[1] flex h-64 w-56 flex-col items-center justify-center text-center sm:h-72 sm:w-64" style={{ clipPath: 'polygon(50% 0%, 95% 17%, 90% 74%, 50% 100%, 10% 74%, 5% 17%)', background: 'linear-gradient(145deg, rgba(14,116,194,.75), rgba(7,35,70,.95))', boxShadow: '0 0 80px rgba(14,165,233,.22)' }}>
                 <div className="absolute inset-[2px] flex flex-col items-center justify-center" style={{ clipPath: 'polygon(50% 0%, 95% 17%, 90% 74%, 50% 100%, 10% 74%, 5% 17%)', background: 'linear-gradient(145deg, rgba(9,75,133,.96), rgba(4,25,52,.98))' }}>
-                  <ShieldCheck className="h-12 w-12 text-sky-300 drop-shadow-[0_0_18px_rgba(56,189,248,.55)]" />
+                  <ShieldCheck className="forensic-shield h-12 w-12 text-sky-300 drop-shadow-[0_0_18px_rgba(56,189,248,.55)]" />
                   <strong className="mt-1 text-3xl font-black tracking-wide text-sky-200">CSF</strong>
                   <span className="mt-3 text-sm font-extrabold uppercase tracking-[0.18em] text-white">Cyber defence</span>
                   <span className="mt-2 text-[7px] font-bold uppercase tracking-[0.23em] text-sky-300/80">Learn · Investigate · Secure</span>
                 </div>
               </div>
 
-              <div className="absolute bottom-[16%] right-0 z-10 w-48 rotate-6 rounded-xl border border-sky-400/25 bg-[#061327]/95 p-4 shadow-2xl shadow-black/40 sm:right-1 sm:w-52">
+              <div className="forensic-panel-secondary absolute bottom-[16%] right-0 z-10 w-48 rotate-6 rounded-xl border border-sky-400/25 bg-[#061327]/95 p-4 shadow-2xl shadow-black/40 sm:right-1 sm:w-52">
                 <div className="flex items-center gap-2 text-[8px] font-bold uppercase tracking-[0.16em] text-slate-500"><Wifi className="h-3.5 w-3.5 text-sky-400"/>Network activity</div>
                 <div className="mt-2 font-mono text-sm font-bold text-slate-100">192.168.1.24</div>
                 <p className="mt-1 text-[8px] uppercase tracking-wider text-slate-500">Packets <span className="font-bold text-emerald-400">secure</span></p>

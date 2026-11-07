@@ -235,8 +235,8 @@ export default function TracksSection({ onOpenRegister }) {
 
       {/* Track Syllabus Modal */}
       {selectedTrack && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-black/80 backdrop-blur-sm animate-fadeIn">
-          <div className="bg-[#0b1220] border border-cyan-500/40 rounded-2xl max-w-xl w-full p-5 sm:p-8 relative shadow-2xl overflow-y-auto max-h-[88vh]">
+        <div className="fixed inset-0 z-50 flex items-start sm:items-center justify-center p-3 sm:p-4 bg-black/80 backdrop-blur-sm overflow-y-auto animate-fadeIn">
+          <div className="bg-[#0b1220] border border-cyan-500/40 rounded-2xl max-w-xl w-full p-5 sm:p-8 relative shadow-2xl my-3 sm:my-0">
             <div className="absolute top-0 right-0 w-32 h-32 bg-cyan-500/10 rounded-full blur-2xl pointer-events-none" />
             
             <div className="flex items-start justify-between mb-4">

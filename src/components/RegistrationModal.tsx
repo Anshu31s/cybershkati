@@ -149,8 +149,8 @@ export default function RegistrationModal({ isOpen, onClose }) {
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md overflow-y-auto animate-fadeIn">
-      <div className="relative bg-[#090e1a] border border-cyan-500/40 rounded-3xl max-w-2xl w-full p-6 sm:p-8 my-8 shadow-2xl overflow-hidden max-h-[90vh] overflow-y-auto">
+    <div className="fixed inset-0 z-50 flex items-start sm:items-center justify-center p-4 bg-black/80 backdrop-blur-md overflow-y-auto animate-fadeIn">
+      <div className="relative bg-[#090e1a] border border-cyan-500/40 rounded-3xl max-w-2xl w-full p-6 sm:p-8 my-4 sm:my-8 shadow-2xl overflow-hidden">
         {/* Glow ambient background */}
         <div className="absolute top-0 right-0 w-60 h-60 bg-cyan-500/10 rounded-full blur-3xl pointer-events-none" />
 
