@@ -6,6 +6,7 @@ import {
 } from 'lucide-react';
 import { WINTER_INTERNSHIP_PATH } from '../routes';
 import ScrollReveal from '../components/ScrollReveal';
+import { SPEAKERS } from '../data/speakers';
 
 const learningAreas = [
   { title: 'Cybersecurity Researchers', detail: 'Build practical skills in security analysis, threat intelligence, and investigation.', icon: BrainCircuit },
@@ -18,6 +19,22 @@ const journeySteps = [
   ['02', 'Explore specialist', 'learning tracks'],
   ['03', 'Build job-relevant', 'skills'],
   ['04', 'Work towards a', 'verifiable credential'],
+];
+
+const partners = [
+  { name: 'Cyber Security Council', url: 'https://cybersecuritycouncil.in/', image: '/partners/pt-cyber-security-council.png' },
+  { name: 'Cyber Frat', url: 'https://cyberfrat.com/', image: '/partners/pt-cyber-frat.png' },
+  { name: 'CSAI Association of India', url: 'https://www.ncsai.in/', image: '/partners/pt-csai-association-of-india.png' },
+  { name: 'Virtual Cyber Labs', url: 'https://virtualcyberlabs.com/', image: '/partners/pt-virtual-cyber-labs.png' },
+  { name: 'Future Crime / FCRF', url: 'https://futurecrime.org/', image: '/partners/pt-future-crime-fcrf.webp' },
+  { name: 'TEMA Telecom Association', url: 'https://www.tematelecom.in/', image: '/partners/pt-tema-telecom-association.png' },
+  { name: 'CMAI Association', url: 'https://www.cmai.asia/', image: '/partners/pt-cmai-association.jpg' },
+  { name: 'M Cyber Academy', url: 'https://mcyberacademy.in/', image: '/partners/pt-m-cyber-academy.png' },
+  { name: 'Unique Infosolution', url: 'https://uniqueinfosolution.com/', image: '/partners/pt-unique-infosolution.png' },
+  { name: 'BSides Noida', url: 'https://bsidesnoida.in/', image: '/partners/pt-bsides-noida.jpeg' },
+  { name: 'BSides Jaipur', url: 'https://bsidesjaipur.in/', image: '/partners/pt-bsides-jaipur.jpeg' },
+  { name: 'CRACCON', url: 'https://craccon.com/', image: '/partners/pt-craccon.png' },
+  { name: 'Pirates', url: 'https://0x0pirates.com/', image: '/partners/pirates-DuHydTHF.png' },
 ];
 
 export default function ProgramsHomePage({ onNavigate, onOpenRegister }) {
@@ -110,6 +127,48 @@ export default function ProgramsHomePage({ onNavigate, onOpenRegister }) {
             <div className="mx-auto mb-12 max-w-3xl text-center"><p className="mb-3 text-xs font-bold uppercase tracking-[0.2em] text-sky-400">Mentorship & practice</p><h2 className="text-3xl font-extrabold tracking-tight text-white sm:text-4xl">Learn from practitioners. Build real skills.</h2><p className="mt-4 text-sm leading-7 text-slate-400 sm:text-base">The Winter Internship combines guided expertise with practical sessions across investigation, offensive security, and cyber defense.</p></div>
             <div className="mx-auto grid max-w-5xl gap-4 md:grid-cols-3">
               {learningAreas.map(({ title, detail, icon: Icon }) => <article key={title} className="rounded-2xl border border-slate-700 bg-[#0a2038] p-6 transition hover:border-sky-500/50"><span className="flex h-11 w-11 items-center justify-center rounded-xl border border-sky-400/20 bg-sky-400/10 text-sky-300"><Icon className="h-5 w-5"/></span><h3 className="mt-5 text-lg font-bold text-white">{title}</h3><p className="mt-3 text-sm leading-6 text-slate-400">{detail}</p></article>)}
+            </div>
+          </div>
+        </section>
+      </ScrollReveal>
+
+      <ScrollReveal>
+        <section aria-labelledby="speakers-heading" className="border-b border-slate-800 bg-[#06162a] py-20 sm:py-24">
+          <div className="mx-auto max-w-7xl px-5 sm:px-8 lg:px-12">
+            <div className="mx-auto mb-12 max-w-3xl text-center">
+              <p className="mb-3 text-xs font-bold uppercase tracking-[0.2em] text-sky-400">Mentors &amp; speakers</p>
+              <h2 id="speakers-heading" className="text-3xl font-extrabold tracking-tight text-white sm:text-4xl">Meet all 46 industry experts.</h2>
+              <p className="mt-4 text-sm leading-7 text-slate-400 sm:text-base">Meet a few of the defence veterans, cybersecurity practitioners, forensic specialists, and educators bringing their experience to the program.</p>
+            </div>
+            <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+              {SPEAKERS.map((speaker) => <article key={speaker.name} className="group overflow-hidden rounded-2xl border border-slate-700 bg-[#0a2038] transition duration-300 hover:-translate-y-1 hover:border-sky-500/50">
+                <div className="relative aspect-[4/3] overflow-hidden bg-slate-900">
+                  <img src={speaker.image} alt={speaker.name} loading="lazy" className="h-full w-full object-cover object-top transition duration-500 group-hover:scale-[1.04]" />
+                  <div aria-hidden="true" className="absolute inset-0 bg-gradient-to-t from-[#071a30]/70 via-transparent to-transparent" />
+                </div>
+                <div className="p-5">
+                  <h3 className="text-base font-bold leading-snug text-white">{speaker.name}</h3>
+                  <p className="mt-2 text-xs leading-5 text-slate-400">{speaker.bio}</p>
+                </div>
+              </article>)}
+            </div>
+          </div>
+        </section>
+      </ScrollReveal>
+
+      <ScrollReveal>
+        <section aria-labelledby="partners-heading" className="border-b border-slate-800 bg-[#071a30] py-16 sm:py-20">
+          <div className="mx-auto max-w-7xl px-5 sm:px-8 lg:px-12">
+            <div className="mb-9 text-center">
+              <p className="mb-3 text-xs font-bold uppercase tracking-[0.2em] text-sky-400">Trusted collaborations</p>
+              <h2 id="partners-heading" className="text-3xl font-extrabold tracking-tight text-white sm:text-4xl">Our partners</h2>
+              <p className="mx-auto mt-3 max-w-2xl text-sm leading-6 text-slate-400">We’re grateful to the organizations and communities supporting cybersecurity learning and collaboration.</p>
+            </div>
+            <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
+              {partners.map((partner) => <a key={partner.name} href={partner.url} target="_blank" rel="noopener noreferrer" className="group flex min-h-28 flex-col items-center justify-center gap-3 rounded-xl border border-slate-700/80 bg-white px-4 py-4 text-center transition hover:border-sky-500/50 hover:bg-slate-100">
+                <span className="flex h-16 w-full items-center justify-center"><img src={partner.image} alt={`${partner.name} logo`} loading="lazy" className="max-h-16 w-full object-contain transition duration-300 group-hover:scale-105" /></span>
+                <span className="text-xs font-bold text-slate-700">{partner.name}</span>
+              </a>)}
             </div>
           </div>
         </section>

@@ -1,177 +1,219 @@
 import React from 'react';
 import {
-  ArrowLeft,
+  ArrowDownRight,
   ArrowRight,
+  BookOpenCheck,
   Building2,
-  CheckCircle2,
-  Globe,
+  Crosshair,
+  Globe2,
   Mail,
   MapPin,
-  Shield,
   ShieldCheck,
-  Users,
+  UsersRound,
 } from 'lucide-react';
 import ScrollReveal from './ScrollReveal';
 
+const partners = [
+  {
+    number: '01',
+    name: 'Cyber Shakti Foundation',
+    role: 'Education · Skills · Opportunity',
+    description:
+      'A technology education center helping learners build practical skills in cybersecurity, programming, data science, cloud computing, and IT infrastructure.',
+    icon: BookOpenCheck,
+    tone: 'cyan',
+  },
+  {
+    number: '02',
+    name: 'Cybersecurity Council of India',
+    role: 'Knowledge · Collaboration · Advocacy',
+    description:
+      'A community of cybersecurity professionals from technology, finance, healthcare, government, and education working to strengthen digital safety.',
+    icon: UsersRound,
+    tone: 'violet',
+  },
+  {
+    number: '03',
+    name: 'CrimeX Intelligence',
+    role: 'Investigation · Insight · Resilience',
+    description:
+      'An intelligence partner contributing to a stronger response to emerging cyber threats and a more resilient digital ecosystem.',
+    icon: Crosshair,
+    tone: 'amber',
+  },
+];
+
+const principles = [
+  {
+    number: '01',
+    title: 'Learn by doing',
+    copy: 'Build confidence with practical learning, real-world applications, and skills you can put to work.',
+    icon: BookOpenCheck,
+  },
+  {
+    number: '02',
+    title: 'Work together',
+    copy: 'Bring people and perspectives together to make cybersecurity knowledge more accessible.',
+    icon: UsersRound,
+  },
+  {
+    number: '03',
+    title: 'Stay curious',
+    copy: 'Keep learning as technology changes and new challenges emerge across the digital world.',
+    icon: Globe2,
+  },
+];
+
 export default function AboutPage({ onOpenRegister, onNavigate }) {
-  const organizations = [
-    {
-      name: 'Cyber Shakti Foundation',
-      description:
-        'Cyber Shakti is a leading technology education center dedicated to empowering individuals and organizations with advanced digital skills in cybersecurity, programming, data science, cloud computing, and IT infrastructure.',
-      details:
-        'Offering a wide range of hands-on courses for beginners, professionals, and enterprises, Cyber Shakti focuses on practical training, industry-recognized certifications, and real-world applications.',
-      icon: Shield,
-    },
-  
-    {
-      name: 'Cybersecurity Council of India',
-      description:
-        "Cybersecurity Council (CSC) is India's foremost authority in safeguarding digital assets. Our esteemed members, hailing from prestigious institutions and diverse sectors, collaborate to tackle emerging cyber threats. With a focus on knowledge exchange and advocacy, we empower professionals to make a lasting impact on cybersecurity while fulfilling their organizational duties.",
-      details:
-        'Committed to excellence, CSC members bring a wealth of experience from technology, finance, healthcare, government, and education fields. Together, we strive to advance cybersecurity measures, ensuring individuals and organizations are equipped to navigate the ever-evolving landscape of digital threats. Join us in our mission to secure critical infrastructure and promote a safer digital environment for all.',
-      icon: Users,
-    },
-  ];
-
   return (
-    <div
-      className="relative pt-24 pb-20 overflow-hidden"
-      style={{ background: '#03040a', fontFamily: 'Inter, system-ui, sans-serif' }}
-    >
-      <div className="absolute inset-0 pointer-events-none" style={{ background: 'radial-gradient(circle at 80% 20%, rgba(59,130,246,0.05) 0%, transparent 50%), radial-gradient(circle at 20% 80%, rgba(168,85,247,0.05) 0%, transparent 50%)' }} />
+    <main className="relative isolate overflow-hidden bg-[#07111c] pb-20 pt-24 text-white sm:pt-28">
+      <div aria-hidden="true" className="pointer-events-none absolute inset-0 -z-10">
+        <div className="absolute -right-48 -top-40 h-[34rem] w-[34rem] rounded-full bg-cyan-500/[0.09] blur-[110px]" />
+        <div className="absolute -left-56 top-[42rem] h-[32rem] w-[32rem] rounded-full bg-violet-500/[0.08] blur-[120px]" />
+        <div className="absolute inset-0 bg-[linear-gradient(rgba(148,163,184,0.035)_1px,transparent_1px),linear-gradient(90deg,rgba(148,163,184,0.035)_1px,transparent_1px)] bg-[size:72px_72px] [mask-image:linear-gradient(to_bottom,black,transparent_80%)]" />
+      </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="mb-8">
-          <button
-            onClick={() => onNavigate('home')}
-            className="inline-flex items-center gap-2 text-xs sm:text-sm font-mono text-[#00b4ff] hover:text-[#00b4ff] transition-colors group px-3 py-1.5 rounded-lg bg-white/5 backdrop-blur-md border border-white/10 hover:border-[#00b4ff]/40"
-          >
-            <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
-            <span>Back to Internship Overview</span>
-          </button>
-        </div>
-
+      <div className="mx-auto max-w-7xl px-5 sm:px-8 lg:px-12">
         <ScrollReveal>
-          <div className="text-center max-w-4xl mx-auto mb-16">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#00b4ff]/10 border border-[#00b4ff]/30 text-[#00b4ff] text-xs sm:text-sm font-mono mb-6">
-              <span className="flex h-2 w-2 rounded-full bg-cyan-400 animate-ping" />
-              <span className="font-bold tracking-wide uppercase">ABOUT OUR ECOSYSTEM</span>
-            </div>
-
-            <h1 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-white leading-[1.15] mb-6">
-              About Our{' '}
-              <span className="bg-gradient-to-r from-cyan-400 via-sky-300 to-indigo-400 bg-clip-text text-transparent cyber-glow-cyan">
-                Ecosystem
-              </span>
-            </h1>
-
-            <p className="text-base sm:text-lg md:text-xl text-slate-300 leading-relaxed max-w-3xl mx-auto">
-              We are a collaborative network of organizations dedicated to securing the digital frontier through education, investigation, and advocacy.
-            </p>
-          </div>
-        </ScrollReveal>
-
-        <ScrollReveal>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-20">
-            {organizations.map((org) => {
-              const Icon = org.icon;
-              return (
-                <div
-                  key={org.name}
-                  className="p-8 rounded-2xl bg-white/5 backdrop-blur-md border border-white/10 hover:border-[#00b4ff]/40 transition-all shadow-xl flex flex-col"
-                >
-                  <div className="p-3 w-fit rounded-xl bg-[#00b4ff]/10 text-[#00b4ff] border border-[#00b4ff]/30 mb-6">
-                    <Icon className="w-7 h-7" />
-                  </div>
-                  <h2 className="text-xl sm:text-2xl font-bold text-white mb-4">{org.name}</h2>
-                  <p className="text-slate-300 text-sm sm:text-base leading-relaxed mb-4">{org.description}</p>
-                  <p className="text-slate-400 text-sm leading-relaxed mb-6">{org.details}</p>
-
-                  <div className="mt-auto space-y-2 text-xs sm:text-sm text-slate-300">
-                    <div className="flex items-center gap-2">
-                      <CheckCircle2 className="w-4 h-4 text-[#00b4ff] shrink-0" />
-                      <span>Excellence in Service</span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <CheckCircle2 className="w-4 h-4 text-[#00b4ff] shrink-0" />
-                      <span>Nationwide Presence</span>
-                    </div>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-        </ScrollReveal>
-
-        <ScrollReveal>
-          <div className="mb-20 rounded-3xl bg-white/5 backdrop-blur-md border border-white/10 p-8 sm:p-12 text-center">
-            <div className="max-w-3xl mx-auto">
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#00b4ff]/10 text-[#00b4ff] font-mono text-xs uppercase tracking-wider mb-4">
-                <Building2 className="w-3.5 h-3.5" />
-                Building a Safer Digital India
+          <section className="grid min-h-[590px] items-center gap-14 pb-20 pt-10 lg:grid-cols-[1.05fr_0.95fr] lg:gap-8 lg:pb-28">
+            <div className="relative z-10">
+              <div className="mb-8 inline-flex items-center gap-3 rounded-full border border-white/10 bg-white/[0.04] px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.2em] text-cyan-200">
+                <span className="h-2 w-2 rounded-full bg-cyan-300 shadow-[0_0_12px_rgba(103,232,249,0.9)]" />
+                About our ecosystem
               </div>
-              <h2 className="text-2xl sm:text-3xl font-extrabold text-white mb-4">
-                Building a Safer Digital India
-              </h2>
-              <p className="text-slate-300 text-sm sm:text-base leading-relaxed">
-                Through the combined efforts of Cyber Shakti Foundation, CrimeX Intelligence, and the Cybersecurity Council, we are creating a resilient ecosystem that empowers the next generation of cybersecurity leaders.
+              <h1 className="max-w-3xl text-[clamp(3.4rem,8vw,6.8rem)] font-semibold leading-[0.96] tracking-[-0.07em]">
+                A safer digital future <span className="font-serif font-normal italic text-cyan-300">starts with people.</span>
+              </h1>
+              <p className="mt-8 max-w-xl text-base leading-8 text-slate-300 sm:text-lg">
+                We bring education, investigation, and advocacy together to help people and organizations navigate the digital world with confidence.
               </p>
-            </div>
-          </div>
-        </ScrollReveal>
-
-        <ScrollReveal>
-          <div className="mb-20 rounded-3xl bg-white/5 backdrop-blur-md border border-white/10 p-8 sm:p-12">
-            <div className="max-w-3xl mx-auto text-center space-y-3">
-              <div className="flex items-center justify-center gap-2 text-slate-300">
-                <MapPin className="w-4 h-4 text-[#00b4ff]" />
-                <span>Hyderabad, Telangana, India</span>
-              </div>
-              <div className="flex items-center justify-center gap-2 text-slate-300">
-                <Mail className="w-4 h-4 text-[#00b4ff]" />
-                <a href="mailto:info@cybershaktifoundation.org" className="hover:text-[#00b4ff] transition-colors">
-                  info@cybershaktifoundation.org
+              <div className="mt-10 flex flex-col gap-3 sm:flex-row">
+                <button
+                  type="button"
+                  onClick={() => onNavigate('home', 'tracks')}
+                  className="inline-flex items-center justify-center gap-3 rounded-full bg-cyan-300 px-6 py-3.5 text-sm font-bold text-slate-950 transition hover:bg-cyan-200"
+                >
+                  Explore learning tracks <ArrowRight className="h-4 w-4" />
+                </button>
+                <a href="#our-story" className="inline-flex items-center justify-center gap-3 rounded-full border border-white/15 px-6 py-3.5 text-sm font-semibold text-white transition hover:border-white/35 hover:bg-white/[0.04]">
+                  Our story <ArrowDownRight className="h-4 w-4" />
                 </a>
               </div>
-              <div className="flex items-center justify-center gap-2 text-slate-300">
-                <Globe className="w-4 h-4 text-[#00b4ff]" />
-                <span>internship.cybershaktifoundation.org</span>
+              <div className="mt-14 flex items-center gap-4 border-t border-white/10 pt-6 text-sm text-slate-400">
+                <MapPin className="h-4 w-4 text-cyan-300" />
+                <span>Rooted in Hyderabad, Telangana</span>
+                <span className="h-1 w-1 rounded-full bg-slate-600" />
+                <span>Working toward a safer digital India</span>
               </div>
             </div>
-          </div>
+
+            <div className="relative mx-auto w-full max-w-[560px]" aria-label="Illustration of a connected cybersecurity ecosystem" role="img">
+              <div className="absolute inset-8 rounded-full border border-cyan-300/10" />
+              <div className="absolute inset-16 rounded-full border border-dashed border-white/10" />
+              <div className="relative aspect-square overflow-hidden rounded-[2.5rem] border border-white/10 bg-[#0b1a28]/80 p-5 shadow-[0_30px_100px_rgba(0,0,0,0.35)] sm:p-8">
+                <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_48%,rgba(34,211,238,0.12),transparent_43%)]" />
+                <svg viewBox="0 0 500 500" className="absolute inset-0 h-full w-full" fill="none" aria-hidden="true">
+                  <circle cx="250" cy="250" r="162" stroke="rgba(148,163,184,.16)" strokeDasharray="3 8" />
+                  <circle cx="250" cy="250" r="112" stroke="rgba(34,211,238,.18)" />
+                  <path d="M250 250 126 157M250 250l135-82M250 250l58 151M250 250 94 333" stroke="rgba(103,232,249,.35)" strokeWidth="1.5" />
+                  <circle cx="126" cy="157" r="5" fill="#67e8f9" /><circle cx="385" cy="168" r="5" fill="#c4b5fd" />
+                  <circle cx="308" cy="401" r="5" fill="#fcd34d" /><circle cx="94" cy="333" r="5" fill="#67e8f9" />
+                  <circle cx="250" cy="250" r="73" fill="rgba(8,23,37,.9)" stroke="rgba(103,232,249,.45)" />
+                </svg>
+                <div className="absolute left-1/2 top-1/2 flex h-28 w-28 -translate-x-1/2 -translate-y-1/2 flex-col items-center justify-center rounded-full border border-cyan-200/30 bg-[#0a1e2c] shadow-[0_0_55px_rgba(34,211,238,.18)] sm:h-32 sm:w-32">
+                  <ShieldCheck className="h-9 w-9 text-cyan-200" strokeWidth={1.4} />
+                  <span className="mt-2 text-[9px] font-bold uppercase tracking-[0.2em] text-slate-300">Digital trust</span>
+                </div>
+                <div className="absolute left-[5%] top-[22%] rounded-2xl border border-cyan-200/15 bg-[#0b1a28]/90 px-3 py-2.5 shadow-xl sm:left-[8%] sm:px-4">
+                  <BookOpenCheck className="mb-2 h-4 w-4 text-cyan-200" /><span className="block text-[10px] font-semibold text-slate-200 sm:text-xs">Education</span>
+                </div>
+                <div className="absolute right-[3%] top-[24%] rounded-2xl border border-violet-200/15 bg-[#0b1a28]/90 px-3 py-2.5 shadow-xl sm:right-[7%] sm:px-4">
+                  <UsersRound className="mb-2 h-4 w-4 text-violet-200" /><span className="block text-[10px] font-semibold text-slate-200 sm:text-xs">Community</span>
+                </div>
+                <div className="absolute bottom-[12%] right-[17%] rounded-2xl border border-amber-200/15 bg-[#0b1a28]/90 px-3 py-2.5 shadow-xl sm:px-4">
+                  <Crosshair className="mb-2 h-4 w-4 text-amber-200" /><span className="block text-[10px] font-semibold text-slate-200 sm:text-xs">Investigation</span>
+                </div>
+                <div className="absolute bottom-[22%] left-[5%] rounded-2xl border border-cyan-200/15 bg-[#0b1a28]/90 px-3 py-2.5 shadow-xl sm:left-[8%] sm:px-4">
+                  <Globe2 className="mb-2 h-4 w-4 text-cyan-200" /><span className="block text-[10px] font-semibold text-slate-200 sm:text-xs">Advocacy</span>
+                </div>
+                <div className="absolute left-7 top-7 font-mono text-[9px] uppercase tracking-[0.22em] text-slate-500 sm:left-10 sm:top-10">Connected for impact <span className="text-cyan-300">/ 01</span></div>
+                <div className="absolute bottom-7 right-7 font-mono text-[9px] uppercase tracking-[0.18em] text-slate-500 sm:bottom-10 sm:right-10">CSF · India</div>
+              </div>
+            </div>
+          </section>
         </ScrollReveal>
 
         <ScrollReveal>
-          <div className="rounded-3xl p-8 sm:p-12 bg-gradient-to-r from-slate-900 via-indigo-950/80 to-slate-900 border border-[#00b4ff]/40 text-center shadow-2xl relative overflow-hidden">
-            <div className="max-w-2xl mx-auto relative z-10">
-              <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight mb-4">
-                Ready to Experience Practical Cybersecurity?
-              </h2>
-              <p className="text-slate-300 text-sm sm:text-base leading-relaxed mb-8">
-                Join Cyber Shakti Foundation and take the next step in your cybersecurity journey.
-              </p>
-
-              <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-                <button
-                  onClick={onOpenRegister}
-                  className="w-full sm:w-auto px-8 py-3.5 rounded-xl font-bold text-sm text-black bg-cyan-400 hover:bg-cyan-300 shadow-[0_0_20px_rgba(34,211,238,0.5)] transition-all flex items-center justify-center gap-2"
-                >
-                  <span>Claim Early-Bird Seat</span>
-                  <ArrowRight className="w-4 h-4" />
-                </button>
-
-                <button
-                  onClick={() => onNavigate('home', 'tracks')}
-                  className="w-full sm:w-auto px-6 py-3.5 rounded-xl font-semibold text-sm text-slate-200 hover:text-white bg-slate-800/80 hover:bg-slate-800 border border-slate-700 transition-colors"
-                >
-                  <span>Explore Learning Tracks</span>
-                </button>
+          <section id="our-story" className="scroll-mt-28 border-y border-white/10 py-16 sm:py-20">
+            <div className="grid gap-10 lg:grid-cols-[0.7fr_1.3fr] lg:gap-20">
+              <div>
+                <p className="text-xs font-bold uppercase tracking-[0.22em] text-cyan-300">Our purpose</p>
+                <h2 className="mt-4 max-w-sm text-3xl font-semibold leading-tight tracking-[-0.04em] sm:text-4xl">Make cybersecurity knowledge useful to everyone.</h2>
+              </div>
+              <div className="grid gap-6 text-slate-300 sm:grid-cols-2 sm:gap-10">
+                <p className="text-base leading-8">Digital safety is a shared responsibility. It takes informed people, practical skills, and communities that are ready to learn from one another.</p>
+                <p className="text-base leading-8">Our ecosystem connects hands-on education with professional insight and public advocacy, helping more people take part in building a resilient digital India.</p>
               </div>
             </div>
-          </div>
+            <div className="mt-12 grid gap-px overflow-hidden rounded-2xl border border-white/10 bg-white/10 sm:grid-cols-3">
+              {principles.map(({ number, title, copy, icon: Icon }) => (
+                <div key={number} className="bg-[#091724] p-6 sm:p-7">
+                  <div className="flex items-center justify-between text-xs font-mono text-slate-500"><span>{number}</span><Icon className="h-5 w-5 text-cyan-300" strokeWidth={1.6} /></div>
+                  <h3 className="mt-7 text-lg font-semibold text-white">{title}</h3>
+                  <p className="mt-2 text-sm leading-6 text-slate-400">{copy}</p>
+                </div>
+              ))}
+            </div>
+          </section>
+        </ScrollReveal>
+
+        <ScrollReveal>
+          <section className="py-20 sm:py-28">
+            <div className="mb-10 flex flex-col justify-between gap-5 sm:mb-14 sm:flex-row sm:items-end">
+              <div>
+                <p className="text-xs font-bold uppercase tracking-[0.22em] text-cyan-300">The ecosystem</p>
+                <h2 className="mt-4 max-w-2xl text-4xl font-semibold tracking-[-0.05em] sm:text-5xl">Different strengths. One shared direction.</h2>
+              </div>
+              <p className="max-w-sm text-sm leading-7 text-slate-400">Three complementary organizations working across learning, investigation, and cybersecurity advocacy.</p>
+            </div>
+            <div className="grid gap-4 lg:grid-cols-3">
+              {partners.map(({ number, name, role, description, icon: Icon, tone }) => {
+                const iconTone = tone === 'violet' ? 'text-violet-200 bg-violet-300/10 border-violet-200/15' : tone === 'amber' ? 'text-amber-200 bg-amber-300/10 border-amber-200/15' : 'text-cyan-200 bg-cyan-300/10 border-cyan-200/15';
+                return (
+                  <article key={name} className="group flex min-h-[330px] flex-col rounded-[1.75rem] border border-white/10 bg-white/[0.025] p-7 transition duration-300 hover:-translate-y-1 hover:border-white/20 hover:bg-white/[0.045] sm:p-8">
+                    <div className="flex items-start justify-between"><span className="font-mono text-xs text-slate-500">{number} / 03</span><div className={`rounded-xl border p-3 ${iconTone}`}><Icon className="h-5 w-5" strokeWidth={1.7} /></div></div>
+                    <p className="mt-10 text-[10px] font-bold uppercase tracking-[0.18em] text-slate-500">{role}</p>
+                    <h3 className="mt-3 text-2xl font-semibold leading-tight tracking-[-0.03em]">{name}</h3>
+                    <p className="mt-4 text-sm leading-7 text-slate-400">{description}</p>
+                    <div className="mt-auto pt-7"><span className="inline-flex items-center gap-2 text-xs font-semibold text-slate-300">Part of the ecosystem <ArrowRight className="h-3.5 w-3.5 text-cyan-300 transition-transform group-hover:translate-x-1" /></span></div>
+                  </article>
+                );
+              })}
+            </div>
+          </section>
+        </ScrollReveal>
+
+        <ScrollReveal>
+          <section className="relative overflow-hidden rounded-[2rem] border border-cyan-200/15 bg-[#0b1b29] px-6 py-12 sm:px-12 sm:py-16">
+            <div aria-hidden="true" className="absolute -right-24 -top-36 h-96 w-96 rounded-full border border-cyan-200/10" />
+            <div aria-hidden="true" className="absolute -right-10 -top-24 h-72 w-72 rounded-full border border-cyan-200/10" />
+            <div className="relative grid gap-10 lg:grid-cols-[1fr_auto] lg:items-end">
+              <div>
+                <div className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.2em] text-cyan-200"><Building2 className="h-4 w-4" /> Based in Hyderabad, India</div>
+                <h2 className="mt-5 max-w-2xl text-3xl font-semibold tracking-[-0.05em] sm:text-5xl">Build a safer digital future with us.</h2>
+                <p className="mt-4 max-w-xl text-sm leading-7 text-slate-300 sm:text-base">Start with a learning track, explore our programs, or get in touch with the foundation.</p>
+              </div>
+              <div className="flex flex-col gap-3 sm:flex-row lg:flex-col">
+                <button type="button" onClick={onOpenRegister} className="inline-flex items-center justify-center gap-3 rounded-full bg-cyan-300 px-6 py-3.5 text-sm font-bold text-slate-950 transition hover:bg-cyan-200">Explore our programs <ArrowRight className="h-4 w-4" /></button>
+                <a href="mailto:info@cybershaktifoundation.org" className="inline-flex items-center justify-center gap-3 rounded-full border border-white/15 px-6 py-3.5 text-sm font-semibold text-white transition hover:border-white/30 hover:bg-white/[0.04]"><Mail className="h-4 w-4" /> Get in touch</a>
+              </div>
+            </div>
+            <div className="relative mt-10 flex flex-col gap-2 border-t border-white/10 pt-5 text-xs text-slate-400 sm:flex-row sm:items-center sm:gap-6">
+              <span>Cyber Shakti Foundation</span><span className="hidden h-1 w-1 rounded-full bg-slate-600 sm:block" /><span>info@cybershaktifoundation.org</span><span className="hidden h-1 w-1 rounded-full bg-slate-600 sm:block" /><span>Hyderabad, Telangana, India</span>
+            </div>
+          </section>
         </ScrollReveal>
       </div>
-    </div>
+    </main>
   );
 }
