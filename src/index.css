@@ -1,0 +1,174 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    background-color: #040711;
+    color: #e2e8f0;
+    font-family: 'Manrope', system-ui, sans-serif;
+  }
+}
+
+/* Custom Cyber Grid & Glow effects */
+.cyber-grid {
+  background-size: 40px 40px;
+  background-image: 
+    linear-gradient(to right, rgba(14, 165, 233, 0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(14, 165, 233, 0.04) 1px, transparent 1px);
+}
+
+.cyber-grid-dense {
+  background-size: 20px 20px;
+  background-image: 
+    linear-gradient(to right, rgba(6, 182, 212, 0.06) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(6, 182, 212, 0.06) 1px, transparent 1px);
+}
+
+.cyber-glow-cyan {
+  text-shadow: 0 0 12px rgba(6, 182, 212, 0.6), 0 0 30px rgba(6, 182, 212, 0.3);
+}
+
+.cyber-glow-green {
+  text-shadow: 0 0 12px rgba(16, 185, 129, 0.6), 0 0 30px rgba(16, 185, 129, 0.3);
+}
+
+.neon-border-cyan {
+  box-shadow: 0 0 15px -3px rgba(6, 182, 212, 0.3), inset 0 0 15px -3px rgba(6, 182, 212, 0.1);
+}
+
+.neon-border-green {
+  box-shadow: 0 0 15px -3px rgba(16, 185, 129, 0.3), inset 0 0 15px -3px rgba(16, 185, 129, 0.1);
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #040711;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #1e293b;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #06b6d4;
+}
+
+/* Premium light theme shared by the home page and both program pages. */
+.premium-light {
+  color-scheme: light;
+  background-color: #f8fafc !important;
+  color: #0f172a;
+}
+
+.premium-light [class~="bg-[#040711]"],
+.premium-light [class~="bg-[#050811]"],
+.premium-light [class~="bg-[#070b14]"],
+.premium-light [class~="bg-[#03060d]"],
+.premium-light [class~="bg-[#090e1a]/95"],
+.premium-light [class~="bg-[#0b1220]"] {
+  background-color: #ffffff !important;
+}
+
+.premium-light [class*="bg-[#"] {
+  background-color: #ffffff !important;
+}
+
+.premium-light [class*="bg-slate-950"] {
+  background-color: #f1f5f9 !important;
+}
+
+.premium-light [class*="bg-slate-900"] {
+  background-color: #f8fafc !important;
+}
+
+.premium-light [class*="bg-slate-800"] {
+  background-color: #eaf0f6 !important;
+}
+
+.premium-light [class*="bg-black/"] {
+  background-color: #f8fafc !important;
+}
+
+.premium-light [class*="from-slate-900"] {
+  --tw-gradient-from: #ffffff !important;
+  --tw-gradient-to: rgb(255 255 255 / 0) !important;
+  --tw-gradient-stops: #ffffff, #f1f5f9, #ffffff !important;
+}
+
+.premium-light [class*="via-[#"],
+.premium-light [class*="to-[#"] {
+  --tw-gradient-stops: #ffffff, #f8fafc, #f1f5f9 !important;
+}
+
+.premium-light [class~="text-white"],
+.premium-light [class~="text-slate-100"],
+.premium-light [class~="text-slate-200"] {
+  color: #0f172a !important;
+}
+
+.premium-light [class~="text-slate-300"] {
+  color: #334155 !important;
+}
+
+.premium-light [class~="text-slate-400"],
+.premium-light [class~="text-slate-500"] {
+  color: #64748b !important;
+}
+
+.premium-light [class~="text-cyan-300"],
+.premium-light [class~="text-cyan-400"] {
+  color: #0e7490 !important;
+}
+
+.premium-light [class~="text-emerald-300"],
+.premium-light [class~="text-emerald-400"] {
+  color: #047857 !important;
+}
+
+.premium-light [class~="text-violet-200"],
+.premium-light [class~="text-violet-300"],
+.premium-light [class~="text-violet-400"],
+.premium-light [class~="text-purple-300"],
+.premium-light [class~="text-purple-400"] {
+  color: #6d28d9 !important;
+}
+
+.premium-light [class~="text-blue-300"],
+.premium-light [class~="text-blue-400"],
+.premium-light [class~="text-indigo-300"],
+.premium-light [class~="text-indigo-400"] {
+  color: #1d4ed8 !important;
+}
+
+.premium-light [class~="text-amber-300"],
+.premium-light [class~="text-amber-400"],
+.premium-light [class~="text-orange-300"],
+.premium-light [class~="text-orange-400"] {
+  color: #b45309 !important;
+}
+
+.premium-light [class~="text-teal-300"],
+.premium-light [class~="text-teal-400"] {
+  color: #0f766e !important;
+}
+
+.premium-light [class~="border-slate-800"],
+.premium-light [class~="border-slate-700"],
+.premium-light [class~="border-slate-600"],
+.premium-light [class*="border-slate-900"],
+.premium-light [class*="border-slate-800/"],
+.premium-light [class*="border-slate-700/"] {
+  border-color: #dbe3ed !important;
+}
+
+.premium-light .cyber-grid {
+  background-image:
+    linear-gradient(to right, rgba(14, 116, 144, 0.055) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(14, 116, 144, 0.055) 1px, transparent 1px);
+}

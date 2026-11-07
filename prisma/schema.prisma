@@ -1,0 +1,63 @@
+// Prisma Schema for Cyber Shakti Foundation Winter Internship Program 2026
+// Database: PostgreSQL on Supabase (db.snjolnrzoxyizmooaqvp.supabase.co:5432)
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Registration {
+  id             String   @id @default(uuid())
+  applicationId  String   @unique @map("application_id")
+  fullName       String   @map("full_name")
+  email          String
+  phone                   String
+  altPhone                String?  @map("alt_phone")
+  whatsappNumber          String?  @map("whatsapp_number")
+  gender                  String?
+  dob                     String?
+  category                String?
+  experienceLevel         String?  @map("experience_level")
+  hasPriorInternship      String?  @default("No") @map("has_prior_internship")
+  priorInternshipDetails  String?  @map("prior_internship_details") @db.Text
+  college                 String?  @default("N/A")
+  course         String?  @default("N/A")
+  yearOfStudy    String?  @default("N/A") @map("year_of_study")
+  currentRole    String?  @map("current_role")
+  attendanceReason String? @map("attendance_reason") @db.Text
+  hearAboutEvent String?  @map("hear_about_event")
+  preferredTrack String   @default("All 7 Tracks") @map("preferred_track")
+  amount         Float    @default(999)
+  pricingTierId  String?  @map("pricing_tier_id")
+  status         String   @default("registered")
+  razorpayOrderId   String?  @unique @map("razorpay_order_id")
+  razorpayPaymentId String?  @unique @map("razorpay_payment_id")
+  paymentStatus     String?  @default("pending") @map("payment_status")
+  paymentMethod     String?  @map("payment_method")
+  paymentCurrency   String   @default("INR") @map("payment_currency")
+  paymentFee        Int?     @map("payment_fee_paise")
+  paymentTax        Int?     @map("payment_tax_paise")
+  paymentCapturedAt DateTime? @map("payment_captured_at")
+  confirmationEmailSentAt DateTime? @map("confirmation_email_sent_at")
+  createdAt      DateTime @default(now()) @map("created_at")
+  updatedAt      DateTime @updatedAt @map("updated_at")
+
+  @@map("internship_registrations")
+  @@index([email])
+  @@index([applicationId])
+}
+
+model PricingConfiguration {
+  id           String   @id @default("winter-2026")
+  mode         String   @default("auto")
+  manualTierId String?  @map("manual_tier_id")
+  tiers        Json
+  updatedAt    DateTime @updatedAt @map("updated_at")
+
+  @@map("pricing_configuration")
+}
