@@ -11,7 +11,7 @@ import ScrollReveal from '../components/ScrollReveal';
 
 export default function WinterInternshipPage({ onOpenRegister }) {
   return (
-    <main className="flex-1">
+    <main className="flex-1 w-full overflow-x-hidden">
       <ScrollReveal><HeroSection onOpenRegister={onOpenRegister} /></ScrollReveal>
       <ScrollReveal><TracksSection onOpenRegister={onOpenRegister} /></ScrollReveal>
       <ScrollReveal><ProgramDetailsSection onOpenRegister={onOpenRegister} /></ScrollReveal>

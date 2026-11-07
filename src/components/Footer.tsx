@@ -52,7 +52,7 @@ export default function Footer({ onOpenRegister, actionLabel, programContext = '
                 <img
                   src="/logo.png"
                   alt="Cyber Shakti Foundation Logo"
-                  className="h-12 sm:h-14 w-auto object-contain transition-transform duration-200 group-hover:scale-105"
+                  className="h-10 sm:h-14 w-auto max-w-[220px] sm:max-w-none object-contain transition-transform duration-200 group-hover:scale-105"
                 />
               </a>
               <span className="block text-[11px] text-cyan-400 font-mono uppercase tracking-wider">
