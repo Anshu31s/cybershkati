@@ -7,7 +7,6 @@ export type RegistrationFormData = {
   altPhone: string;
   gender: string;
   dob: string;
-  category: string;
   experienceLevel: string;
   hasPriorInternship: string;
   priorInternshipDetails: string;
@@ -26,7 +25,6 @@ const initialFormData: RegistrationFormData = {
   altPhone: '',
   gender: '',
   dob: '',
-  category: '',
   experienceLevel: '',
   hasPriorInternship: 'No',
   priorInternshipDetails: '',

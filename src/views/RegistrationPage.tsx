@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import {
   ShieldCheck,
   ArrowRight,
-  Flame,
   ArrowLeft,
   CheckCircle2,
   Phone,
@@ -11,22 +10,24 @@ import {
   Briefcase,
   HelpCircle,
   MessageSquare,
-  Lock,
   AlertCircle,
   Loader2,
   Clock,
   Award,
   BookOpen,
-  Share2,
-  ExternalLink,
   Copy,
   Check,
   Calendar,
-  Layers,
   GraduationCap,
-  History,
   FileText,
   Monitor,
+  BarChart3,
+  Send,
+  Search,
+  Wifi,
+  Scale,
+  Target,
+  Terminal,
 } from "lucide-react";
 import confetti from "canvas-confetti";
 import { PROGRAM_DATA } from "../data/programData";
@@ -45,7 +46,7 @@ declare global {
   }
 }
 
-let razorpayCheckoutScript;
+let razorpayCheckoutScript: Promise<any> | null = null;
 
 function loadRazorpayCheckout() {
   if (window.Razorpay) return Promise.resolve(window.Razorpay);
@@ -72,20 +73,24 @@ function loadRazorpayCheckout() {
   return razorpayCheckoutScript;
 }
 
-export default function RegistrationPage({ onNavigate }) {
+function SelectChevron() {
+  return (
+    <div className="absolute inset-y-0 right-0 pr-3.5 flex items-center pointer-events-none text-slate-400">
+      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+      </svg>
+    </div>
+  );
+}
+
+export default function RegistrationPage({ onNavigate }: { onNavigate: (path: string) => void }) {
   const formData = useRegistrationFormStore((state) => state.formData);
   const updateFormData = useRegistrationFormStore((state) => state.updateFormData);
   const resetFormData = useRegistrationFormStore((state) => state.resetFormData);
-  const {
-    notifyNewRegistration,
-    seatsRemaining,
-    totalSeats,
-    currentPrice,
-    currentTier,
-  } = useRegistration();
+  const { notifyNewRegistration } = useRegistration();
 
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitError, setSubmitError] = useState(null);
+  const [submitError, setSubmitError] = useState<string | null>(null);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [confirmationEmailSent, setConfirmationEmailSent] = useState(false);
   const [appId, setAppId] = useState("");
@@ -98,15 +103,6 @@ export default function RegistrationPage({ onNavigate }) {
     "Female",
     "Non-Binary / Third Gender",
     "Prefer not to say",
-  ];
-
-  const categoryOptions = [
-    "General",
-    "OBC (Other Backward Classes)",
-    "SC (Scheduled Castes)",
-    "ST (Scheduled Tribes)",
-    "EWS (Economically Weaker Section)",
-    "Other / Prefer not to say",
   ];
 
   const experienceOptions = [
@@ -147,16 +143,27 @@ export default function RegistrationPage({ onNavigate }) {
     "6. DPDP Act 2023 & Privacy Compliance",
     "7. Cyber Law & Electronic Evidence",
   ];
+
   const programFacts = [
-    { icon: Calendar, label: 'Registration starts', value: '08 November 2026' },
-    { icon: Clock, label: 'Duration', value: '28 days · Online' },
-    { icon: Monitor, label: 'Mode', value: 'Live sessions' },
-    { icon: Award, label: 'Certificate', value: 'QR-verifiable' },
+    { icon: Calendar, label: "Registration Starts", value: "08 November 2026" },
+    { icon: Clock, label: "Duration", value: "45 Days (Online)" },
+    { icon: Monitor, label: "Mode", value: "Live Sessions" },
+    { icon: Award, label: "Certificate", value: "Physical + e-Certificate" },
   ];
 
-  const handleChange = (e) => {
-    const { name, value, type, checked } = e.target;
-    updateFormData(name, type === "checkbox" ? checked : value);
+  const programHighlights = [
+    { icon: Search, title: "Digital Forensics & Evidence Analysis" },
+    { icon: Terminal, title: "Ethical Hacking & Penetration Testing" },
+    { icon: Wifi, title: "OSINT & Cyber Intelligence Investigation" },
+    { icon: Monitor, title: "Network & Mobile Forensics" },
+    { icon: BarChart3, title: "SOC Monitoring & Threat Analysis" },
+    { icon: Scale, title: "Cyber Law & Cybercrime Investigation" },
+  ];
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
+    const target = e.target as HTMLInputElement;
+    const { name, value, type } = target;
+    updateFormData(name as any, type === "checkbox" ? target.checked : value);
   };
 
   const handleCopyAppId = () => {
@@ -165,19 +172,16 @@ export default function RegistrationPage({ onNavigate }) {
     setTimeout(() => setCopiedAppId(false), 2000);
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
     setSubmitError(null);
 
-    // Validation check for conditional field
     if (
       formData.hasPriorInternship === "Yes" &&
       !formData.priorInternshipDetails.trim()
     ) {
-      setSubmitError(
-        "Please provide details of your previous internship in field 10.",
-      );
+      setSubmitError("Please provide details of your previous internship.");
       setIsSubmitting(false);
       return;
     }
@@ -190,7 +194,6 @@ export default function RegistrationPage({ onNavigate }) {
       whatsappNumber: formData.phone.trim(),
       gender: formData.gender,
       dob: formData.dob,
-      category: formData.category,
       experienceLevel: formData.experienceLevel,
       hasPriorInternship: formData.hasPriorInternship,
       priorInternshipDetails: (formData.priorInternshipDetails || "").trim(),
@@ -221,7 +224,7 @@ export default function RegistrationPage({ onNavigate }) {
         },
         notes: { applicationId: order.applicationId },
         theme: { color: "#0e7490" },
-        handler: async (paymentResponse) => {
+        handler: async (paymentResponse: any) => {
           try {
             const verification = await verifyRazorpayPayment({
               ...paymentResponse,
@@ -235,8 +238,10 @@ export default function RegistrationPage({ onNavigate }) {
             notifyNewRegistration();
             confetti({ particleCount: 150, spread: 90, origin: { y: 0.6 } });
             window.scrollTo({ top: 0, behavior: "smooth" });
-          } catch (verificationError) {
-            setSubmitError(`${verificationError.message} If your account was charged, do not retry yet; contact the foundation with payment ID ${paymentResponse.razorpay_payment_id}.`);
+          } catch (verificationError: any) {
+            setSubmitError(
+              `${verificationError.message} If your account was charged, do not retry yet; contact the foundation with payment ID ${paymentResponse.razorpay_payment_id}.`
+            );
           } finally {
             setIsSubmitting(false);
           }
@@ -246,104 +251,151 @@ export default function RegistrationPage({ onNavigate }) {
         },
       });
 
-      checkout.on("payment.failed", (failure) => {
+      checkout.on("payment.failed", (failure: any) => {
         setSubmitError(failure.error?.description || "Payment failed. Please try again.");
         setIsSubmitting(false);
       });
       checkout.open();
-    } catch (err) {
-      console.error("Submission caught error:", err);
-      setSubmitError(
-        err.message || "An unexpected error occurred. Please try again.",
-      );
+    } catch (err: any) {
+      console.error("Submission error:", err);
+      setSubmitError(err.message || "An unexpected error occurred. Please try again.");
       setIsSubmitting(false);
     }
   };
 
-  return (
-    <main className="relative min-h-screen overflow-hidden bg-[#06162a] pb-20 pt-24 text-slate-100 cyber-grid">
-      <div aria-hidden="true" className="pointer-events-none absolute -right-24 top-24 h-[34rem] w-[34rem] rounded-full bg-sky-700/15 blur-[120px]" />
-      <div aria-hidden="true" className="pointer-events-none absolute -left-40 top-[35rem] h-96 w-96 rounded-full bg-blue-700/10 blur-[100px]" />
+  /* Shared Tailwind classes for the form */
+  const inputBase =
+    "w-full py-2.5 rounded-lg border border-slate-300 bg-white text-slate-900 placeholder-slate-400 text-sm focus:outline-none focus:border-blue-600 focus:ring-2 focus:ring-blue-600/20 transition-all";
+  const inputWithIcon = `${inputBase} pl-10 pr-3.5`;
+  const inputNoIcon = `${inputBase} px-3.5`;
+  const selectWithIcon = `${inputBase} pl-10 pr-10 appearance-none cursor-pointer`;
+  const labelBase = "block text-[13px] font-semibold text-slate-700 mb-1.5";
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        {!isSubmitted && <section className="relative mb-8 overflow-hidden rounded-2xl border border-sky-500/20 bg-gradient-to-r from-[#071a30] via-[#082342] to-[#06162a] px-5 py-7 sm:px-8 sm:py-9 lg:px-10">
-          <div aria-hidden="true" className="pointer-events-none absolute inset-0 cyber-grid opacity-50" />
-          <div aria-hidden="true" className="pointer-events-none absolute right-0 top-0 h-full w-[55%] bg-gradient-to-l from-sky-500/10 to-transparent" />
-          <div className="relative grid items-center gap-7 lg:grid-cols-[1.1fr_0.9fr]">
-            <div>
-              <button onClick={() => onNavigate("/")} className="mb-5 inline-flex items-center gap-2 text-xs font-semibold text-slate-400 transition hover:text-white"><ArrowLeft className="h-3.5 w-3.5" /> Back to home</button>
-              <span className="mb-4 inline-flex items-center gap-2 rounded-full border border-blue-300/25 bg-blue-500/15 px-3.5 py-1.5 text-xs font-bold text-blue-200"><span className="h-2 w-2 rounded-full bg-emerald-400" />Winter 2026 · Registration opens 08 November</span>
-              <h1 className="max-w-3xl text-3xl font-extrabold leading-tight tracking-tight text-white sm:text-4xl lg:text-5xl">Cyber Shakti<br className="hidden sm:block"/> Winter Internship Program</h1>
-              <p className="mt-3 max-w-2xl text-sm leading-6 text-slate-300 sm:text-base">A hands-on, industry-oriented cybersecurity and digital forensics internship.</p>
-              <div className="mt-6 grid grid-cols-2 gap-4 sm:grid-cols-4">
-                {programFacts.map(({ icon: Icon, label, value }) => <div key={label} className="flex items-start gap-2.5"><Icon className="mt-0.5 h-4 w-4 shrink-0 text-sky-400"/><span><span className="block text-[9px] font-bold uppercase tracking-wider text-slate-500">{label}</span><span className="mt-1 block text-[11px] font-semibold text-slate-200">{value}</span></span></div>)}
-              </div>
-              <div className="mt-6 flex flex-wrap gap-3">
-                <button type="button" onClick={() => document.getElementById('registration-form')?.scrollIntoView({ behavior: 'smooth', block: 'start' })} className="inline-flex items-center gap-2 rounded-full bg-white px-5 py-2.5 text-sm font-extrabold text-slate-900 shadow-lg transition hover:bg-sky-50">Register for internship <ArrowRight className="h-4 w-4 text-blue-700"/></button>
-                <button type="button" onClick={() => onNavigate(WINTER_INTERNSHIP_PATH)} className="rounded-full border border-white/40 px-5 py-2.5 text-sm font-bold text-white transition hover:border-sky-300 hover:bg-white/5">View program details</button>
-              </div>
+  return (
+    <main className="relative min-h-screen overflow-hidden bg-[#07172c]">
+      {/* ===================== HERO BANNER ===================== */}
+      {!isSubmitted && (
+        <section className="relative overflow-hidden pt-20 pb-10 bg-gradient-to-r from-[#06162a] via-[#092244] to-[#071a32]">
+          {/* Cyber grid background */}
+          <div aria-hidden="true" className="pointer-events-none absolute inset-0 cyber-grid opacity-20" />
+
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 pt-4">
+            {/* Top row: Back link separated */}
+            <div className="mb-4">
+              <button
+                onClick={() => onNavigate("/")}
+                className="inline-flex items-center gap-1.5 text-xs font-semibold text-slate-400 hover:text-white transition-colors"
+              >
+                <ArrowLeft className="h-3.5 w-3.5" /> Back to home
+              </button>
             </div>
-            <div className="relative hidden min-h-[250px] items-center justify-center lg:flex">
-              <div className="absolute h-64 w-64 rounded-full border border-sky-400/20"/><div className="absolute h-48 w-48 rounded-full border border-dashed border-sky-400/20"/><div className="absolute h-40 w-40 rounded-full bg-sky-500/15 blur-3xl"/>
-              <div className="absolute left-1 top-4 w-48 -rotate-6 rounded-xl border border-sky-400/30 bg-[#041327]/95 p-4 shadow-2xl"><div className="flex items-center gap-1.5"><span className="h-1.5 w-1.5 rounded-full bg-sky-400"/><span className="h-1.5 w-1.5 rounded-full bg-sky-400/60"/><span className="h-1.5 w-1.5 rounded-full bg-sky-400/30"/><span className="ml-2 text-[8px] uppercase tracking-widest text-slate-500">Threat monitor</span></div><p className="mt-3 font-mono text-[9px] text-slate-400">&gt; analysing network traffic</p><p className="mt-2 font-mono text-[9px] text-emerald-400">&gt; status: monitoring</p><div className="mt-3 flex h-6 items-end gap-1">{[8,15,10,22,13,20,26,14].map((height,index)=><span key={index} style={{height}} className="w-2 rounded-t-sm bg-sky-500"/>)}</div></div>
-              <div className="relative z-10 flex h-52 w-44 flex-col items-center justify-center text-center" style={{clipPath:'polygon(50% 0%,95% 18%,89% 75%,50% 100%,11% 75%,5% 18%)',background:'linear-gradient(145deg,#0e5d9e,#071a32)'}}><ShieldCheck className="h-11 w-11 text-sky-300"/><span className="mt-2 text-2xl font-black text-white">CSF</span><span className="mt-1 text-[10px] font-bold uppercase tracking-[.16em] text-sky-200">Cyber defence</span></div>
-              <div className="absolute bottom-4 right-0 w-44 rotate-6 rounded-xl border border-sky-400/30 bg-[#041327]/95 p-4 shadow-2xl"><span className="text-[8px] uppercase tracking-widest text-slate-500">Network activity</span><p className="mt-2 font-mono text-sm font-bold text-slate-100">192.168.1.24</p><p className="mt-1 text-[8px] uppercase text-slate-500">Packets <span className="text-emerald-400">secure</span></p></div>
+
+            <div className="grid items-center gap-8 lg:grid-cols-12">
+              {/* Left Column (7 cols): Titles, facts, buttons */}
+              <div className="lg:col-span-7">
+                <div className="mb-3">
+                  <span className="inline-flex items-center rounded-full bg-blue-600 px-3.5 py-1 text-xs font-bold text-white shadow-md shadow-blue-600/30">
+                    Winter 2026
+                  </span>
+                </div>
+
+                <h1 className="text-3xl sm:text-4xl lg:text-[2.65rem] font-extrabold leading-[1.18] tracking-tight text-white">
+                  Cyber Shakti<br />Winter Internship Program
+                </h1>
+                <p className="mt-3 text-sm leading-relaxed text-slate-300 sm:text-base max-w-xl">
+                  A Hands-on, Industry-Oriented Cybersecurity &amp; Digital Forensics Internship
+                </p>
+
+                {/* Program facts */}
+                <div className="mt-6 grid grid-cols-2 gap-4 sm:grid-cols-4">
+                  {programFacts.map(({ icon: Icon, label, value }) => (
+                    <div key={label} className="flex items-start gap-2.5">
+                      <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-blue-500/15 border border-blue-400/25 text-sky-400">
+                        <Icon className="h-4 w-4" />
+                      </div>
+                      <div className="leading-tight">
+                        <span className="block text-[10px] font-bold uppercase tracking-wider text-slate-400">{label}</span>
+                        <span className="block text-xs font-bold text-white mt-0.5">{value}</span>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+
+                {/* CTA Buttons */}
+                <div className="mt-8 flex flex-wrap gap-3">
+                  <button
+                    type="button"
+                    onClick={() => document.getElementById("registration-form")?.scrollIntoView({ behavior: "smooth", block: "start" })}
+                    className="inline-flex items-center gap-2 rounded-full bg-white px-6 py-2.5 text-sm font-extrabold text-slate-900 shadow-xl transition hover:bg-sky-50 active:scale-95"
+                  >
+                    Register for Internship <ArrowRight className="h-4 w-4 text-blue-700" />
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => onNavigate(WINTER_INTERNSHIP_PATH)}
+                    className="rounded-full border border-white/30 px-6 py-2.5 text-sm font-bold text-white transition hover:border-white/60 hover:bg-white/10 active:scale-95"
+                  >
+                    View Program Details
+                  </button>
+                </div>
+              </div>
+
+              {/* Right Column (5 cols): Hacker with CSF Hoodie Image */}
+              <div className="lg:col-span-5 hidden lg:flex justify-end items-center">
+                <div className="relative rounded-2xl overflow-hidden border border-sky-400/25 shadow-2xl shadow-sky-950/60 bg-[#040e1e]">
+                  <img
+                    src="/hero-hacker.png"
+                    alt="Cyber Shakti Foundation"
+                    className="w-full h-auto max-h-[250px] object-cover"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-r from-[#06162a]/30 via-transparent to-transparent pointer-events-none" />
+                </div>
+              </div>
             </div>
           </div>
-        </section>}
+        </section>
+      )}
 
+      {/* ===================== MAIN CONTENT ===================== */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 pb-20 pt-8">
         {isSubmitted ? (
-          /* ================= SUCCESS CONFIRMATION SCREEN ================= */
+          /* ================= SUCCESS CONFIRMATION ================= */
           <ScrollReveal>
             <div className="max-w-2xl mx-auto bg-slate-900/90 border border-emerald-500/40 rounded-3xl p-6 sm:p-10 shadow-2xl backdrop-blur-xl relative overflow-hidden">
               <div className="absolute top-0 right-0 w-64 h-64 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none" />
-
               <div className="text-center mb-8">
                 <div className="w-16 h-16 rounded-full bg-emerald-500/20 border-2 border-emerald-500 flex items-center justify-center mx-auto mb-4 text-emerald-400 shadow-[0_0_30px_rgba(16,185,129,0.3)]">
                   <CheckCircle2 className="w-8 h-8" />
                 </div>
-                <h1 className="text-2xl sm:text-3xl font-extrabold text-white mb-2">
-                  Application Received!
-                </h1>
+                <h1 className="text-2xl sm:text-3xl font-extrabold text-white mb-2">Application Received!</h1>
                 <p className="text-slate-300 text-sm max-w-md mx-auto">
-                  Thank you,{" "}
-                  <strong className="text-white">{confirmedName}</strong>.
-                  Your Razorpay payment is verified and your registration for
-                  the Winter Internship Program 2026 is confirmed.
+                  Thank you, <strong className="text-white">{confirmedName}</strong>. Your Razorpay payment is verified and your registration for the Winter Internship Program 2026 is confirmed.
                 </p>
               </div>
 
-              {/* Application ID Card */}
               <div className="p-4 rounded-2xl bg-black/50 border border-slate-800 flex items-center justify-between gap-3 mb-8">
                 <div>
-                  <div className="text-[11px] font-mono text-slate-400 uppercase tracking-wider">
-                    Your Application ID
-                  </div>
-                  <div className="text-lg sm:text-xl font-bold font-mono text-cyan-300">
-                    {appId}
-                  </div>
+                  <div className="text-[11px] font-mono text-slate-400 uppercase tracking-wider">Your Application ID</div>
+                  <div className="text-lg sm:text-xl font-bold font-mono text-cyan-300">{appId}</div>
                 </div>
                 <button
                   onClick={handleCopyAppId}
                   className="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-mono flex items-center gap-1.5 transition-colors"
                 >
-                  {copiedAppId ? (
-                    <Check className="w-3.5 h-3.5 text-emerald-400" />
-                  ) : (
-                    <Copy className="w-3.5 h-3.5" />
-                  )}
+                  {copiedAppId ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
                   <span>{copiedAppId ? "Copied" : "Copy ID"}</span>
                 </button>
               </div>
 
               <div className="mb-8 rounded-xl border border-emerald-500/30 bg-emerald-500/10 p-4 text-center text-sm text-emerald-700">
                 Payment captured and verified securely by Razorpay.
-                <p className="mt-1">{confirmationEmailSent
-                  ? `A confirmation email was sent to ${confirmedEmail}.`
-                  : `Your payment is confirmed. We could not send the confirmation email yet; please save your application ID.`}</p>
+                <p className="mt-1">
+                  {confirmationEmailSent
+                    ? `A confirmation email was sent to ${confirmedEmail}.`
+                    : `Your payment is confirmed. We could not send the confirmation email yet; please save your application ID.`}
+                </p>
               </div>
 
-              {/* Action Buttons */}
               <div className="flex flex-col sm:flex-row gap-3">
                 <a
                   href={`https://wa.me/918265826528?text=Hello%20Cyber%20Shakti%20Foundation,%20I%20have%20registered%20for%20the%20Winter%20Internship%20Program%202026.%20Application%20ID:%20${appId}`}
@@ -354,7 +406,6 @@ export default function RegistrationPage({ onNavigate }) {
                   <MessageSquare className="w-4 h-4" />
                   <span>Share Receipt on WhatsApp</span>
                 </a>
-
                 <button
                   onClick={() => onNavigate("/")}
                   className="py-3 px-6 rounded-xl font-semibold text-xs sm:text-sm text-slate-300 hover:text-white bg-slate-800 hover:bg-slate-700 transition-colors"
@@ -365,120 +416,81 @@ export default function RegistrationPage({ onNavigate }) {
             </div>
           </ScrollReveal>
         ) : (
-          /* ================= MAIN DEDICATED REGISTRATION FORM ================= */
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-            {/* Left Column: Program Summary & Urgency Card (5 cols) */}
-            <ScrollReveal className="lg:col-span-4 space-y-6">
-              <div className="p-6 sm:p-8 rounded-3xl bg-gradient-to-b from-slate-900/90 to-[#070b14]/90 border border-cyan-500/30 shadow-2xl relative overflow-hidden">
-                <div className="absolute top-0 right-0 w-48 h-48 bg-cyan-500/10 rounded-full blur-3xl pointer-events-none" />
-
-                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-500/10 text-cyan-300 font-mono text-xs uppercase tracking-wider mb-4 border border-cyan-500/30">
-                  <ShieldCheck className="w-3.5 h-3.5" />
-                  Program Highlights
-                </div>
-
-                <h2 className="text-2xl sm:text-3xl font-extrabold text-white mb-2 leading-tight">What you’ll learn</h2>
-                <p className="text-xs sm:text-sm text-slate-300 leading-relaxed mb-6">
-                  Practice core cybersecurity and digital forensics skills with guided labs and live sessions.
-                </p>
-
-                {/* Live Seat Status Box */}
-                <div className="p-4 rounded-2xl bg-black/60 border border-slate-800 space-y-3 mb-6">
-                  <div className="flex items-center justify-between text-xs">
-                    <span className="text-slate-400 font-mono flex items-center gap-1.5">
-                      <Flame className="w-4 h-4 text-amber-400 animate-pulse" />
-                      Current Fee · Tier {currentTier?.min}–{currentTier?.max ?? '1000+'}:
-                    </span>
-                    <strong className="text-amber-300 font-mono font-bold text-sm">
-                      ₹{currentPrice.toLocaleString('en-IN')}
-                    </strong>
+          /* ================= TWO-COLUMN LAYOUT ================= */
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+            {/* ===== LEFT SIDEBAR: Program Highlights ===== */}
+            <ScrollReveal className="lg:col-span-4">
+              <div className="rounded-2xl overflow-hidden shadow-2xl border border-sky-500/20 bg-[#071a33]">
+                <div className="p-5 sm:p-6 pb-4">
+                  <div className="flex items-center gap-3 mb-5">
+                    <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-blue-500/20 border border-blue-400/30 text-sky-400">
+                      <Target className="h-5 w-5" />
+                    </div>
+                    <h2 className="text-lg font-extrabold text-white">Program Highlights</h2>
                   </div>
 
-                  {totalSeats != null && <div className="w-full bg-slate-800 h-2 rounded-full overflow-hidden">
-                    <div
-                      className="bg-gradient-to-r from-amber-500 to-cyan-400 h-full rounded-full transition-all duration-500"
-                      style={{
-                        width: `${Math.min(100, Math.max(15, ((totalSeats - seatsRemaining) / totalSeats) * 100))}%`,
-                      }}
-                    />
-                  </div>}
-
-                  <div className="flex items-center justify-between text-[11px] font-mono text-slate-400">
-                    <span>{seatsRemaining == null ? 'No cap in current tier' : `${seatsRemaining} registrations until next tier`}</span>
-                    <span className="text-slate-500">{totalSeats == null ? `${currentTier?.min}+ tier` : `Up to ${totalSeats}`}</span>
+                  <div className="space-y-1.5">
+                    {programHighlights.map(({ icon: Icon, title }) => (
+                      <div key={title} className="flex items-center gap-3 rounded-xl p-2.5 transition-colors hover:bg-white/5">
+                        <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-sky-500/15 border border-sky-400/25 text-sky-300 shadow-sm">
+                          <Icon className="h-4.5 w-4.5" />
+                        </div>
+                        <span className="text-[13px] font-semibold text-slate-100 leading-snug">{title}</span>
+                      </div>
+                    ))}
                   </div>
                 </div>
 
-                <div className="mb-6 space-y-1.5">
-                  {[
-                    ['01', 'Digital forensics & evidence analysis'],
-                    ['02', 'Ethical hacking & penetration testing'],
-                    ['03', 'OSINT & cyber intelligence'],
-                    ['04', 'Network & mobile forensics'],
-                    ['05', 'SOC monitoring & threat analysis'],
-                    ['06', 'Cyber law, privacy & investigation'],
-                  ].map(([number, title]) => <div key={number} className="flex items-center gap-3 border-b border-slate-800/80 py-2.5"><span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border border-sky-400/20 bg-sky-500/10 text-[10px] font-extrabold text-sky-300">{number}</span><span className="text-xs font-semibold text-slate-200">{title}</span></div>)}
-                </div>
-
-                <div className="relative mb-5 h-36 overflow-hidden rounded-2xl border border-sky-400/20 bg-gradient-to-b from-sky-900/50 to-[#07182a]">
-                  <svg aria-hidden="true" viewBox="0 0 420 150" className="absolute inset-0 h-full w-full" preserveAspectRatio="xMidYMid slice"><defs><linearGradient id="snow" x1="0" y1="0" x2="0" y2="1"><stop stopColor="#e0f2fe"/><stop offset="1" stopColor="#60a5fa"/></linearGradient></defs><circle cx="345" cy="34" r="20" fill="#7dd3fc" fillOpacity=".32"/><path d="M0 120 92 42l65 72 62-62 110 89H0Z" fill="#16446b"/><path d="m63 66 29-24 29 32-20-7-10 6-12-8-11 6ZM187 76l32-24 35 32-23-8-12 6-13-8-11 7Z" fill="url(#snow)"/><path d="M0 138 117 82l79 47 82-56 142 75H0Z" fill="#0b3152"/><path d="M0 140h420v10H0Z" fill="#07182a"/></svg>
-                  <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-[#041326] to-transparent px-4 pb-3 pt-10"><p className="text-sm font-extrabold text-white">Learn. Investigate. Secure.</p><p className="mt-0.5 text-[10px] font-semibold uppercase tracking-[0.14em] text-sky-300">Winter internship · 2026</p></div>
-                </div>
-
-                {/* Contact Helpline */}
-                <div className="pt-4 border-t border-slate-800 text-xs text-slate-400 space-y-1.5">
-                  <div className="flex items-center gap-2">
-                    <Phone className="w-3.5 h-3.5 text-cyan-400" />
-                    <span>
-                      WhatsApp Helpline: <strong>+91-8265826528</strong>
-                    </span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <Mail className="w-3.5 h-3.5 text-cyan-400" />
-                    <span>info@cybershaktifoundation.org</span>
-                  </div>
+                {/* Winter Mountain Asset at bottom of sidebar */}
+                <div className="relative overflow-hidden mt-2 border-t border-sky-500/20">
+                  <img
+                    src="/winter-mountain.png"
+                    alt="Winter Internship Program"
+                    className="w-full h-auto object-cover"
+                  />
                 </div>
               </div>
             </ScrollReveal>
 
-            {/* Right Column: Full Registration Form (7 cols) */}
+            {/* ===== RIGHT COLUMN: Registration Form Card ===== */}
             <ScrollReveal className="lg:col-span-8">
-              <div id="registration-form" className="premium-light scroll-mt-24 rounded-3xl border border-slate-200 bg-white p-5 shadow-2xl sm:p-8 lg:p-9">
-                <div className="mb-7 rounded-2xl border border-blue-100 bg-gradient-to-r from-blue-50 to-cyan-50 p-5 sm:p-6">
-                  <div className="flex items-start gap-3"><span className="mt-0.5 flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-blue-700 text-white"><User className="h-5 w-5"/></span><div><h2 className="text-xl font-extrabold text-slate-950 sm:text-2xl">Internship Registration Form</h2><p className="mt-1 text-sm leading-6 text-slate-600">Please provide your personal and professional details to register for the Cyber Shakti Winter Internship Program.</p></div></div>
+              <div
+                id="registration-form"
+                className="scroll-mt-24 rounded-2xl bg-white p-6 shadow-2xl sm:p-8 lg:p-9 border border-slate-200"
+                style={{ colorScheme: "light" }}
+              >
+                {/* Form Header */}
+                <div className="flex items-start gap-3.5 mb-6">
+                  <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-blue-600 text-white shadow-md shadow-blue-600/30">
+                    <User className="h-5 w-5" />
+                  </div>
+                  <div>
+                    <h2 className="text-xl font-extrabold text-slate-900 sm:text-2xl">Internship Registration Form</h2>
+                    <p className="mt-1 text-sm text-slate-500 leading-relaxed">
+                      Please provide your personal and professional details to register for the Cyber Shakti Winter Internship Program.
+                    </p>
+                  </div>
                 </div>
 
                 {submitError && (
-                  <div role="alert" className="mb-6 p-4 rounded-xl bg-red-500/10 border border-red-500/30 text-red-300 text-xs sm:text-sm flex items-start gap-3">
-                    <AlertCircle className="w-5 h-5 shrink-0 mt-0.5 text-red-400" />
+                  <div role="alert" className="mb-5 p-4 rounded-xl bg-red-50 border border-red-200 text-red-700 text-sm flex items-start gap-3">
+                    <AlertCircle className="w-5 h-5 shrink-0 mt-0.5 text-red-500" />
                     <div>
-                      <strong className="block font-semibold">
-                        Registration Notice
-                      </strong>
+                      <strong className="block font-semibold">Registration Notice</strong>
                       {submitError}
                     </div>
                   </div>
                 )}
 
-                <form onSubmit={handleSubmit} className="space-y-5">
-                  {/* ================= SECTION 1: IDENTITY & CONTACT ================= */}
-                  <div className="space-y-4">
-                    <div className="flex items-center gap-2 pb-2 border-b border-slate-800 text-xs font-mono text-cyan-400 uppercase tracking-wider">
-                      <User className="w-3.5 h-3.5" />
-                      <span>1. Identity & Contact Details</span>
-                    </div>
-
-                    <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-                    {/* 1. Full Name (As per Official ID) */}
+                <form onSubmit={handleSubmit} className="space-y-4">
+                  {/* Row 1: Full Name + Email Address */}
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
-                      <label className="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2 font-mono flex items-center justify-between">
-                        <span>1. Full Name (As per Official ID) *</span>
-                        <span className="text-[10px] text-slate-500">
-                          Short Answer
-                        </span>
+                      <label className={labelBase}>
+                        Full Name (As per Official ID) <span className="text-red-500">*</span>
                       </label>
                       <div className="relative">
-                        <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-500">
+                        <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
                           <User className="w-4 h-4" />
                         </div>
                         <input
@@ -487,22 +499,17 @@ export default function RegistrationPage({ onNavigate }) {
                           required
                           value={formData.fullName}
                           onChange={handleChange}
-                          placeholder="e.g. Rahul Sharma (matching Aadhaar / Govt ID)"
-                          className="w-full pl-10 pr-4 py-3 rounded-xl bg-black/60 border border-slate-700 text-white placeholder-slate-500 text-sm focus:outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400 transition-colors"
+                          placeholder="Enter your full name"
+                          className={inputWithIcon}
                         />
                       </div>
                     </div>
-
-                    {/* 2. Official Email Address */}
                     <div>
-                      <label className="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2 font-mono flex items-center justify-between">
-                        <span>2. Official Email Address *</span>
-                        <span className="text-[10px] text-slate-500">
-                          Email
-                        </span>
+                      <label className={labelBase}>
+                        Email Address <span className="text-red-500">*</span>
                       </label>
                       <div className="relative">
-                        <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-500">
+                        <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
                           <Mail className="w-4 h-4" />
                         </div>
                         <input
@@ -511,405 +518,283 @@ export default function RegistrationPage({ onNavigate }) {
                           required
                           value={formData.email}
                           onChange={handleChange}
-                          placeholder="official.email@example.com / college email"
-                          className="w-full pl-10 pr-4 py-3 rounded-xl bg-black/60 border border-slate-700 text-white placeholder-slate-500 text-sm focus:outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400 transition-colors"
+                          placeholder="Enter your email address"
+                          className={inputWithIcon}
                         />
                       </div>
                     </div>
-
-                    {/* 3 & 4. Primary Contact Number & Alternative Contact Number */}
-                    </div>
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                      {/* 3. Primary Contact Number */}
-                      <div>
-                        <label className="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2 font-mono flex items-center justify-between">
-                          <span>3. Primary Contact Number *</span>
-                          <span className="text-[10px] text-emerald-400 font-bold">
-                            WhatsApp Active
-                          </span>
-                        </label>
-                        <div className="relative">
-                          <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-500">
-                            <Phone className="w-4 h-4" />
-                          </div>
-                          <input
-                            type="tel"
-                            name="phone"
-                            required
-                            value={formData.phone}
-                            onChange={handleChange}
-                            placeholder="+91 98765 43210"
-                            className="w-full pl-10 pr-4 py-3 rounded-xl bg-black/60 border border-slate-700 text-white placeholder-slate-500 text-sm focus:outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400 transition-colors"
-                          />
-                        </div>
-                      </div>
-
-                      {/* 4. Alternative Contact Number (Optional) */}
-                      <div>
-                        <label className="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2 font-mono flex items-center justify-between">
-                          <span>4. Alternative Contact Number</span>
-                          <span className="text-[10px] text-slate-500">
-                            Optional
-                          </span>
-                        </label>
-                        <div className="relative">
-                          <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-500">
-                            <Phone className="w-4 h-4" />
-                          </div>
-                          <input
-                            type="tel"
-                            name="altPhone"
-                            value={formData.altPhone}
-                            onChange={handleChange}
-                            placeholder="Secondary / Emergency contact"
-                            className="w-full pl-10 pr-4 py-3 rounded-xl bg-black/60 border border-slate-700 text-white placeholder-slate-500 text-sm focus:outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400 transition-colors"
-                          />
-                        </div>
-                      </div>
-                    </div>
                   </div>
 
-                  {/* ================= SECTION 2: DEMOGRAPHICS & PROFILE ================= */}
-                  <div className="space-y-4 pt-2">
-                    <div className="flex items-center gap-2 pb-2 border-b border-slate-800 text-xs font-mono text-cyan-400 uppercase tracking-wider">
-                      <Layers className="w-3.5 h-3.5" />
-                      <span>2. Demographic Information</span>
-                    </div>
-
-                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                      {/* 5. Gender */}
-                      <div>
-                        <label className="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2 font-mono">
-                          5. Gender *
-                        </label>
-                        <select
-                          name="gender"
-                          required
-                          value={formData.gender}
-                          onChange={handleChange}
-                          className="w-full px-3.5 py-3 rounded-xl bg-[#070b14] border border-slate-700 text-white text-sm focus:outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400 transition-colors"
-                        >
-                          <option value="" disabled className="text-slate-500">
-                            Select Gender
-                          </option>
-                          {genderOptions.map((opt) => (
-                            <option
-                              key={opt}
-                              value={opt}
-                              className="bg-slate-900 text-white"
-                            >
-                              {opt}
-                            </option>
-                          ))}
-                        </select>
-                      </div>
-
-                      {/* 6. Date of Birth */}
-                      <div>
-                        <label className="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2 font-mono flex items-center justify-between">
-                          <span>6. Date of Birth *</span>
-                          <span className="text-[10px] text-slate-500">
-                            Date
-                          </span>
-                        </label>
-                        <div className="relative">
-                          <input
-                            type="date"
-                            name="dob"
-                            required
-                            max="2015-12-31"
-                            value={formData.dob}
-                            onChange={handleChange}
-                            className="w-full px-3.5 py-3 rounded-xl bg-black/60 border border-slate-700 text-white text-sm focus:outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400 transition-colors [color-scheme:light]"
-                          />
-                        </div>
-                      </div>
-
-                      {/* 7. Category */}
-                      <div>
-                        <label className="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2 font-mono">
-                          7. Category *
-                        </label>
-                        <select
-                          name="category"
-                          required
-                          value={formData.category}
-                          onChange={handleChange}
-                          className="w-full px-3.5 py-3 rounded-xl bg-[#070b14] border border-slate-700 text-white text-sm focus:outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400 transition-colors"
-                        >
-                          <option value="" disabled className="text-slate-500">
-                            Select Category
-                          </option>
-                          {categoryOptions.map((cat) => (
-                            <option
-                              key={cat}
-                              value={cat}
-                              className="bg-slate-900 text-white"
-                            >
-                              {cat}
-                            </option>
-                          ))}
-                        </select>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* ================= SECTION 3: EXPERIENCE & BACKGROUND ================= */}
-                  <div className="space-y-4 pt-2">
-                    <div className="flex items-center gap-2 pb-2 border-b border-slate-800 text-xs font-mono text-cyan-400 uppercase tracking-wider">
-                      <GraduationCap className="w-3.5 h-3.5" />
-                      <span>3. Experience & Internship History</span>
-                    </div>
-
-                    {/* 8. What is your current level of experience? */}
+                  {/* Row 2: Primary Contact + Alternative Contact */}
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
-                      <label className="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2 font-mono">
-                        8. What is your current level of experience? *
+                      <label className={labelBase}>
+                        Primary Contact Number <span className="text-red-500">*</span>
                       </label>
-                      <select
-                        name="experienceLevel"
-                        required
-                        value={formData.experienceLevel}
-                        onChange={handleChange}
-                        className="w-full px-4 py-3 rounded-xl bg-[#070b14] border border-slate-700 text-white text-sm focus:outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400 transition-colors"
-                      >
-                        <option value="" disabled className="text-slate-500">
-                          Select Current Level of Experience
-                        </option>
-                        {experienceOptions.map((exp) => (
-                          <option
-                            key={exp}
-                            value={exp}
-                            className="bg-slate-900 text-white"
-                          >
-                            {exp}
-                          </option>
-                        ))}
-                      </select>
-                    </div>
-
-                    {/* Current Role & College / Organization */}
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                      <div>
-                        <label className="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2 font-mono">
-                          Your Current Role / Status *
-                        </label>
-                        <select
-                          name="currentRole"
-                          value={formData.currentRole}
-                          onChange={handleChange}
-                          className="w-full px-4 py-3 rounded-xl bg-[#070b14] border border-slate-700 text-white text-sm focus:outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400 transition-colors"
-                        >
-                          {roleOptions.map((role) => (
-                            <option
-                              key={role}
-                              value={role}
-                              className="bg-slate-900 text-white"
-                            >
-                              {role}
-                            </option>
-                          ))}
-                        </select>
-                      </div>
-
-                      <div>
-                        <label className="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2 font-mono">
-                          College / Organization (Optional)
-                        </label>
+                      <div className="relative">
+                        <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
+                          <Phone className="w-4 h-4" />
+                        </div>
                         <input
-                          type="text"
-                          name="college"
-                          value={formData.college}
+                          type="tel"
+                          name="phone"
+                          required
+                          value={formData.phone}
                           onChange={handleChange}
-                          placeholder="e.g. Delhi University / Freelancer"
-                          className="w-full px-4 py-3 rounded-xl bg-black/60 border border-slate-700 text-white placeholder-slate-500 text-sm focus:outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400 transition-colors"
+                          placeholder="Enter 10-digit mobile number"
+                          className={inputWithIcon}
                         />
                       </div>
                     </div>
+                    <div>
+                      <label className={labelBase}>Alternative Contact Number</label>
+                      <div className="relative">
+                        <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
+                          <Phone className="w-4 h-4" />
+                        </div>
+                        <input
+                          type="tel"
+                          name="altPhone"
+                          value={formData.altPhone}
+                          onChange={handleChange}
+                          placeholder="Enter alternative number (optional)"
+                          className={inputWithIcon}
+                        />
+                      </div>
+                    </div>
+                  </div>
 
-                    {/* 9. Have you previously participated in any internship program? */}
-                    <div className="p-4 rounded-2xl bg-black/40 border border-slate-800">
-                      <label className="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-3 font-mono flex items-center justify-between">
-                        <span>
-                          9. Have you previously participated in any internship
-                          program? *
-                        </span>
-                        <span className="text-[10px] text-cyan-400 font-bold">
-                          Yes / No
-                        </span>
+                  {/* Row 3: Gender + Date of Birth */}
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                      <label className={labelBase}>
+                        Gender <span className="text-red-500">*</span>
                       </label>
-                      <div className="flex items-center gap-4">
-                        <label
-                          className={`flex-1 flex items-center justify-center gap-2 py-2.5 px-4 rounded-xl border text-xs sm:text-sm font-semibold cursor-pointer transition-all ${
-                            formData.hasPriorInternship === "No"
-                              ? "bg-slate-800 border-cyan-400 text-cyan-300 shadow-[0_0_15px_rgba(34,211,238,0.2)]"
-                              : "bg-black/60 border-slate-800 text-slate-400 hover:border-slate-700"
-                          }`}
-                        >
-                          <input
-                            type="radio"
-                            name="hasPriorInternship"
-                            value="No"
-                            checked={formData.hasPriorInternship === "No"}
-                            onChange={handleChange}
-                            className="sr-only"
-                          />
-                          <span>No, This is my first internship</span>
-                        </label>
+                      <div className="relative">
+                        <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
+                          <User className="w-4 h-4" />
+                        </div>
+                        <select name="gender" required value={formData.gender} onChange={handleChange} className={selectWithIcon}>
+                          <option value="" disabled>Select Gender</option>
+                          {genderOptions.map((opt) => (
+                            <option key={opt} value={opt}>{opt}</option>
+                          ))}
+                        </select>
+                        <SelectChevron />
+                      </div>
+                    </div>
+                    <div>
+                      <label className={labelBase}>
+                        Date of Birth <span className="text-red-500">*</span>
+                      </label>
+                      <div className="relative">
+                        <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
+                          <Calendar className="w-4 h-4" />
+                        </div>
+                        <input
+                          type="date"
+                          name="dob"
+                          required
+                          max="2015-12-31"
+                          value={formData.dob}
+                          onChange={handleChange}
+                          className={`${inputWithIcon} [color-scheme:light]`}
+                        />
+                      </div>
+                    </div>
+                  </div>
 
-                        <label
-                          className={`flex-1 flex items-center justify-center gap-2 py-2.5 px-4 rounded-xl border text-xs sm:text-sm font-semibold cursor-pointer transition-all ${
-                            formData.hasPriorInternship === "Yes"
-                              ? "bg-slate-800 border-cyan-400 text-cyan-300 shadow-[0_0_15px_rgba(34,211,238,0.2)]"
-                              : "bg-black/60 border-slate-800 text-slate-400 hover:border-slate-700"
-                          }`}
-                        >
+                  {/* Row 4: Experience Level + Prior Internship */}
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                      <label className={labelBase}>
+                        Experience Level <span className="text-red-500">*</span>
+                      </label>
+                      <div className="relative">
+                        <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
+                          <BarChart3 className="w-4 h-4" />
+                        </div>
+                        <select name="experienceLevel" required value={formData.experienceLevel} onChange={handleChange} className={selectWithIcon}>
+                          <option value="" disabled>Select Experience Level</option>
+                          {experienceOptions.map((exp) => (
+                            <option key={exp} value={exp}>{exp}</option>
+                          ))}
+                        </select>
+                        <SelectChevron />
+                      </div>
+                    </div>
+                    <div>
+                      <label className={labelBase}>
+                        Have you previously participated in any internship program? <span className="text-red-500">*</span>
+                      </label>
+                      <div className="flex items-center gap-6 h-[42px]">
+                        <label className="flex items-center gap-2 cursor-pointer">
                           <input
                             type="radio"
                             name="hasPriorInternship"
                             value="Yes"
                             checked={formData.hasPriorInternship === "Yes"}
                             onChange={handleChange}
-                            className="sr-only"
+                            className="w-4 h-4 text-blue-600 border-slate-300 focus:ring-blue-500"
                           />
-                          <span>Yes, I have prior experience</span>
+                          <span className="text-sm text-slate-700 font-medium">Yes</span>
+                        </label>
+                        <label className="flex items-center gap-2 cursor-pointer">
+                          <input
+                            type="radio"
+                            name="hasPriorInternship"
+                            value="No"
+                            checked={formData.hasPriorInternship === "No"}
+                            onChange={handleChange}
+                            className="w-4 h-4 text-blue-600 border-slate-300 focus:ring-blue-500"
+                          />
+                          <span className="text-sm text-slate-700 font-medium">No</span>
                         </label>
                       </div>
-
-                      {/* 10. If yes, please provide details of your previous internship */}
-                      {formData.hasPriorInternship === "Yes" && (
-                        <div className="mt-4 pt-4 border-t border-slate-800/80 animate-fadeIn">
-                          <label className="block text-xs font-semibold text-cyan-300 uppercase tracking-wider mb-2 font-mono flex items-center justify-between">
-                            <span>10. Previous Internship Details *</span>
-                            <span className="text-[10px] text-slate-400">
-                              Long Answer
-                            </span>
-                          </label>
-                          <textarea
-                            name="priorInternshipDetails"
-                            required={formData.hasPriorInternship === "Yes"}
-                            rows={3}
-                            value={formData.priorInternshipDetails}
-                            onChange={handleChange}
-                            placeholder="Please provide details of your previous internship, including organization name, duration, role and key responsibilities..."
-                            className="w-full px-4 py-3 rounded-xl bg-black/80 border border-cyan-500/40 text-white placeholder-slate-500 text-sm focus:outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400 transition-colors resize-none"
-                          />
-                        </div>
-                      )}
                     </div>
                   </div>
 
-                  {/* ================= SECTION 4: PROGRAM PREFERENCE & GOALS ================= */}
-                  <div className="space-y-4 pt-2">
-                    <div className="flex items-center gap-2 pb-2 border-b border-slate-800 text-xs font-mono text-cyan-400 uppercase tracking-wider">
-                      <BookOpen className="w-3.5 h-3.5" />
-                      <span>4. Program Preferences & Interest</span>
-                    </div>
-
-                    {/* Preferred Track */}
+                  {/* Conditional: Prior Internship Details */}
+                  {formData.hasPriorInternship === "Yes" && (
                     <div>
-                      <label className="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2 font-mono">
-                        Preferred Track
-                      </label>
-                      <select
-                        name="preferredTrack"
-                        value={formData.preferredTrack}
-                        onChange={handleChange}
-                        className="w-full px-4 py-3 rounded-xl bg-[#070b14] border border-slate-700 text-white text-sm focus:outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400 transition-colors"
-                      >
-                        {trackOptions.map((trk) => (
-                          <option
-                            key={trk}
-                            value={trk}
-                            className="bg-slate-900 text-white"
-                          >
-                            {trk}
-                          </option>
-                        ))}
-                      </select>
-                    </div>
-
-                    {/* Why do you want to attend this session? */}
-                    <div>
-                      <label className="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2 font-mono flex items-center justify-between">
-                        <span>Why do you want to attend this session? *</span>
-                        <span className="text-[10px] text-slate-500">
-                          Statement of Interest
-                        </span>
-                      </label>
-                      <textarea
-                        name="attendanceReason"
-                        required
-                        rows={3}
-                        value={formData.attendanceReason}
-                        onChange={handleChange}
-                        placeholder="Share what you hope to achieve, specific skills you want to master (e.g. Digital Forensics, Ethical Hacking, DPDP Act), or your career objectives..."
-                        className="w-full px-4 py-3 rounded-xl bg-black/60 border border-slate-700 text-white placeholder-slate-500 text-sm focus:outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400 transition-colors resize-none"
-                      />
-                    </div>
-
-                    {/* How did you hear about this? */}
-                    <div>
-                      <label className="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2 font-mono">
-                        How did you hear about this? *
+                      <label className={labelBase}>
+                        If yes, please provide details of your previous internship, including organization name, duration, role and key responsibilities.
                       </label>
                       <div className="relative">
-                        <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-500">
-                          <HelpCircle className="w-4 h-4" />
+                        <div className="absolute top-3 left-3 pointer-events-none text-slate-400">
+                          <FileText className="w-4 h-4" />
                         </div>
-                        <select
-                          name="hearAboutEvent"
-                          value={formData.hearAboutEvent}
+                        <textarea
+                          name="priorInternshipDetails"
+                          required={formData.hasPriorInternship === "Yes"}
+                          rows={3}
+                          value={formData.priorInternshipDetails}
                           onChange={handleChange}
-                          className="w-full pl-10 pr-4 py-3 rounded-xl bg-[#070b14] border border-slate-700 text-white text-sm focus:outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400 transition-colors"
-                        >
-                          {hearAboutOptions.map((opt) => (
-                            <option
-                              key={opt}
-                              value={opt}
-                              className="bg-slate-900 text-white"
-                            >
-                              {opt}
-                            </option>
+                          placeholder="e.g., Organization: ABC Pvt. Ltd., Duration: Jan 2025 – Mar 2025, Role: Cybersecurity Intern, Responsibilities: ..."
+                          className={`${inputBase} pl-10 pr-4 resize-none bg-slate-50`}
+                        />
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Row 5: Role + College */}
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                      <label className={labelBase}>
+                        Your Current Role / Status <span className="text-red-500">*</span>
+                      </label>
+                      <div className="relative">
+                        <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
+                          <Briefcase className="w-4 h-4" />
+                        </div>
+                        <select name="currentRole" value={formData.currentRole} onChange={handleChange} className={selectWithIcon}>
+                          {roleOptions.map((role) => (
+                            <option key={role} value={role}>{role}</option>
                           ))}
                         </select>
+                        <SelectChevron />
+                      </div>
+                    </div>
+                    <div>
+                      <label className={labelBase}>College / Organization</label>
+                      <div className="relative">
+                        <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
+                          <GraduationCap className="w-4 h-4" />
+                        </div>
+                        <input
+                          type="text"
+                          name="college"
+                          value={formData.college}
+                          onChange={handleChange}
+                          placeholder="e.g. Delhi University / Freelancer"
+                          className={inputWithIcon}
+                        />
                       </div>
                     </div>
                   </div>
 
-                  {/* Terms & Conditions Agreement */}
-                  <div className="pt-2">
+                  {/* Row 6: Preferred Track */}
+                  <div>
+                    <label className={labelBase}>Preferred Track</label>
+                    <div className="relative">
+                      <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
+                        <BookOpen className="w-4 h-4" />
+                      </div>
+                      <select name="preferredTrack" value={formData.preferredTrack} onChange={handleChange} className={selectWithIcon}>
+                        {trackOptions.map((trk) => (
+                          <option key={trk} value={trk}>{trk}</option>
+                        ))}
+                      </select>
+                      <SelectChevron />
+                    </div>
+                  </div>
+
+                  {/* Row 7: Why attend */}
+                  <div>
+                    <label className={labelBase}>
+                      Why do you want to attend this session? <span className="text-red-500">*</span>
+                    </label>
+                    <textarea
+                      name="attendanceReason"
+                      required
+                      rows={3}
+                      value={formData.attendanceReason}
+                      onChange={handleChange}
+                      placeholder="Share what you hope to achieve, specific skills you want to master..."
+                      className={`${inputNoIcon} resize-none`}
+                    />
+                  </div>
+
+                  {/* Row 8: How did you hear */}
+                  <div>
+                    <label className={labelBase}>
+                      How did you hear about this? <span className="text-red-500">*</span>
+                    </label>
+                    <div className="relative">
+                      <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
+                        <HelpCircle className="w-4 h-4" />
+                      </div>
+                      <select name="hearAboutEvent" value={formData.hearAboutEvent} onChange={handleChange} className={selectWithIcon}>
+                        {hearAboutOptions.map((opt) => (
+                          <option key={opt} value={opt}>{opt}</option>
+                        ))}
+                      </select>
+                      <SelectChevron />
+                    </div>
+                  </div>
+
+                  {/* Terms confirmation checkbox */}
+                  <div className="pt-1">
                     <label className="flex items-start gap-3 cursor-pointer">
                       <input
                         type="checkbox"
                         name="agreeTerms"
                         checked={formData.agreeTerms}
                         onChange={handleChange}
-                        className="mt-1 w-4 h-4 rounded border-slate-700 text-cyan-500 focus:ring-cyan-400 focus:ring-offset-slate-900 bg-black/60"
+                        className="mt-0.5 w-4 h-4 rounded border-slate-300 text-blue-600 focus:ring-blue-500"
                       />
-                      <span className="text-xs text-slate-400 leading-relaxed">
-                        I agree to abide by the program rules, ethical hacking
-                        guidelines. The server applies the current admin-configured
-                        fee and confirms the payable amount in Razorpay Checkout.
+                      <span className="text-xs text-slate-600 leading-relaxed">
+                        I hereby confirm that the information provided above is accurate and complete to the best of my knowledge. <span className="text-red-500">*</span>
                       </span>
                     </label>
                   </div>
 
                   {/* Submit Button */}
-                  <div className="pt-4">
+                  <div className="pt-2">
                     <button
                       type="submit"
                       disabled={isSubmitting || !formData.agreeTerms}
-                      className="w-full py-4 rounded-xl font-bold text-sm text-white bg-gradient-to-r from-sky-500 to-blue-700 hover:from-sky-400 hover:to-blue-600 disabled:opacity-50 disabled:cursor-not-allowed shadow-[0_0_25px_rgba(34,130,255,0.28)] transition-all flex items-center justify-center gap-2 active:scale-98"
+                      className="w-full py-3.5 rounded-xl font-bold text-sm text-white bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-500 hover:to-blue-600 disabled:opacity-50 disabled:cursor-not-allowed shadow-lg shadow-blue-600/30 transition-all flex items-center justify-center gap-2.5 active:scale-[0.98]"
                     >
                       {isSubmitting ? (
                         <>
-                          <Loader2 className="w-4 h-4 animate-spin text-white" />
+                          <Loader2 className="w-4 h-4 animate-spin" />
                           <span>Submitting Registration...</span>
                         </>
                       ) : (
                         <>
-                          <span>Continue</span>
+                          <Send className="w-4 h-4" />
+                          <span>Submit Registration</span>
                         </>
                       )}
                     </button>

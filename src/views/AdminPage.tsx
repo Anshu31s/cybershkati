@@ -119,7 +119,6 @@ export default function AdminPage() {
       WhatsApp: record.whatsappNumber,
       Gender: record.gender,
       'Date of Birth': record.dob,
-      Category: record.category,
       'Experience Level': record.experienceLevel,
       'Has Prior Internship': record.hasPriorInternship,
       'Prior Internship Details': record.priorInternshipDetails,
@@ -127,8 +126,6 @@ export default function AdminPage() {
       College: record.college,
       Course: record.course,
       'Year of Study': record.yearOfStudy,
-      'Preferred Track': record.preferredTrack,
-      'Attendance Reason': record.attendanceReason,
       'Heard About Event': record.hearAboutEvent,
       'Registration Status': record.status,
       'Payment Status': record.paymentStatus,
@@ -256,8 +253,8 @@ function RegistrationTable({ registrations, onExport, empty = 'No registration r
   const display = (value) => value == null || value === '' ? '—' : String(value);
   const date = (value) => value ? new Date(value).toLocaleString() : '—';
   const groups = [
-    { title: 'Applicant details', fields: [['Full name', 'fullName'], ['Email', 'email'], ['Phone', 'phone'], ['Alternative phone', 'altPhone'], ['WhatsApp', 'whatsappNumber'], ['Gender', 'gender'], ['Date of birth', 'dob'], ['Category', 'category']] },
-    { title: 'Program details', fields: [['Current role', 'currentRole'], ['College / organization', 'college'], ['Course', 'course'], ['Year of study', 'yearOfStudy'], ['Experience level', 'experienceLevel'], ['Prior internship', 'hasPriorInternship'], ['Prior internship details', 'priorInternshipDetails'], ['Preferred track', 'preferredTrack'], ['Attendance reason', 'attendanceReason'], ['Heard about event', 'hearAboutEvent']] },
+    { title: 'Applicant details', fields: [['Full name', 'fullName'], ['Email', 'email'], ['Phone', 'phone'], ['Alternative phone', 'altPhone'], ['WhatsApp', 'whatsappNumber'], ['Gender', 'gender'], ['Date of birth', 'dob']] },
+    { title: 'Program details', fields: [['Current role', 'currentRole'], ['College / organization', 'college'], ['Course', 'course'], ['Year of study', 'yearOfStudy'], ['Experience level', 'experienceLevel'], ['Prior internship', 'hasPriorInternship'], ['Prior internship details', 'priorInternshipDetails'], ['Heard about event', 'hearAboutEvent']] },
     { title: 'Payment details', fields: [['Registration status', 'status'], ['Payment status', 'paymentStatus'], ['Amount', 'amount'], ['Pricing tier', 'pricingTierId'], ['Payment method', 'paymentMethod'], ['Currency', 'paymentCurrency'], ['Razorpay order ID', 'razorpayOrderId'], ['Razorpay payment ID', 'razorpayPaymentId'], ['Provider fee', 'paymentFee'], ['Payment tax', 'paymentTax'], ['Captured at', 'paymentCapturedAt'], ['Confirmation email sent', 'confirmationEmailSentAt']] },
   ];
 

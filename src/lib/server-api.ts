@@ -105,7 +105,6 @@ export type RegistrationDraft = {
   whatsappNumber: string;
   gender: string;
   dob: string;
-  category: string;
   experienceLevel: string;
   hasPriorInternship: string;
   priorInternshipDetails: string;
@@ -113,9 +112,7 @@ export type RegistrationDraft = {
   course: string;
   year: string;
   currentRole: string;
-  attendanceReason: string;
   hearAboutEvent: string;
-  preferredTrack: string;
   amount: number;
   pricingTierId: string;
 };

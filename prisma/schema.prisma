@@ -21,7 +21,6 @@ model Registration {
   whatsappNumber          String?  @map("whatsapp_number")
   gender                  String?
   dob                     String?
-  category                String?
   experienceLevel         String?  @map("experience_level")
   hasPriorInternship      String?  @default("No") @map("has_prior_internship")
   priorInternshipDetails  String?  @map("prior_internship_details") @db.Text
@@ -29,9 +28,7 @@ model Registration {
   course         String?  @default("N/A")
   yearOfStudy    String?  @default("N/A") @map("year_of_study")
   currentRole    String?  @map("current_role")
-  attendanceReason String? @map("attendance_reason") @db.Text
   hearAboutEvent String?  @map("hear_about_event")
-  preferredTrack String   @default("All 7 Tracks") @map("preferred_track")
   amount         Float    @default(999)
   pricingTierId  String?  @map("pricing_tier_id")
   status         String   @default("registered")

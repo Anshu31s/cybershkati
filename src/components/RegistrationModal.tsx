@@ -37,14 +37,11 @@ export default function RegistrationModal({ isOpen, onClose }) {
     altPhone: "",
     gender: "",
     dob: "",
-    category: "",
     experienceLevel: "",
     hasPriorInternship: "No",
     priorInternshipDetails: "",
     currentRole: "Student (B.Tech / BCA / MCA / M.Sc)",
     college: "",
-    preferredTrack: "All 7 Tracks (Complete Curriculum)",
-    attendanceReason: "",
     hearAboutEvent: "LinkedIn",
     agreeTerms: true,
   });
@@ -60,15 +57,6 @@ export default function RegistrationModal({ isOpen, onClose }) {
     "Female",
     "Non-Binary / Third Gender",
     "Prefer not to say",
-  ];
-
-  const categoryOptions = [
-    "General",
-    "OBC (Other Backward Classes)",
-    "SC (Scheduled Castes)",
-    "ST (Scheduled Tribes)",
-    "EWS (Economically Weaker Section)",
-    "Other / Prefer not to say",
   ];
 
   const experienceOptions = [
@@ -116,7 +104,6 @@ export default function RegistrationModal({ isOpen, onClose }) {
       whatsappNumber: formData.phone.trim(),
       gender: formData.gender,
       dob: formData.dob,
-      category: formData.category,
       experienceLevel: formData.experienceLevel,
       hasPriorInternship: formData.hasPriorInternship,
       priorInternshipDetails: (formData.priorInternshipDetails || "").trim(),
@@ -124,8 +111,6 @@ export default function RegistrationModal({ isOpen, onClose }) {
       college: (formData.college || "N/A").trim(),
       course: formData.currentRole,
       year: "2026",
-      preferredTrack: formData.preferredTrack,
-      attendanceReason: (formData.attendanceReason || "").trim(),
       hearAboutEvent: formData.hearAboutEvent,
       amount: 999,
     };
@@ -317,8 +302,8 @@ export default function RegistrationModal({ isOpen, onClose }) {
                 </div>
               </div>
 
-              {/* 5, 6, 7. Gender, Date of Birth, Category */}
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+              {/* 5, 6. Gender, Date of Birth */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <div>
                   <label className="block text-xs font-mono text-slate-300 mb-1">
                     5. Gender *
@@ -358,32 +343,6 @@ export default function RegistrationModal({ isOpen, onClose }) {
                     onChange={handleChange}
                     className="w-full px-3 py-2.5 rounded-xl bg-slate-900 border border-slate-700/80 text-white text-sm focus:outline-none focus:border-cyan-400 transition-colors [color-scheme:dark]"
                   />
-                </div>
-
-                <div>
-                  <label className="block text-xs font-mono text-slate-300 mb-1">
-                    7. Category *
-                  </label>
-                  <select
-                    name="category"
-                    required
-                    value={formData.category}
-                    onChange={handleChange}
-                    className="w-full px-3 py-2.5 rounded-xl bg-slate-900 border border-slate-700/80 text-white text-sm focus:outline-none focus:border-cyan-400 transition-colors"
-                  >
-                    <option value="" disabled className="text-slate-500">
-                      Select Category
-                    </option>
-                    {categoryOptions.map((cat) => (
-                      <option
-                        key={cat}
-                        value={cat}
-                        className="bg-slate-900 text-white"
-                      >
-                        {cat}
-                      </option>
-                    ))}
-                  </select>
                 </div>
               </div>
 
@@ -526,20 +485,6 @@ export default function RegistrationModal({ isOpen, onClose }) {
                 </div>
               </div>
 
-              <div>
-                <label className="block text-xs font-mono text-slate-300 mb-1">
-                  Why do you want to attend this session? *
-                </label>
-                <textarea
-                  name="attendanceReason"
-                  required
-                  rows={2}
-                  placeholder="Share your goals or specific topics you're eager to learn..."
-                  value={formData.attendanceReason}
-                  onChange={handleChange}
-                  className="w-full px-3.5 py-2.5 rounded-xl bg-slate-900 border border-slate-700/80 text-white text-sm focus:outline-none focus:border-cyan-400 transition-colors resize-none"
-                />
-              </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
@@ -571,42 +516,6 @@ export default function RegistrationModal({ isOpen, onClose }) {
                   </select>
                 </div>
 
-                <div>
-                  <label className="block text-xs font-mono text-slate-300 mb-1">
-                    Primary Learning Track
-                  </label>
-                  <select
-                    name="preferredTrack"
-                    value={formData.preferredTrack}
-                    onChange={handleChange}
-                    className="w-full px-3.5 py-2.5 rounded-xl bg-slate-900 border border-slate-700/80 text-white text-sm focus:outline-none focus:border-cyan-400 transition-colors"
-                  >
-                    <option value="All 7 Tracks (Complete Curriculum)">
-                      All 7 Tracks (Recommended - Full Access)
-                    </option>
-                    <option value="Track 1: Digital Forensics & Evidence Analysis">
-                      Track 1: Digital Forensics & Evidence Analysis
-                    </option>
-                    <option value="Track 2: Ethical Hacking & Penetration Testing">
-                      Track 2: Ethical Hacking & Penetration Testing
-                    </option>
-                    <option value="Track 3: OSINT & Cyber Intelligence">
-                      Track 3: OSINT & Cyber Intelligence
-                    </option>
-                    <option value="Track 4: Network & Mobile Forensics">
-                      Track 4: Network & Mobile Forensics
-                    </option>
-                    <option value="Track 5: SOC Monitoring & Threat Detection">
-                      Track 5: SOC Monitoring & Threat Detection
-                    </option>
-                    <option value="Track 6: DPDP Act & Data Privacy Compliance (NEW)">
-                      Track 6: DPDP Act & Data Privacy Compliance (NEW)
-                    </option>
-                    <option value="Track 7: Cyber Law & Cybercrime Investigation (NEW)">
-                      Track 7: Cyber Law & Cybercrime Investigation (NEW)
-                    </option>
-                  </select>
-                </div>
               </div>
 
               <div className="flex items-center gap-2 pt-2">

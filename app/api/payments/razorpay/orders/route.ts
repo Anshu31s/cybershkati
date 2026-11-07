@@ -38,7 +38,6 @@ export async function POST(request: Request) {
       whatsappNumber: String(data.whatsappNumber || phone).trim(),
       gender: String(data.gender || '').trim(),
       dob: String(data.dob || '').trim(),
-      category: String(data.category || '').trim(),
       experienceLevel: String(data.experienceLevel || 'Beginner / Student').trim(),
       hasPriorInternship: String(data.hasPriorInternship || 'No').trim(),
       priorInternshipDetails: String(data.priorInternshipDetails || '').trim(),
@@ -46,9 +45,7 @@ export async function POST(request: Request) {
       course: String(data.course || data.currentRole || 'N/A').trim(),
       year: String(data.year || '2026').trim(),
       currentRole: String(data.currentRole || 'Student').trim(),
-      attendanceReason: String(data.attendanceReason || '').trim(),
       hearAboutEvent: String(data.hearAboutEvent || 'Direct').trim(),
-      preferredTrack: String(data.preferredTrack || 'All 7 Tracks'),
       amount: tier.amount,
       pricingTierId: tier.id,
     };

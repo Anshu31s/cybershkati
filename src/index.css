@@ -3,6 +3,16 @@
 @tailwind utilities;
 
 @layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+  }
+
   body {
     background-color: #040711;
     color: #e2e8f0;
@@ -174,6 +184,10 @@
 }
 
 /* Light registration panel inside the dark internship registration page. */
+#registration-form {
+  color-scheme: light;
+}
+
 #registration-form label {
   color: #1e293b !important;
   font-size: 0.875rem !important;
@@ -187,7 +201,7 @@
 #registration-form select,
 #registration-form textarea {
   border-color: #cbd5e1 !important;
-  background-color: #f8fafc !important;
+  background-color: #ffffff !important;
   color: #0f172a !important;
 }
 
@@ -213,4 +227,14 @@
 
 #registration-form [role="alert"] {
   color: #b91c1c !important;
+}
+
+/* Radio buttons in light form */
+#registration-form input[type="radio"] {
+  accent-color: #2563eb;
+}
+
+/* Checkbox in light form */
+#registration-form input[type="checkbox"] {
+  accent-color: #2563eb;
 }

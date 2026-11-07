@@ -87,6 +87,11 @@ export default function Navbar({ pathname, onNavigate }) {
             alt="Cyber Shakti Foundation"
             className="h-8 sm:h-10 md:h-11 w-auto max-w-[190px] sm:max-w-none object-contain transition-transform duration-200 group-hover:scale-105"
           />
+          <img
+            src="/cybersecurity_council_logo.jpeg"
+            alt="Cybersecurity Council"
+            className="h-7 sm:h-8 md:h-9 w-auto rounded-md border border-slate-700/50 object-contain transition-transform duration-200 group-hover:scale-105"
+          />
         </button>
 
         <div className="hidden items-center gap-1 md:flex">
