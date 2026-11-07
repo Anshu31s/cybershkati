@@ -145,7 +145,6 @@ export default function Navbar({ pathname, onNavigate }) {
                 ))}
               </div>
             )}
-            <button type="button" onClick={goToTracks} className={mobileLinkClass}>Learning tracks</button>
             <button type="button" onClick={() => goTo('/about')} className={mobileLinkClass}>About us</button>
             <button type="button" onClick={() => goTo('/contact')} className={mobileLinkClass}>Contact us</button>
             <button type="button" onClick={() => goTo(REGISTER_PATH)} className="mt-1 flex w-full items-center justify-center gap-2 rounded-lg bg-blue-600 px-3 py-2.5 text-left text-sm font-bold text-white transition hover:bg-blue-500">Register now <ArrowUpRight className="h-4 w-4" /></button>
