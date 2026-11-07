@@ -6,7 +6,6 @@ import {
 } from 'lucide-react';
 import { WINTER_INTERNSHIP_PATH } from '../routes';
 import ScrollReveal from '../components/ScrollReveal';
-import { SPEAKERS } from '../data/speakers';
 
 const learningAreas = [
   { title: 'Cybersecurity Researchers', detail: 'Build practical skills in security analysis, threat intelligence, and investigation.', icon: BrainCircuit },
@@ -127,30 +126,6 @@ export default function ProgramsHomePage({ onNavigate, onOpenRegister }) {
             <div className="mx-auto mb-12 max-w-3xl text-center"><p className="mb-3 text-xs font-bold uppercase tracking-[0.2em] text-sky-400">Mentorship & practice</p><h2 className="text-3xl font-extrabold tracking-tight text-white sm:text-4xl">Learn from practitioners. Build real skills.</h2><p className="mt-4 text-sm leading-7 text-slate-400 sm:text-base">The Winter Internship combines guided expertise with practical sessions across investigation, offensive security, and cyber defense.</p></div>
             <div className="mx-auto grid max-w-5xl gap-4 md:grid-cols-3">
               {learningAreas.map(({ title, detail, icon: Icon }) => <article key={title} className="rounded-2xl border border-slate-700 bg-[#0a2038] p-6 transition hover:border-sky-500/50"><span className="flex h-11 w-11 items-center justify-center rounded-xl border border-sky-400/20 bg-sky-400/10 text-sky-300"><Icon className="h-5 w-5"/></span><h3 className="mt-5 text-lg font-bold text-white">{title}</h3><p className="mt-3 text-sm leading-6 text-slate-400">{detail}</p></article>)}
-            </div>
-          </div>
-        </section>
-      </ScrollReveal>
-
-      <ScrollReveal>
-        <section aria-labelledby="speakers-heading" className="border-b border-slate-800 bg-[#06162a] py-20 sm:py-24">
-          <div className="mx-auto max-w-7xl px-5 sm:px-8 lg:px-12">
-            <div className="mx-auto mb-12 max-w-3xl text-center">
-              <p className="mb-3 text-xs font-bold uppercase tracking-[0.2em] text-sky-400">Mentors &amp; speakers</p>
-              <h2 id="speakers-heading" className="text-3xl font-extrabold tracking-tight text-white sm:text-4xl">Meet all 46 industry experts.</h2>
-              <p className="mt-4 text-sm leading-7 text-slate-400 sm:text-base">Meet a few of the defence veterans, cybersecurity practitioners, forensic specialists, and educators bringing their experience to the program.</p>
-            </div>
-            <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-              {SPEAKERS.map((speaker) => <article key={speaker.name} className="group overflow-hidden rounded-2xl border border-slate-700 bg-[#0a2038] transition duration-300 hover:-translate-y-1 hover:border-sky-500/50">
-                <div className="relative aspect-[4/3] overflow-hidden bg-slate-900">
-                  <img src={speaker.image} alt={speaker.name} loading="lazy" className="h-full w-full object-cover object-top transition duration-500 group-hover:scale-[1.04]" />
-                  <div aria-hidden="true" className="absolute inset-0 bg-gradient-to-t from-[#071a30]/70 via-transparent to-transparent" />
-                </div>
-                <div className="p-5">
-                  <h3 className="text-base font-bold leading-snug text-white">{speaker.name}</h3>
-                  <p className="mt-2 text-xs leading-5 text-slate-400">{speaker.bio}</p>
-                </div>
-              </article>)}
             </div>
           </div>
         </section>

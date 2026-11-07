@@ -14,7 +14,6 @@ import {
   Loader2,
   Clock,
   Award,
-  BookOpen,
   Copy,
   Check,
   Calendar,
@@ -133,17 +132,6 @@ export default function RegistrationPage({ onNavigate }: { onNavigate: (path: st
     "Other",
   ];
 
-  const trackOptions = [
-    "All 7 Tracks (Complete Curriculum - Recommended)",
-    "1. Digital Forensics & Evidence Analysis",
-    "2. Ethical Hacking & Penetration Testing",
-    "3. OSINT & Cyber Threat Intelligence",
-    "4. Network & Mobile Forensics",
-    "5. SOC Monitoring & SIEM Triage",
-    "6. DPDP Act 2023 & Privacy Compliance",
-    "7. Cyber Law & Electronic Evidence",
-  ];
-
   const programFacts = [
     { icon: Calendar, label: "Registration Starts", value: "08 November 2026" },
     { icon: Clock, label: "Duration", value: "45 Days (Online)" },
@@ -201,8 +189,6 @@ export default function RegistrationPage({ onNavigate }: { onNavigate: (path: st
       college: (formData.college || "N/A").trim(),
       course: formData.currentRole,
       year: "2026",
-      preferredTrack: formData.preferredTrack,
-      attendanceReason: formData.attendanceReason.trim(),
       hearAboutEvent: formData.hearAboutEvent,
     };
 
@@ -267,7 +253,6 @@ export default function RegistrationPage({ onNavigate }: { onNavigate: (path: st
   const inputBase =
     "w-full py-2.5 rounded-lg border border-slate-300 bg-white text-slate-900 placeholder-slate-400 text-sm focus:outline-none focus:border-blue-600 focus:ring-2 focus:ring-blue-600/20 transition-all";
   const inputWithIcon = `${inputBase} pl-10 pr-3.5`;
-  const inputNoIcon = `${inputBase} px-3.5`;
   const selectWithIcon = `${inputBase} pl-10 pr-10 appearance-none cursor-pointer`;
   const labelBase = "block text-[13px] font-semibold text-slate-700 mb-1.5";
 
@@ -713,39 +698,7 @@ export default function RegistrationPage({ onNavigate }: { onNavigate: (path: st
                     </div>
                   </div>
 
-                  {/* Row 6: Preferred Track */}
-                  <div>
-                    <label className={labelBase}>Preferred Track</label>
-                    <div className="relative">
-                      <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
-                        <BookOpen className="w-4 h-4" />
-                      </div>
-                      <select name="preferredTrack" value={formData.preferredTrack} onChange={handleChange} className={selectWithIcon}>
-                        {trackOptions.map((trk) => (
-                          <option key={trk} value={trk}>{trk}</option>
-                        ))}
-                      </select>
-                      <SelectChevron />
-                    </div>
-                  </div>
-
-                  {/* Row 7: Why attend */}
-                  <div>
-                    <label className={labelBase}>
-                      Why do you want to attend this session? <span className="text-red-500">*</span>
-                    </label>
-                    <textarea
-                      name="attendanceReason"
-                      required
-                      rows={3}
-                      value={formData.attendanceReason}
-                      onChange={handleChange}
-                      placeholder="Share what you hope to achieve, specific skills you want to master..."
-                      className={`${inputNoIcon} resize-none`}
-                    />
-                  </div>
-
-                  {/* Row 8: How did you hear */}
+                  {/* Row 6: How did you hear */}
                   <div>
                     <label className={labelBase}>
                       How did you hear about this? <span className="text-red-500">*</span>

@@ -13,6 +13,7 @@ import RegistrationPage from "./views/RegistrationPage";
 import AdminPage from "./views/AdminPage";
 import AboutPage from "./components/AboutPage";
 import ContactPage from "./components/ContactPage";
+import SpeakersPage from "./components/SpeakersPage";
 import ScrollReveal from "./components/ScrollReveal";
 import {
   SUMMER_INTERNSHIP_PATH,
@@ -29,6 +30,7 @@ export default function App({ page = "home" }) {
   const isAdminPage = page === "admin";
   const isAboutPage = page === "about";
   const isContactPage = page === "contact";
+  const isSpeakersPage = page === "speakers";
   const isHomePage = page === "home";
 
   const navigate = useCallback(
@@ -76,7 +78,7 @@ export default function App({ page = "home" }) {
     <RegistrationProvider>
       <MotionConfig reducedMotion="user">
         <div
-          className={`${isHomePage || isRegisterPage || isWinterPage || isAboutPage || isContactPage ? "premium-dark bg-[#040711]" : "premium-light bg-[#f8fafc]"} ${isHomePage || isWinterPage ? "" : ""} relative flex min-h-screen flex-col text-slate-100 selection:bg-cyan-500 selection:text-black `}
+          className={`${isHomePage || isRegisterPage || isWinterPage || isAboutPage || isContactPage || isSpeakersPage ? "premium-dark bg-[#040711]" : "premium-light bg-[#f8fafc]"} ${isHomePage || isWinterPage ? "" : ""} relative flex min-h-screen flex-col text-slate-100 selection:bg-cyan-500 selection:text-black `}
         >
           {!isAdminPage && <Navbar pathname={pathname} onNavigate={navigate} />}
           {isAdminPage ? (
@@ -92,6 +94,8 @@ export default function App({ page = "home" }) {
             />
           ) : isContactPage ? (
             <ContactPage />
+          ) : isSpeakersPage ? (
+            <SpeakersPage onNavigate={navigate} onOpenRegister={openRegistrationPage} />
           ) : isSummerPage ? (
             <SummerInternshipPage onBackHome={() => navigate("/")} />
           ) : isWinterPage ? (

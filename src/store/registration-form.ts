@@ -12,8 +12,6 @@ export type RegistrationFormData = {
   priorInternshipDetails: string;
   currentRole: string;
   college: string;
-  preferredTrack: string;
-  attendanceReason: string;
   hearAboutEvent: string;
   agreeTerms: boolean;
 };
@@ -30,8 +28,6 @@ const initialFormData: RegistrationFormData = {
   priorInternshipDetails: '',
   currentRole: 'Student (B.Tech / BCA / MCA / M.Sc)',
   college: '',
-  preferredTrack: 'All 7 Tracks (Complete Curriculum)',
-  attendanceReason: '',
   hearAboutEvent: 'LinkedIn',
   agreeTerms: true,
 };

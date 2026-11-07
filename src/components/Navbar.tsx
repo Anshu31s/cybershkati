@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { ArrowUpRight, ChevronDown, Menu, ShieldCheck, X } from 'lucide-react';
-import { REGISTER_PATH, SUMMER_INTERNSHIP_PATH, WINTER_INTERNSHIP_PATH } from '../routes';
+import { REGISTER_PATH, SPEAKERS_PATH, SUMMER_INTERNSHIP_PATH, WINTER_INTERNSHIP_PATH } from '../routes';
 
 const internshipItems = [
   { label: 'Winter Internship 2026', detail: 'Current program', href: WINTER_INTERNSHIP_PATH },
@@ -39,7 +39,7 @@ export default function Navbar({ pathname, onNavigate }) {
     setMobileOpen(false);
   };
 
-  const isDarkHeader = pathname === '/' || pathname === '/register';
+  const isDarkHeader = ['/', '/register', '/about', '/contact', SPEAKERS_PATH].includes(pathname);
   const linkClass = (isActive = false) => `inline-flex items-center gap-1.5 rounded-md px-3 py-2 text-sm font-semibold transition-colors ${
     isDarkHeader ? (isActive ? 'text-cyan-300' : 'text-slate-300 hover:text-white') : (isActive ? 'text-cyan-800' : 'text-slate-600 hover:text-cyan-700')
   }`;
@@ -81,10 +81,11 @@ export default function Navbar({ pathname, onNavigate }) {
             alt="Cyber Shakti Foundation"
             className="h-8 sm:h-10 md:h-11 w-auto max-w-[190px] sm:max-w-none object-contain transition-transform duration-200 group-hover:scale-105"
           />
+          <span aria-hidden="true" className="h-8 w-px shrink-0 bg-white/80 sm:h-10 md:h-11" />
           <img
-            src="/cybersecurity_council_logo.jpeg"
+            src="/cybersecurity_council_logo.png"
             alt="Cybersecurity Council"
-            className="h-7 sm:h-8 md:h-9 w-auto rounded-md border border-slate-700/50 object-contain transition-transform duration-200 group-hover:scale-105"
+            className="h-7 sm:h-8 md:h-9 w-auto object-contain transition-transform duration-200 group-hover:scale-105"
           />
         </button>
 
@@ -103,6 +104,7 @@ export default function Navbar({ pathname, onNavigate }) {
             </button>
             {internshipOpen && internshipMenu}
           </div>
+          <button type="button" onClick={() => goTo(SPEAKERS_PATH)} className={linkClass(pathname === SPEAKERS_PATH)}>Speakers</button>
           <button type="button" onClick={() => goTo('/about')} className={linkClass(pathname === '/about')}>About us</button>
           <button type="button" onClick={() => goTo('/contact')} className={linkClass(pathname === '/contact')}>Contact us</button>
         </div>
@@ -138,6 +140,7 @@ export default function Navbar({ pathname, onNavigate }) {
                 ))}
               </div>
             )}
+            <button type="button" onClick={() => goTo(SPEAKERS_PATH)} className={mobileLinkClass}>Speakers</button>
             <button type="button" onClick={() => goTo('/about')} className={mobileLinkClass}>About us</button>
             <button type="button" onClick={() => goTo('/contact')} className={mobileLinkClass}>Contact us</button>
             <button type="button" onClick={() => goTo(REGISTER_PATH)} className="mt-1 flex w-full items-center justify-center gap-2 rounded-lg bg-blue-600 px-3 py-2.5 text-left text-sm font-bold text-white transition hover:bg-blue-500">Register now <ArrowUpRight className="h-4 w-4" /></button>

@@ -48,13 +48,20 @@ export default function Footer({ onOpenRegister, actionLabel, programContext = '
           {/* Brand info */}
           <div className="space-y-4 max-w-md">
             <div className="space-y-3">
-              <a href="/" className="inline-block group" aria-label="Cyber Shakti Foundation Home">
+              <div className="flex items-center gap-3 flex-wrap">
+                <a href="/" className="inline-block group" aria-label="Cyber Shakti Foundation Home">
+                  <img
+                    src="/logo.png"
+                    alt="Cyber Shakti Foundation Logo"
+                    className="h-9 sm:h-12 w-auto max-w-[200px] sm:max-w-none object-contain transition-transform duration-200 group-hover:scale-105"
+                  />
+                </a>
                 <img
-                  src="/logo.png"
-                  alt="Cyber Shakti Foundation Logo"
-                  className="h-10 sm:h-14 w-auto max-w-[220px] sm:max-w-none object-contain transition-transform duration-200 group-hover:scale-105"
+                  src="/cybersecurity_council_logo.png"
+                  alt="Cybersecurity Council Logo"
+                  className="h-8 sm:h-10 w-auto object-contain transition-transform duration-200 group-hover:scale-105"
                 />
-              </a>
+              </div>
               <span className="block text-[11px] text-cyan-400 font-mono uppercase tracking-wider">
                 {programLabel}
               </span>
