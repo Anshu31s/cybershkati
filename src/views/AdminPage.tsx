@@ -249,16 +249,21 @@ function ProgramCard({ title, detail, status }) {
 
 function RegistrationTable({ registrations, onExport, empty = 'No registration records found.' }) {
   const [fromDate, setFromDate] = useState('');
+  const [paymentFilter, setPaymentFilter] = useState('all');
   const filteredRegistrations = useMemo(() => {
-    if (!fromDate) return registrations;
     return registrations.filter((record) => {
-      if (!record.createdAt) return false;
-      const created = new Date(record.createdAt);
-      if (Number.isNaN(created.getTime())) return false;
-      const createdDate = `${created.getFullYear()}-${String(created.getMonth() + 1).padStart(2, '0')}-${String(created.getDate()).padStart(2, '0')}`;
-      return createdDate >= fromDate;
+      if (fromDate) {
+        if (!record.createdAt) return false;
+        const created = new Date(record.createdAt);
+        if (Number.isNaN(created.getTime())) return false;
+        const createdDate = `${created.getFullYear()}-${String(created.getMonth() + 1).padStart(2, '0')}-${String(created.getDate()).padStart(2, '0')}`;
+        if (createdDate < fromDate) return false;
+      }
+      const isPaid = record.paymentStatus === 'captured' || record.status === 'paid' || record.status === 'registered';
+      return paymentFilter === 'all' || (paymentFilter === 'paid' ? isPaid : !isPaid);
     });
-  }, [fromDate, registrations]);
+  }, [fromDate, paymentFilter, registrations]);
+  const hasFilters = Boolean(fromDate) || paymentFilter !== 'all';
 
   const display = (value) => value == null || value === '' ? '—' : String(value);
   const date = (value) => value ? new Date(value).toLocaleString() : '—';
@@ -270,15 +275,21 @@ function RegistrationTable({ registrations, onExport, empty = 'No registration r
 
   return <div className="space-y-4">
     <div className="flex flex-wrap items-center justify-between gap-3 rounded-xl border border-slate-800 bg-[#0b111d] px-4 py-3">
-      <p className="text-sm text-slate-400"><span className="font-semibold text-white">{filteredRegistrations.length}</span>{fromDate ? ` of ${registrations.length}` : ''} registration records · applicant and payment details</p>
+      <p className="text-sm text-slate-400"><span className="font-semibold text-white">{filteredRegistrations.length}</span>{hasFilters ? ` of ${registrations.length}` : ''} registration records · applicant and payment details</p>
       <div className="flex flex-wrap items-center gap-2">
+        <label htmlFor="registration-payment-filter" className="sr-only">Filter by payment status</label>
+        <select id="registration-payment-filter" value={paymentFilter} onChange={(event) => setPaymentFilter(event.target.value)} className="min-h-10 rounded-lg border border-slate-700 bg-[#070b14] px-3 text-sm text-slate-200 outline-none transition focus:border-cyan-400">
+          <option value="all">All payments</option>
+          <option value="paid">Paid</option>
+          <option value="unpaid">Unpaid</option>
+        </select>
         <label htmlFor="registration-from-date" className="sr-only">Show registrations from date</label>
         <div className="flex items-center gap-2 rounded-lg border border-slate-700 bg-[#070b14] px-3 text-slate-400 focus-within:border-cyan-400">
           <CalendarDays className="h-4 w-4" />
           <span className="whitespace-nowrap text-xs">From date</span>
           <input id="registration-from-date" type="date" value={fromDate} onChange={(event) => setFromDate(event.target.value)} className="min-h-10 bg-transparent text-sm text-slate-200 outline-none [color-scheme:dark]" />
         </div>
-        {fromDate && <button type="button" onClick={() => setFromDate('')} className="rounded-lg border border-slate-700 px-3 py-2 text-sm text-slate-300 transition hover:bg-white/5">Clear</button>}
+        {hasFilters && <button type="button" onClick={() => { setFromDate(''); setPaymentFilter('all'); }} className="rounded-lg border border-slate-700 px-3 py-2 text-sm text-slate-300 transition hover:bg-white/5">Clear filters</button>}
         <button onClick={() => onExport(filteredRegistrations)} disabled={!filteredRegistrations.length} className="inline-flex items-center gap-2 rounded-lg bg-cyan-500 px-4 py-2.5 text-sm font-semibold text-slate-950 transition hover:bg-cyan-400 disabled:cursor-not-allowed disabled:opacity-50"><Download className="h-4 w-4" />Download Excel</button>
       </div>
     </div>

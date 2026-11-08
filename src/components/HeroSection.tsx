@@ -78,7 +78,7 @@ export default function HeroSection({ onOpenRegister }) {
         {/* Main Headline */}
         <div className="text-center max-w-4xl mx-auto">
           <h1 className="text-3xl xs:text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-white leading-tight sm:leading-[1.15] mb-4 sm:mb-6">
-            Launch Your Career in{' '}
+            Start Your Career in{' '}
             <span className="bg-gradient-to-r from-cyan-400 via-sky-300 to-indigo-400 bg-clip-text text-transparent cyber-glow-cyan">
               Cybersecurity & Defense
             </span>

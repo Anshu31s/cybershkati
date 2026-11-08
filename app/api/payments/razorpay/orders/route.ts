@@ -50,6 +50,33 @@ export async function POST(request: Request) {
       pricingTierId: tier.id,
     };
 
+    // Save the applicant before opening checkout so abandoned or failed payments
+    // remain visible to the team as pending applications.
+    const registration = await prisma.registration.create({
+      data: {
+        applicationId: draft.applicationId,
+        fullName: draft.fullName,
+        email: draft.email,
+        phone: draft.phone,
+        altPhone: draft.altPhone || null,
+        whatsappNumber: draft.whatsappNumber || draft.phone,
+        gender: draft.gender || null,
+        dob: draft.dob || null,
+        experienceLevel: draft.experienceLevel || null,
+        hasPriorInternship: draft.hasPriorInternship || 'No',
+        priorInternshipDetails: draft.priorInternshipDetails || null,
+        college: draft.college || 'N/A',
+        course: draft.course || 'N/A',
+        yearOfStudy: draft.year || 'N/A',
+        currentRole: draft.currentRole || null,
+        hearAboutEvent: draft.hearAboutEvent || null,
+        amount: draft.amount,
+        pricingTierId: draft.pricingTierId,
+        status: 'pending',
+        paymentStatus: 'pending',
+      },
+    });
+
     const order = await razorpayRequest('/orders', {
       method: 'POST',
       credentials,
@@ -59,6 +86,10 @@ export async function POST(request: Request) {
         receipt: applicationId.slice(0, 40),
         notes: { application_id: applicationId, program: 'Winter Internship Program 2026', price_tier: tier.id },
       },
+    });
+    await prisma.registration.update({
+      where: { id: registration.id },
+      data: { razorpayOrderId: order.id },
     });
     const registrationToken = createRegistrationToken(draft, order.id, credentials.keySecret);
     return NextResponse.json({

@@ -1,0 +1,20 @@
+{
+  "name": "Cyber Shakti Foundation",
+  "short_name": "CyberShakti",
+  "icons": [
+    {
+      "src": "/android-chrome-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/android-chrome-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "theme_color": "#06162a",
+  "background_color": "#06162a",
+  "display": "standalone"
+}
+

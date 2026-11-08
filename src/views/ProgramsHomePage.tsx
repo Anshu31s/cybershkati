@@ -8,6 +8,7 @@ import {
 import { WINTER_INTERNSHIP_PATH, SPEAKERS_PATH } from '../routes';
 import ScrollReveal from '../components/ScrollReveal';
 import MatrixRain from '../components/MatrixRain';
+import WinterPromoModal from '../components/WinterPromoModal';
 
 const learningAreas = [
   { title: 'Cybersecurity Researchers', detail: 'Build practical skills in security analysis, threat intelligence, and investigation.', icon: BrainCircuit },
@@ -59,6 +60,8 @@ const partners = [
 
 export default function ProgramsHomePage({ onNavigate, onOpenRegister }) {
   return (
+    <>
+    <WinterPromoModal onNavigate={onNavigate} />
     <main className="flex-1 overflow-hidden bg-[#06162a] text-slate-100">
       <ScrollReveal>
         <section className="relative isolate overflow-hidden border-b border-sky-950 bg-[#06162a] pb-16 pt-32 sm:pb-20 sm:pt-36 lg:pt-40">
@@ -254,5 +257,6 @@ export default function ProgramsHomePage({ onNavigate, onOpenRegister }) {
       </ScrollReveal>
       <div className="sr-only"><span>seven learning tracks include cyber law</span></div>
     </main>
+    </>
   );
 }

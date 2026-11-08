@@ -32,11 +32,14 @@ export async function POST(request: Request) {
 
   try {
     const existing = await prisma.registration.findUnique({ where: { razorpayOrderId: orderId } });
-    if (existing?.paymentStatus === 'captured' && existing.razorpayPaymentId === paymentId) {
+    if (existing?.paymentStatus === 'captured') {
+      if (existing.razorpayPaymentId !== paymentId) {
+        return NextResponse.json({ success: false, error: 'This order is already linked to a different payment. Contact support before retrying.' }, { status: 409 });
+      }
       const emailSent = await ensureRegistrationConfirmation(existing);
       return NextResponse.json({ success: true, applicationId: existing.applicationId, status: 'paid', emailSent });
     }
-    if (existing) {
+    if (existing && existing.applicationId !== draft.applicationId) {
       return NextResponse.json({ success: false, error: 'This order is already linked to a different payment. Contact support before retrying.' }, { status: 409 });
     }
 
@@ -54,44 +57,52 @@ export async function POST(request: Request) {
       return NextResponse.json({ success: false, error: 'The payment has not been captured. Please contact support before retrying.' }, { status: 409 });
     }
 
+    const paymentData = {
+      status: 'paid',
+      paymentStatus: 'captured',
+      razorpayPaymentId: paymentId,
+      paymentMethod: payment.method || null,
+      paymentCurrency: payment.currency || 'INR',
+      paymentFee: Number.isSafeInteger(payment.fee) ? payment.fee : null,
+      paymentTax: Number.isSafeInteger(payment.tax) ? payment.tax : null,
+      paymentCapturedAt: new Date(),
+    };
     let registration;
-    try {
-      registration = await prisma.registration.create({
-        data: {
-          applicationId: draft.applicationId,
-          fullName: draft.fullName,
-          email: draft.email,
-          phone: draft.phone,
-          altPhone: draft.altPhone || null,
-          whatsappNumber: draft.whatsappNumber || draft.phone,
-          gender: draft.gender || null,
-          dob: draft.dob || null,
-          experienceLevel: draft.experienceLevel || null,
-          hasPriorInternship: draft.hasPriorInternship || 'No',
-          priorInternshipDetails: draft.priorInternshipDetails || null,
-          college: draft.college || 'N/A',
-          course: draft.course || 'N/A',
-          yearOfStudy: draft.year || 'N/A',
-          currentRole: draft.currentRole || null,
-          hearAboutEvent: draft.hearAboutEvent || null,
-          amount: draft.amount,
-          pricingTierId: draft.pricingTierId,
-          status: 'paid',
-          paymentStatus: 'captured',
-          razorpayOrderId: orderId,
-          razorpayPaymentId: paymentId,
-          paymentMethod: payment.method || null,
-          paymentCurrency: payment.currency || 'INR',
-          paymentFee: Number.isSafeInteger(payment.fee) ? payment.fee : null,
-          paymentTax: Number.isSafeInteger(payment.tax) ? payment.tax : null,
-          paymentCapturedAt: new Date(),
-        },
-      });
-    } catch (error) {
-      // Razorpay may deliver the same successful checkout callback more than once.
-      if ((error as { code?: string }).code !== 'P2002') throw error;
-      registration = await prisma.registration.findUnique({ where: { razorpayOrderId: orderId } });
-      if (!registration || registration.razorpayPaymentId !== paymentId || registration.paymentStatus !== 'captured') throw error;
+    if (existing) {
+      registration = await prisma.registration.update({ where: { id: existing.id }, data: paymentData });
+    } else {
+      // Support orders created before pending applications were persisted.
+      try {
+        registration = await prisma.registration.create({
+          data: {
+            applicationId: draft.applicationId,
+            fullName: draft.fullName,
+            email: draft.email,
+            phone: draft.phone,
+            altPhone: draft.altPhone || null,
+            whatsappNumber: draft.whatsappNumber || draft.phone,
+            gender: draft.gender || null,
+            dob: draft.dob || null,
+            experienceLevel: draft.experienceLevel || null,
+            hasPriorInternship: draft.hasPriorInternship || 'No',
+            priorInternshipDetails: draft.priorInternshipDetails || null,
+            college: draft.college || 'N/A',
+            course: draft.course || 'N/A',
+            yearOfStudy: draft.year || 'N/A',
+            currentRole: draft.currentRole || null,
+            hearAboutEvent: draft.hearAboutEvent || null,
+            amount: draft.amount,
+            pricingTierId: draft.pricingTierId,
+            razorpayOrderId: orderId,
+            ...paymentData,
+          },
+        });
+      } catch (error) {
+        // Razorpay can deliver the same successful checkout callback more than once.
+        if ((error as { code?: string }).code !== 'P2002') throw error;
+        registration = await prisma.registration.findUnique({ where: { razorpayOrderId: orderId } });
+        if (!registration || registration.razorpayPaymentId !== paymentId || registration.paymentStatus !== 'captured') throw error;
+      }
     }
 
     const emailSent = await ensureRegistrationConfirmation(registration);

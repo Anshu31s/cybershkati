@@ -4,9 +4,17 @@ import SiteHeader from '../src/components/SiteHeader';
 export const metadata = {
   title: 'Cyber Shakti Foundation | Cybersecurity Internship Programs',
   description: 'Explore practical cybersecurity internships from Cyber Shakti Foundation, including the current Winter Internship and its 28-day learning agenda.',
+  manifest: '/site.webmanifest',
   icons: {
-    icon: '/logo.png',
-    apple: '/logo.png',
+    icon: [
+      { url: '/favicon.ico', sizes: 'any' },
+      { url: '/favicon-32x32.png', sizes: '32x32', type: 'image/png' },
+      { url: '/favicon-16x16.png', sizes: '16x16', type: 'image/png' },
+      { url: '/icon.png', sizes: '512x512', type: 'image/png' },
+    ],
+    apple: [
+      { url: '/apple-touch-icon.png', sizes: '180x180', type: 'image/png' },
+    ],
   },
 };
 
