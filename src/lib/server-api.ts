@@ -195,14 +195,15 @@ export async function ensureRegistrationConfirmation(registration: any) {
   const name = escapeHtml(registration.fullName);
   const applicationId = escapeHtml(registration.applicationId);
   const amount = new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR', maximumFractionDigits: 0 }).format(registration.amount);
+  const whatsappInviteUrl = 'https://chat.whatsapp.com/HwQQk1I9TudJMBpQdgEhyw';
   try {
     const response = await fetch('https://api.resend.com/emails', {
       method: 'POST',
       headers: { Authorization: `Bearer ${apiKey}`, 'Content-Type': 'application/json', 'Idempotency-Key': `registration-confirmation-${registration.applicationId}` },
       body: JSON.stringify({
         from, to: [registration.email], subject: 'Your Cyber Shakti Winter Internship registration is confirmed',
-        html: `<div style="font-family:Arial,sans-serif;max-width:600px;margin:auto;color:#172033;line-height:1.6"><p style="color:#0e7490;font-weight:700">CYBER SHAKTI FOUNDATION</p><h1 style="font-size:26px">You’re registered, ${name}!</h1><p>Your payment has been verified and your place in the <strong>Winter Internship Program 2026</strong> is confirmed.</p><div style="padding:18px;background:#f1f7fa;border-radius:12px"><p><strong>Application ID:</strong> ${applicationId}</p><p><strong>Program:</strong> Winter Internship Program 2026 · 28 days</p><p><strong>Payment received:</strong> ${amount}</p></div><p>Keep your application ID for future communication. We look forward to learning and building with you.</p><p>— Cyber Shakti Foundation</p></div>`,
-        text: `You’re registered, ${registration.fullName}! Payment verified. Application ID: ${registration.applicationId}. Winter Internship Program 2026 · 28 days. Payment received: ${amount}. — Cyber Shakti Foundation`,
+        html: `<div style="font-family:Arial,sans-serif;max-width:600px;margin:auto;color:#172033;line-height:1.6"><p style="color:#0e7490;font-weight:700">CYBER SHAKTI FOUNDATION</p><h1 style="font-size:26px">You’re registered, ${name}!</h1><p>Your payment has been verified and your place in the <strong>Winter Internship Program 2026</strong> is confirmed.</p><div style="padding:18px;background:#f1f7fa;border-radius:12px"><p><strong>Application ID:</strong> ${applicationId}</p><p><strong>Program:</strong> Winter Internship Program 2026 · 28 days</p><p><strong>Payment received:</strong> ${amount}</p></div><p><strong>Join the internship WhatsApp group:</strong><br><a href="${whatsappInviteUrl}" style="color:#087f5b;font-weight:700">Open WhatsApp group invite</a></p><p>Keep your application ID for future communication. We look forward to learning and building with you.</p><p>— Cyber Shakti Foundation</p></div>`,
+        text: `You’re registered, ${registration.fullName}! Payment verified. Application ID: ${registration.applicationId}. Winter Internship Program 2026 · 28 days. Payment received: ${amount}. Join the internship WhatsApp group: ${whatsappInviteUrl}. — Cyber Shakti Foundation`,
       }),
     });
     if (!response.ok) throw new Error('Resend could not send the registration email.');
