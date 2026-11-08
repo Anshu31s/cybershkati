@@ -75,11 +75,11 @@ export default function ProgramsHomePage({ onNavigate, onOpenRegister }) {
                 <span className="h-2 w-2 rounded-full bg-emerald-400 shadow-[0_0_12px_rgba(52,211,153,.8)]" />
                 Winter Internship Program · 2026
               </div>
-              <h1 className="text-5xl font-extrabold leading-[1.02] tracking-[-0.055em] text-white sm:text-6xl lg:text-[4.4rem]">
-                Build skills.
-                <span className="mt-2 block text-sky-400">that Defend the digital world.</span>
+              <h1 className="text-4xl xs:text-5xl font-extrabold leading-[1.08] tracking-[-0.045em] text-white sm:text-6xl lg:text-[4.2rem]">
+                Build Skills That Defend The{" "}
+                <span className="mt-2 block text-sky-400">Digital World With</span>
               </h1>
-              <p className="mt-6 max-w-2xl text-base leading-7 text-slate-300 sm:text-lg sm:leading-8">
+              <p className="mt-6 max-w-2xl text-base font-semibold leading-7 text-slate-300 sm:text-lg sm:leading-8">
                 Cyber Shakti Winter Internship Program
               </p>
               <div className="mt-8 grid max-w-xl grid-cols-2 gap-3">
