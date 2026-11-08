@@ -44,7 +44,7 @@ An ultra-modern, responsive, high-performance React landing page for the **Winte
 
 ## 💰 Pricing Control
 
-The `/admin` control center supports six volume-based registration tiers, Auto Mode, and Manual Force. Current fees are fetched from the API and used by Razorpay order creation on the server.
+The `/csfadmin` control center supports six volume-based registration tiers, Auto Mode, and Manual Force. Current fees are fetched from the API and used by Razorpay order creation on the server.
 
 ---
 
@@ -64,7 +64,7 @@ The `/admin` control center supports six volume-based registration tiers, Auto M
 
 1. Copy `.env.example` to `.env` and set `DATABASE_URL` to your database.
 2. Generate Razorpay **Test Mode** API keys in the Razorpay Dashboard. Add them to the server environment as `RAZORPAY_KEY_ID` and `RAZORPAY_KEY_SECRET`. Never expose the secret with a `NEXT_PUBLIC_` variable.
-3. Set a long, private `ADMIN_ACCESS_KEY` in the server environment. Open `/admin` and use that key to configure fee tiers, choose Auto Mode or Manual Force, and review registrations and payment records.
+3. Set a long, private `ADMIN_ACCESS_KEY` in the server environment. Open `/csfadmin` and use that key to configure fee tiers, choose Auto Mode or Manual Force, and review registrations and payment records.
 4. Configure Resend in the server environment with `RESEND_API_KEY` and `RESEND_FROM_EMAIL`. Create an API key in Resend and verify the sender domain before using that sender address. The API key must not use a `NEXT_PUBLIC_` prefix. A registration confirmation is sent to the applicant after payment is verified; email delivery problems do not invalidate a captured payment.
 5. Sync the payment, pricing, and email fields and regenerate the Prisma client:
 
@@ -95,4 +95,4 @@ npm run build
 npm run start
 ```
 
-The Next.js App Router serves `/`, `/internships/winter-2026`, `/internships/summer-45-day`, `/register`, `/apply`, and `/admin`. API endpoints live under `app/api`.
+The Next.js App Router serves `/`, `/internships/winter-2026`, `/internships/summer-45-day`, `/register`, `/apply`, and `/csfadmin`. API endpoints live under `app/api`.

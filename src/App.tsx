@@ -2,7 +2,6 @@
 
 import React, { useCallback, useEffect } from "react";
 import { usePathname, useRouter } from "next/navigation";
-import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import { MotionConfig } from "motion/react";
 import { RegistrationProvider } from "./context/RegistrationContext";
@@ -81,7 +80,6 @@ export default function App({ page = "home" }) {
         <div
           className={`${isHomePage || isRegisterPage || isWinterPage || isSummerPage || isAboutPage || isContactPage || isSpeakersPage ? "premium-dark bg-[#040711]" : "premium-light bg-[#f8fafc]"} ${isHomePage || isWinterPage ? "" : ""} relative flex min-h-screen flex-col text-slate-100 selection:bg-cyan-500 selection:text-black `}
         >
-          {!isAdminPage && <Navbar pathname={pathname} onNavigate={navigate} />}
           {isAdminPage ? (
             <AdminPage />
           ) : isRegisterPage ? (

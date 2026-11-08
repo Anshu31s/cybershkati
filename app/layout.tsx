@@ -1,4 +1,5 @@
 import '../src/index.css';
+import SiteHeader from '../src/components/SiteHeader';
 
 export const metadata = {
   title: 'Cyber Shakti Foundation | Cybersecurity Internship Programs',
@@ -18,6 +19,7 @@ export default function RootLayout({ children }) {
         <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
       </head>
       <body className="bg-[#050811] text-slate-100 antialiased selection:bg-cyan-500 selection:text-black">
+        <SiteHeader />
         {children}
       </body>
     </html>
