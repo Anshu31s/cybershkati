@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import {
-  BarChart3, Check, ChevronRight, CreditCard, Download, GraduationCap, KeyRound,
+  BarChart3, CalendarDays, Check, ChevronRight, CreditCard, Download, GraduationCap, KeyRound,
   LayoutDashboard, LoaderCircle, LogOut, RefreshCw, Settings2, ShieldCheck, Users,
 } from 'lucide-react';
 import * as XLSX from 'xlsx';
@@ -108,8 +108,8 @@ export default function AdminPage() {
     }
   };
 
-  const downloadRegistrations = () => {
-    const rows = registrations.map((record) => ({
+  const downloadRegistrations = (records = registrations) => {
+    const rows = records.map((record) => ({
       'Database ID': record.id,
       'Application ID': record.applicationId,
       'Full Name': record.fullName,
@@ -248,7 +248,17 @@ function ProgramCard({ title, detail, status }) {
 }
 
 function RegistrationTable({ registrations, onExport, empty = 'No registration records found.' }) {
-  if (!registrations.length) return <div className="rounded-xl border border-slate-800 bg-[#0b111d] p-8 text-center text-sm text-slate-400">{empty}</div>;
+  const [fromDate, setFromDate] = useState('');
+  const filteredRegistrations = useMemo(() => {
+    if (!fromDate) return registrations;
+    return registrations.filter((record) => {
+      if (!record.createdAt) return false;
+      const created = new Date(record.createdAt);
+      if (Number.isNaN(created.getTime())) return false;
+      const createdDate = `${created.getFullYear()}-${String(created.getMonth() + 1).padStart(2, '0')}-${String(created.getDate()).padStart(2, '0')}`;
+      return createdDate >= fromDate;
+    });
+  }, [fromDate, registrations]);
 
   const display = (value) => value == null || value === '' ? '—' : String(value);
   const date = (value) => value ? new Date(value).toLocaleString() : '—';
@@ -260,10 +270,19 @@ function RegistrationTable({ registrations, onExport, empty = 'No registration r
 
   return <div className="space-y-4">
     <div className="flex flex-wrap items-center justify-between gap-3 rounded-xl border border-slate-800 bg-[#0b111d] px-4 py-3">
-      <p className="text-sm text-slate-400"><span className="font-semibold text-white">{registrations.length}</span> registration records · applicant and payment details</p>
-      <button onClick={onExport} className="inline-flex items-center gap-2 rounded-lg bg-cyan-500 px-4 py-2.5 text-sm font-semibold text-slate-950 transition hover:bg-cyan-400"><Download className="h-4 w-4" />Download Excel</button>
+      <p className="text-sm text-slate-400"><span className="font-semibold text-white">{filteredRegistrations.length}</span>{fromDate ? ` of ${registrations.length}` : ''} registration records · applicant and payment details</p>
+      <div className="flex flex-wrap items-center gap-2">
+        <label htmlFor="registration-from-date" className="sr-only">Show registrations from date</label>
+        <div className="flex items-center gap-2 rounded-lg border border-slate-700 bg-[#070b14] px-3 text-slate-400 focus-within:border-cyan-400">
+          <CalendarDays className="h-4 w-4" />
+          <span className="whitespace-nowrap text-xs">From date</span>
+          <input id="registration-from-date" type="date" value={fromDate} onChange={(event) => setFromDate(event.target.value)} className="min-h-10 bg-transparent text-sm text-slate-200 outline-none [color-scheme:dark]" />
+        </div>
+        {fromDate && <button type="button" onClick={() => setFromDate('')} className="rounded-lg border border-slate-700 px-3 py-2 text-sm text-slate-300 transition hover:bg-white/5">Clear</button>}
+        <button onClick={() => onExport(filteredRegistrations)} disabled={!filteredRegistrations.length} className="inline-flex items-center gap-2 rounded-lg bg-cyan-500 px-4 py-2.5 text-sm font-semibold text-slate-950 transition hover:bg-cyan-400 disabled:cursor-not-allowed disabled:opacity-50"><Download className="h-4 w-4" />Download Excel</button>
+      </div>
     </div>
-    {registrations.map((record) => <article key={record.id} className="overflow-hidden rounded-2xl border border-slate-800 bg-[#0b111d]">
+    {!filteredRegistrations.length ? <div className="rounded-xl border border-slate-800 bg-[#0b111d] p-8 text-center text-sm text-slate-400">{registrations.length ? 'No registrations found from this date.' : empty}</div> : filteredRegistrations.map((record) => <article key={record.id} className="overflow-hidden rounded-2xl border border-slate-800 bg-[#0b111d]">
       <div className="flex flex-wrap items-start justify-between gap-3 border-b border-slate-800 px-5 py-4">
         <div><h2 className="text-lg font-semibold text-white">{display(record.fullName)}</h2><p className="mt-1 font-mono text-xs text-cyan-300">{display(record.applicationId)}</p></div>
         <div className="flex flex-wrap gap-2"><span className="rounded-full border border-cyan-400/20 bg-cyan-400/10 px-3 py-1 text-xs text-cyan-200">{display(record.status)}</span><span className={`rounded-full border px-3 py-1 text-xs ${record.paymentStatus === 'captured' ? 'border-emerald-400/20 bg-emerald-400/10 text-emerald-200' : 'border-amber-400/20 bg-amber-400/10 text-amber-200'}`}>{display(record.paymentStatus)}</span></div>

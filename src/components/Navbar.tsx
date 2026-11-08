@@ -39,7 +39,7 @@ export default function Navbar({ pathname, onNavigate }) {
     setMobileOpen(false);
   };
 
-  const isDarkHeader = ['/', '/register', '/about', '/contact', SPEAKERS_PATH, WINTER_INTERNSHIP_PATH, SUMMER_INTERNSHIP_PATH].includes(pathname);
+  const isDarkHeader = ['/', '/register', '/about', '/contact', '/csfadmin', SPEAKERS_PATH, WINTER_INTERNSHIP_PATH, SUMMER_INTERNSHIP_PATH].includes(pathname);
   const linkClass = (isActive = false) => `inline-flex min-h-11 items-center justify-center gap-2 rounded-full px-4 text-sm font-semibold transition-colors ${
     isActive ? 'bg-sky-500 text-white shadow-[0_0_22px_rgba(14,165,233,.28)]' : 'text-slate-300 hover:bg-white/[.06] hover:text-white'
   }`;
