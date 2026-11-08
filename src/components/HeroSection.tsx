@@ -18,7 +18,7 @@ import { PROGRAM_DATA } from '../data/programData';
 import { useRegistration } from '../context/RegistrationContext';
 
 export default function HeroSection({ onOpenRegister }) {
-  const { seatsRemaining, totalSeats, justDecremented, currentPrice, currentTier } = useRegistration();
+  const { seatsRemaining, totalSeats, justDecremented, currentPrice, currentTier, loading } = useRegistration();
 
   // Countdown to the registration closing date.
   const [timeLeft, setTimeLeft] = useState({
@@ -130,7 +130,7 @@ export default function HeroSection({ onOpenRegister }) {
             </div>
 
             {/* Micro alert for 50 early bird seats */}
-            <div className="mt-3 pt-3 border-t border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-2 text-xs text-slate-300 text-center sm:text-left">
+            {!loading && <div className="mt-3 pt-3 border-t border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-2 text-xs text-slate-300 text-center sm:text-left">
               <span className="flex items-center gap-1.5 text-amber-300 font-medium text-[11px] sm:text-xs">
                 <Flame className="w-3.5 h-3.5 text-amber-400 animate-pulse shrink-0" />
                 <span>Current fee: ₹{currentPrice.toLocaleString('en-IN')} · Tier {currentTier?.min}–{currentTier?.max ?? '1000+'}</span>
@@ -155,7 +155,7 @@ export default function HeroSection({ onOpenRegister }) {
                   </span>
                 )}
               </div>
-            </div>
+            </div>}
           </div>
 
           {/* Primary Call to Action Buttons */}
@@ -164,7 +164,7 @@ export default function HeroSection({ onOpenRegister }) {
               onClick={onOpenRegister}
               className="w-full sm:w-auto px-6 sm:px-8 py-3.5 sm:py-4 rounded-xl font-bold text-sm sm:text-base text-white bg-gradient-to-r from-cyan-500 via-blue-600 to-indigo-600 hover:from-cyan-400 hover:to-indigo-500 shadow-[0_0_30px_rgba(6,182,212,0.4)] hover:shadow-[0_0_45px_rgba(6,182,212,0.7)] transition-all duration-300 active:scale-95 flex items-center justify-center gap-2.5 group"
             >
-              <span>Register Now · ₹{currentPrice.toLocaleString('en-IN')}</span>
+              <span>Register Now{loading ? '' : ` · ₹${currentPrice.toLocaleString('en-IN')}`}</span>
               <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5 group-hover:translate-x-1.5 transition-transform shrink-0" />
             </button>
 
@@ -220,7 +220,7 @@ export default function HeroSection({ onOpenRegister }) {
               <div className="text-xs text-slate-400 font-medium">Professional Internship Certificate & Credential</div>
             </div>
 
-            <div className="p-4 rounded-xl bg-slate-900/60 border border-slate-800/80 backdrop-blur hover:border-amber-500/40 transition-all">
+            {!loading && <div className="p-4 rounded-xl bg-slate-900/60 border border-slate-800/80 backdrop-blur hover:border-amber-500/40 transition-all">
               <div className="flex items-center gap-3 mb-2">
                 <div className="p-2 rounded-lg bg-amber-500/10 text-amber-400">
                   <Flame className="w-5 h-5" />
@@ -228,7 +228,7 @@ export default function HeroSection({ onOpenRegister }) {
                 <div className="text-2xl font-black text-amber-400 font-mono">₹{currentPrice.toLocaleString('en-IN')}</div>
               </div>
               <div className="text-xs text-slate-400 font-medium">Current fee for the {currentTier?.min}–{currentTier?.max ?? '1000+'} registration tier</div>
-            </div>
+            </div>}
 
           </div>
 

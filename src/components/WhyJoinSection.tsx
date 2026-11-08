@@ -15,7 +15,7 @@ import { PROGRAM_DATA } from '../data/programData';
 import { useRegistration } from '../context/RegistrationContext';
 
 export default function WhyJoinSection({ onOpenRegister }) {
-  const { currentPrice, currentTier } = useRegistration();
+  const { currentPrice, currentTier, loading } = useRegistration();
   const getIcon = (iconName) => {
     switch (iconName) {
       case 'Zap': return <Zap className="w-6 h-6" />;
@@ -83,18 +83,18 @@ export default function WhyJoinSection({ onOpenRegister }) {
           <div className="p-7 rounded-2xl bg-gradient-to-br from-cyan-950/60 via-indigo-950/70 to-slate-900 border-2 border-cyan-500/40 shadow-[0_0_30px_rgba(6,182,212,0.25)] flex flex-col justify-between">
             <div>
               <div className="flex items-center justify-between mb-4">
-                <span className="px-3 py-1 rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/40 font-mono text-xs font-bold uppercase">
+                {!loading && <span className="px-3 py-1 rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/40 font-mono text-xs font-bold uppercase">
                   Current Fee
-                </span>
-                <span className="text-xs font-mono text-cyan-300 font-bold">₹{currentPrice.toLocaleString('en-IN')}</span>
+                </span>}
+                {!loading && <span className="text-xs font-mono text-cyan-300 font-bold">₹{currentPrice.toLocaleString('en-IN')}</span>}
               </div>
 
               <h3 className="text-xl font-extrabold text-white mb-2">
                 Join the Winter Cohort
               </h3>
-              <p className="text-slate-300 text-xs sm:text-sm leading-relaxed mb-6">
+              {!loading && <p className="text-slate-300 text-xs sm:text-sm leading-relaxed mb-6">
                 Registration is open. The fee for registrations {currentTier?.min}–{currentTier?.max ?? '1000+'} is ₹{currentPrice.toLocaleString('en-IN')}.
-              </p>
+              </p>}
             </div>
 
             <div>
@@ -124,9 +124,9 @@ export default function WhyJoinSection({ onOpenRegister }) {
             </div>
 
             <div className="pt-4 md:pt-0">
-              <div className="text-3xl sm:text-4xl font-extrabold text-amber-400 font-mono mb-1">
+              {!loading && <div className="text-3xl sm:text-4xl font-extrabold text-amber-400 font-mono mb-1">
                 ₹{currentPrice.toLocaleString('en-IN')}
-              </div>
+              </div>}
               <div className="text-sm font-semibold text-white mb-1">Affordable Excellence</div>
               <div className="text-xs text-slate-400 max-w-xs mx-auto">
                 The fee updates automatically by registration tier or follows the admin-selected manual rate.

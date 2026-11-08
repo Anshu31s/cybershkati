@@ -23,7 +23,7 @@ import { useRegistration } from '../context/RegistrationContext';
 import XLogo from './XLogo';
 
 export default function PricingSection({ onOpenRegister }) {
-  const { totalSeats, totalEnrolled, seatsRemaining, percentageFilled, currentPrice, currentTier, justDecremented } = useRegistration();
+  const { totalSeats, totalEnrolled, seatsRemaining, percentageFilled, currentPrice, currentTier, justDecremented, loading } = useRegistration();
   const [copiedType, setCopiedType] = useState(null);
 
   const copyToClipboard = (text, type) => {
@@ -67,10 +67,10 @@ export default function PricingSection({ onOpenRegister }) {
           <div className="lg:col-span-7 rounded-3xl bg-gradient-to-b from-slate-900 via-[#0c1424] to-[#070b14] border-2 border-cyan-500/40 p-5 sm:p-8 md:p-10 shadow-2xl relative flex flex-col justify-between">
             
             {/* Top Corner Ribbon */}
-            <div className="absolute -top-3 right-3 sm:right-6 px-3 sm:px-4 py-1 rounded-full bg-gradient-to-r from-amber-500 to-orange-500 text-black font-black text-[10px] sm:text-xs uppercase tracking-wider shadow-lg flex items-center gap-1.5 animate-pulse">
+            {!loading && <div className="absolute -top-3 right-3 sm:right-6 px-3 sm:px-4 py-1 rounded-full bg-gradient-to-r from-amber-500 to-orange-500 text-black font-black text-[10px] sm:text-xs uppercase tracking-wider shadow-lg flex items-center gap-1.5 animate-pulse">
               <Flame className="w-3.5 h-3.5" />
               Tier {currentTier?.min}–{currentTier?.max ?? '1000+'} Students
-            </div>
+            </div>}
 
             <div>
               <div className="flex items-center gap-2 text-[11px] sm:text-xs font-mono text-cyan-400 uppercase tracking-wider mb-2">
@@ -79,14 +79,14 @@ export default function PricingSection({ onOpenRegister }) {
                 <span>28 Days Complete Access</span>
               </div>
 
-              <div className="flex flex-wrap items-baseline gap-3 sm:gap-4 mb-4">
+              {!loading && <div className="flex flex-wrap items-baseline gap-3 sm:gap-4 mb-4">
                 <span className="text-3xl sm:text-5xl md:text-6xl font-black text-white font-mono tracking-tight">
                   ₹{currentPrice.toLocaleString('en-IN')}
                 </span>
                 <span className="px-2.5 py-1 rounded-lg bg-cyan-500/10 text-cyan-300 font-bold text-xs font-mono">
                   {currentTier?.min}–{currentTier?.max ?? '1000+'} STUDENTS
                 </span>
-              </div>
+              </div>}
 
               {/* Urgency Progress Bar */}
               <div className="p-3.5 sm:p-4 rounded-xl bg-slate-950/70 border border-slate-800 mb-6 sm:mb-8">
@@ -149,7 +149,7 @@ export default function PricingSection({ onOpenRegister }) {
                 onClick={onOpenRegister}
                 className="w-full py-4 rounded-xl font-extrabold text-base text-white bg-gradient-to-r from-cyan-500 via-blue-600 to-indigo-600 hover:from-cyan-400 hover:to-indigo-500 shadow-[0_0_30px_rgba(6,182,212,0.4)] transition-all flex items-center justify-center gap-2 group active:scale-95"
               >
-                <span>Register for Winter Internship (₹{currentPrice.toLocaleString('en-IN')})</span>
+                <span>Register for Winter Internship{loading ? '' : ` (₹${currentPrice.toLocaleString('en-IN')})`}</span>
                 <ArrowRight className="w-5 h-5 group-hover:translate-x-1.5 transition-transform" />
               </button>
               
@@ -196,9 +196,9 @@ export default function PricingSection({ onOpenRegister }) {
                     excavate: true,
                   }}
                 />
-                <span className="text-[10px] font-mono font-bold text-slate-800 mt-2 uppercase tracking-wider">
+                {!loading && <span className="text-[10px] font-mono font-bold text-slate-800 mt-2 uppercase tracking-wider">
                   Scan to Register • ₹{currentPrice.toLocaleString('en-IN')}
-                </span>
+                </span>}
               </div>
 
               {/* Official URL display */}

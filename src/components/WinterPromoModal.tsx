@@ -9,7 +9,7 @@ const DISMISSED_KEY = "winter-2026-promo-dismissed";
 
 export default function WinterPromoModal({ onNavigate }) {
   const [open, setOpen] = useState(false);
-  const { currentPrice } = useRegistration();
+  const { currentPrice, loading } = useRegistration();
 
   useEffect(() => {
     if (sessionStorage.getItem(DISMISSED_KEY)) return;
@@ -83,11 +83,11 @@ export default function WinterPromoModal({ onNavigate }) {
             <div className="col-span-2 flex items-center gap-2 sm:col-span-1"><CalendarDays className="h-4 w-4 shrink-0 text-violet-300" />2026 cohort</div>
           </div>
 
-          <div className="mt-5 flex flex-wrap items-baseline gap-x-3 gap-y-1">
+          {!loading && <div className="mt-5 flex flex-wrap items-baseline gap-x-3 gap-y-1">
             <span className="text-sm text-slate-400">Current fee</span>
             <span className="text-3xl font-extrabold tracking-tight text-white">₹{Number(currentPrice).toLocaleString("en-IN")}</span>
             <span className="text-xs text-slate-500">Fee may change by registration tier</span>
-          </div>
+          </div>}
 
           <button
             type="button"

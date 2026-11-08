@@ -56,6 +56,7 @@ const partners = [
   { name: 'BSides Jaipur', url: 'https://bsidesjaipur.in/', image: '/partners/pt-bsides-jaipur.png' },
   { name: 'CRACCON', url: 'https://craccon.com/', image: '/partners/pt-craccon.png' },
   { name: 'Pirates', url: 'https://0x0pirates.com/', image: '/partners/pirates-DuHydTHF.png' },
+  { name: 'Informa', url: 'https://www.informa.com/', image: '/partners/pt-informa.png' },
 ];
 
 export default function ProgramsHomePage({ onNavigate, onOpenRegister }) {
