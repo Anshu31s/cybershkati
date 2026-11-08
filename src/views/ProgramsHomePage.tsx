@@ -115,7 +115,7 @@ export default function ProgramsHomePage({ onNavigate, onOpenRegister }) {
               </div>
 
               <div className="mt-10 flex flex-wrap gap-x-8 gap-y-5 border-t border-slate-700/70 pt-6">
-                <div className="flex items-center gap-3"><CalendarDays className="h-5 w-5 text-sky-400" /><span><span className="block text-[9px] font-bold uppercase tracking-[0.16em] text-slate-500">Registration starts</span><span className="mt-1 block text-xs font-bold text-white">08 November 2026</span></span></div>
+                <div className="flex items-center gap-3"><CalendarDays className="h-5 w-5 text-sky-400" /><span><span className="block text-[9px] font-bold uppercase tracking-[0.16em] text-slate-500">Registration closes</span><span className="mt-1 block text-xs font-bold text-white">10 December 2026</span></span></div>
                 <div className="flex items-center gap-3"><Clock3 className="h-5 w-5 text-sky-400" /><span><span className="block text-[9px] font-bold uppercase tracking-[0.16em] text-slate-500">Learning format</span><span className="mt-1 block text-xs font-bold text-white">Online · Live sessions</span></span></div>
                 <div className="flex items-center gap-3"><Activity className="h-5 w-5 text-sky-400" /><span><span className="block text-[9px] font-bold uppercase tracking-[0.16em] text-slate-500">Program focus</span><span className="mt-1 block text-xs font-bold text-white">Hands-on learning</span></span></div>
               </div>

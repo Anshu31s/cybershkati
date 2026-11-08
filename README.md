@@ -9,7 +9,8 @@ An ultra-modern, responsive, high-performance React landing page for the **Winte
 - **Organization:** Cyber Shakti Foundation
 - **Program:** Winter Internship Program
 - **Duration:** 28 Days
-- **Registration Starts:** 08 November 2026
+- **Registration Opens:** 08 November 2026
+- **Registration Closes:** 10 December 2026
 - **Mode:** Online, live and interactive
 - **Website:** [https://internship.cybershaktifoundation.org](https://internship.cybershaktifoundation.org)
 - **Pricing:** Database-backed registration tiers, configurable from the admin control center

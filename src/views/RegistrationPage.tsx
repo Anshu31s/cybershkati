@@ -134,7 +134,7 @@ export default function RegistrationPage({ onNavigate }: { onNavigate: (path: st
   ];
 
   const programFacts = [
-    { icon: Calendar, label: "Registration Starts", value: "08 November 2026" },
+    { icon: Calendar, label: "Registration Closes", value: "10 December 2026" },
     { icon: Clock, label: "Duration", value: "45 Days (Online)" },
     { icon: Monitor, label: "Mode", value: "Live Sessions" },
     { icon: Award, label: "Certificate", value: "Physical + e-Certificate" },

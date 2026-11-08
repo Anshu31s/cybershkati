@@ -20,7 +20,7 @@ import { useRegistration } from '../context/RegistrationContext';
 export default function HeroSection({ onOpenRegister }) {
   const { seatsRemaining, totalSeats, justDecremented, currentPrice, currentTier } = useRegistration();
 
-  // Countdown to 08 November 2026 (Registration date)
+  // Countdown to the registration closing date.
   const [timeLeft, setTimeLeft] = useState({
     days: 0,
     hours: 9,
@@ -29,8 +29,8 @@ export default function HeroSection({ onOpenRegister }) {
   });
 
   useEffect(() => {
-    // Target date: Nov 8, 2026 00:00:00
-    const target = new Date('2026-11-08T00:00:00+05:30').getTime();
+    // Target date: Dec 10, 2026 23:59:59 India Standard Time.
+    const target = new Date('2026-12-10T23:59:59+05:30').getTime();
 
     const interval = setInterval(() => {
       const now = new Date().getTime();
@@ -88,7 +88,7 @@ export default function HeroSection({ onOpenRegister }) {
             A comprehensive <span className="text-cyan-300 font-semibold">28-day live & interactive</span> winter internship by <span className="text-white font-semibold">Cyber Shakti Foundation</span>. Master Digital Forensics, Ethical Hacking, SOC, OSINT, and newly added tracks on India's <span className="text-amber-300 font-semibold underline decoration-amber-500/50 underline-offset-4">DPDP Act 2023</span> & <span className="text-cyan-300 font-semibold underline decoration-cyan-500/50 underline-offset-4">Cyber Law</span>.
           </p>
 
-          {/* Registration Starts & Countdown Ticker */}
+          {/* Registration Closing Date & Countdown Ticker */}
           <div className="mb-8 sm:mb-10 p-3.5 sm:p-5 rounded-2xl bg-gradient-to-b from-slate-900/80 to-[#070b14]/90 border border-cyan-500/30 max-w-2xl mx-auto shadow-2xl backdrop-blur-xl">
             <div className="flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left">
               
@@ -97,9 +97,9 @@ export default function HeroSection({ onOpenRegister }) {
                   <Calendar className="w-5 h-5 sm:w-6 sm:h-6" />
                 </div>
                 <div>
-                  <div className="text-[10px] sm:text-xs font-mono uppercase tracking-wider text-slate-400">Official Opening</div>
+                  <div className="text-[10px] sm:text-xs font-mono uppercase tracking-wider text-slate-400">Registration Deadline</div>
                   <div className="text-xs sm:text-base font-bold text-white">
-                    Registration Starts: <span className="text-cyan-400">{PROGRAM_DATA.registrationStarts}</span>
+                    Registration Closes: <span className="text-cyan-400">{PROGRAM_DATA.registrationCloses}</span>
                   </div>
                 </div>
               </div>
@@ -139,14 +139,14 @@ export default function HeroSection({ onOpenRegister }) {
                 <span className={`font-mono transition-all duration-300 ${
                   justDecremented ? 'text-amber-300 font-extrabold scale-105' : 'text-slate-400'
                 }`}>
-                  {seatsRemaining == null ? (
-                    <span className="text-slate-400">No registration cap for this fee tier</span>
-                  ) : seatsRemaining > 0 ? (
-                    <>
-                      <strong className="text-cyan-400 font-bold">{seatsRemaining}</strong> registrations until next fee tier
-                    </>
-                  ) : (
-                    <span className="text-rose-400 font-bold">Current tier is filled</span>
+                  {seatsRemaining != null && (
+                    seatsRemaining > 0 ? (
+                      <>
+                        <strong className="text-cyan-400 font-bold">{seatsRemaining}</strong> registrations until next fee tier
+                      </>
+                    ) : (
+                      <span className="text-rose-400 font-bold">Current tier is filled</span>
+                    )
                   )}
                 </span>
                 {justDecremented && (

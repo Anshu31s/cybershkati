@@ -4,6 +4,7 @@ export const PROGRAM_DATA = {
   year: "2026",
   duration: "28 Days",
   registrationStarts: "08 November 2026",
+  registrationCloses: "10 December 2026",
   websiteUrl: "https://internship.cybershaktifoundation.org",
   displayUrl: "internship.cybershaktifoundation.org",
   
@@ -225,7 +226,7 @@ export const PROGRAM_DATA = {
   faqs: [
     {
       q: "What is the start date and duration of this program?",
-      a: "Registration officially opens on 08 November 2026. The Winter Internship Program spans 28 days of comprehensive live interactive training, weekend masterclasses, and hands-on lab assignments."
+      a: "Registration opens on 08 November 2026 and closes on 10 December 2026. The Winter Internship Program spans 28 days of comprehensive live interactive training, weekend masterclasses, and hands-on lab assignments."
     },
     {
       q: "Are the sessions recorded if I miss a live class?",

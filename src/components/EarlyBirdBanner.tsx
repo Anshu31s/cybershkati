@@ -42,7 +42,7 @@ export default function EarlyBirdBanner({ onOpenRegister }) {
         <div className="flex items-center gap-2 sm:gap-3 shrink-0">
           <div className="hidden sm:flex items-center gap-1.5 text-xs text-slate-300 font-mono">
             <Clock className="w-3.5 h-3.5 text-cyan-400" />
-            <span>Registration starts: <strong className="text-white">{PROGRAM_DATA.registrationStarts}</strong></span>
+            <span>Registration closes: <strong className="text-white">{PROGRAM_DATA.registrationCloses}</strong></span>
           </div>
           
           <button
