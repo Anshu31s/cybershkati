@@ -8,6 +8,7 @@ export function RegistrationProvider({ children }) {
   const [pricing, setPricing] = useState(null);
   const [databaseAvailable, setDatabaseAvailable] = useState(true);
   const [loading, setLoading] = useState(true);
+  const [pricingLoading, setPricingLoading] = useState(true);
   const [justDecremented, setJustDecremented] = useState(false);
 
   const triggerAnimation = useCallback(() => {
@@ -17,23 +18,33 @@ export function RegistrationProvider({ children }) {
   }, []);
 
   const fetchCount = useCallback(async () => {
-    const [res, currentPricing] = await Promise.all([getRegistrationCount(), getCurrentPricing()]);
+    const res = await getRegistrationCount();
     setDbCount(res.count);
-    setPricing(currentPricing);
     setDatabaseAvailable(res.databaseAvailable !== false);
     setLoading(false);
   }, []);
 
+  const fetchPricing = useCallback(async () => {
+    try {
+      const currentPricing = await getCurrentPricing();
+      setPricing(currentPricing);
+    } finally {
+      setPricingLoading(false);
+    }
+  }, []);
+
   useEffect(() => {
     fetchCount();
+    fetchPricing();
 
     // Poll Prisma backend periodically for live seat count synchronization
     const interval = setInterval(() => {
       fetchCount();
+      fetchPricing();
     }, databaseAvailable ? 15000 : 60000);
 
     return () => clearInterval(interval);
-  }, [databaseAvailable, fetchCount]);
+  }, [databaseAvailable, fetchCount, fetchPricing]);
 
   const currentTier = pricing?.tier || pricing?.tiers?.[0] || null;
   const totalSeats = pricing?.mode === 'auto' ? currentTier?.max ?? null : null;
@@ -46,6 +57,7 @@ export function RegistrationProvider({ children }) {
     setDbCount(prev => prev + 1);
     triggerAnimation();
     fetchCount();
+    fetchPricing();
   };
 
   return (
@@ -61,8 +73,9 @@ export function RegistrationProvider({ children }) {
         pricingMode: pricing?.mode || 'auto',
         databaseAvailable,
         loading,
+        pricingLoading,
         justDecremented,
-        refreshCount: fetchCount,
+        refreshCount: () => Promise.all([fetchCount(), fetchPricing()]),
         notifyNewRegistration
       }}
     >

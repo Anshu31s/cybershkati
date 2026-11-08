@@ -48,15 +48,13 @@ const partners = [
   { name: 'CSAI Association of India', url: 'https://www.ncsai.in/', image: '/partners/pt-csai-association-of-india.png' },
   { name: 'Virtual Cyber Labs', url: 'https://virtualcyberlabs.com/', image: '/partners/pt-virtual-cyber-labs.png' },
   { name: 'Future Crime / FCRF', url: 'https://futurecrime.org/', image: '/partners/pt-future-crime-fcrf.webp' },
-  { name: 'TEMA Telecom Association', url: 'https://www.tematelecom.in/', image: '/partners/pt-tema-telecom-association.png' },
-  { name: 'CMAI Association', url: 'https://www.cmai.asia/', image: '/partners/pt-cmai-association.jpg' },
   { name: 'M Cyber Academy', url: 'https://mcyberacademy.in/', image: '/partners/pt-m-cyber-academy.png' },
   { name: 'Unique Infosolution', url: 'https://uniqueinfosolution.com/', image: '/partners/pt-unique-infosolution.png' },
   { name: 'BSides Noida', url: 'https://bsidesnoida.in/', image: '/partners/pt-bsides-noida.jpeg' },
   { name: 'BSides Jaipur', url: 'https://bsidesjaipur.in/', image: '/partners/pt-bsides-jaipur.png' },
   { name: 'CRACCON', url: 'https://craccon.com/', image: '/partners/pt-craccon.png' },
   { name: 'Pirates', url: 'https://0x0pirates.com/', image: '/partners/pirates-DuHydTHF.png' },
-  { name: 'Informa', url: 'https://www.informa.com/', image: '/partners/pt-informa.png' },
+  { name: 'Black Hat', url: 'https://www.blackhat.com/', image: '/partners/pt-informa.png' },
 ];
 
 export default function ProgramsHomePage({ onNavigate, onOpenRegister }) {

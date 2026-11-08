@@ -16,7 +16,7 @@ import { PROGRAM_DATA } from '../data/programData';
 import { useRegistration } from '../context/RegistrationContext';
 
 export default function ProgramDetailsSection({ onOpenRegister }) {
-  const { currentPrice, loading } = useRegistration();
+  const { currentPrice, pricingLoading } = useRegistration();
   const getDetailIcon = (iconName) => {
     switch(iconName) {
       case 'Clock': return <Clock className="w-5 h-5" />;
@@ -89,7 +89,7 @@ export default function ProgramDetailsSection({ onOpenRegister }) {
               <span className="px-2.5 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-[11px] sm:text-xs font-mono">
                 Starts: {PROGRAM_DATA.registrationStarts}
               </span>
-              {!loading && <span className="px-2.5 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 text-[11px] sm:text-xs font-mono font-bold">
+              {!pricingLoading && <span className="px-2.5 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 text-[11px] sm:text-xs font-mono font-bold">
                 Fee: ₹{currentPrice.toLocaleString('en-IN')}
               </span>}
             </div>
@@ -176,7 +176,7 @@ export default function ProgramDetailsSection({ onOpenRegister }) {
             onClick={onOpenRegister}
             className="inline-flex items-center gap-2 px-8 py-3.5 rounded-xl font-bold text-sm text-white bg-gradient-to-r from-cyan-500 to-indigo-600 hover:from-cyan-400 hover:to-indigo-500 shadow-[0_0_25px_rgba(6,182,212,0.3)] transition-all"
           >
-            <span>Reserve Your Winter Internship Seat{loading ? '' : ` (₹${currentPrice.toLocaleString('en-IN')})`}</span>
+            <span>Reserve Your Winter Internship Seat{pricingLoading ? '' : ` (₹${currentPrice.toLocaleString('en-IN')})`}</span>
             <ArrowRight className="w-4 h-4" />
           </button>
         </div>

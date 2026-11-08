@@ -18,7 +18,7 @@ import { PROGRAM_DATA } from '../data/programData';
 import { useRegistration } from '../context/RegistrationContext';
 
 export default function HeroSection({ onOpenRegister }) {
-  const { seatsRemaining, totalSeats, justDecremented, currentPrice, currentTier, loading } = useRegistration();
+  const { seatsRemaining, totalSeats, justDecremented, currentPrice, currentTier, pricingLoading } = useRegistration();
 
   // Countdown to the registration closing date.
   const [timeLeft, setTimeLeft] = useState({
@@ -78,14 +78,14 @@ export default function HeroSection({ onOpenRegister }) {
         {/* Main Headline */}
         <div className="text-center max-w-4xl mx-auto">
           <h1 className="text-3xl xs:text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-white leading-tight sm:leading-[1.15] mb-4 sm:mb-6">
-            Start Your Career in{' '}
+            Build Skills That Defend{' '}
             <span className="bg-gradient-to-r from-cyan-400 via-sky-300 to-indigo-400 bg-clip-text text-transparent cyber-glow-cyan">
-              Cybersecurity & Defense
+              The Digital World With
             </span>
           </h1>
 
           <p className="text-sm sm:text-lg md:text-xl text-slate-300 leading-relaxed max-w-3xl mx-auto mb-6 sm:mb-8 px-1">
-            A comprehensive <span className="text-cyan-300 font-semibold">28-day live & interactive</span> winter internship by <span className="text-white font-semibold">Cyber Shakti Foundation</span>. Master Digital Forensics, Ethical Hacking, SOC, OSINT, and newly added tracks on India's <span className="text-amber-300 font-semibold underline decoration-amber-500/50 underline-offset-4">DPDP Act 2023</span> & <span className="text-cyan-300 font-semibold underline decoration-cyan-500/50 underline-offset-4">Cyber Law</span>.
+            Cyber Shakti Winter Internship Program
           </p>
 
           {/* Registration Closing Date & Countdown Ticker */}
@@ -130,7 +130,7 @@ export default function HeroSection({ onOpenRegister }) {
             </div>
 
             {/* Micro alert for 50 early bird seats */}
-            {!loading && <div className="mt-3 pt-3 border-t border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-2 text-xs text-slate-300 text-center sm:text-left">
+            {!pricingLoading && <div className="mt-3 pt-3 border-t border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-2 text-xs text-slate-300 text-center sm:text-left">
               <span className="flex items-center gap-1.5 text-amber-300 font-medium text-[11px] sm:text-xs">
                 <Flame className="w-3.5 h-3.5 text-amber-400 animate-pulse shrink-0" />
                 <span>Current fee: ₹{currentPrice.toLocaleString('en-IN')} · Tier {currentTier?.min}–{currentTier?.max ?? '1000+'}</span>
@@ -164,7 +164,7 @@ export default function HeroSection({ onOpenRegister }) {
               onClick={onOpenRegister}
               className="w-full sm:w-auto px-6 sm:px-8 py-3.5 sm:py-4 rounded-xl font-bold text-sm sm:text-base text-white bg-gradient-to-r from-cyan-500 via-blue-600 to-indigo-600 hover:from-cyan-400 hover:to-indigo-500 shadow-[0_0_30px_rgba(6,182,212,0.4)] hover:shadow-[0_0_45px_rgba(6,182,212,0.7)] transition-all duration-300 active:scale-95 flex items-center justify-center gap-2.5 group"
             >
-              <span>Register Now{loading ? '' : ` · ₹${currentPrice.toLocaleString('en-IN')}`}</span>
+              <span>Register Now{pricingLoading ? '' : ` · ₹${currentPrice.toLocaleString('en-IN')}`}</span>
               <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5 group-hover:translate-x-1.5 transition-transform shrink-0" />
             </button>
 
@@ -220,7 +220,7 @@ export default function HeroSection({ onOpenRegister }) {
               <div className="text-xs text-slate-400 font-medium">Professional Internship Certificate & Credential</div>
             </div>
 
-            {!loading && <div className="p-4 rounded-xl bg-slate-900/60 border border-slate-800/80 backdrop-blur hover:border-amber-500/40 transition-all">
+            {!pricingLoading && <div className="p-4 rounded-xl bg-slate-900/60 border border-slate-800/80 backdrop-blur hover:border-amber-500/40 transition-all">
               <div className="flex items-center gap-3 mb-2">
                 <div className="p-2 rounded-lg bg-amber-500/10 text-amber-400">
                   <Flame className="w-5 h-5" />

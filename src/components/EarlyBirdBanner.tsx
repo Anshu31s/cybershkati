@@ -4,7 +4,7 @@ import { PROGRAM_DATA } from '../data/programData';
 import { useRegistration } from '../context/RegistrationContext';
 
 export default function EarlyBirdBanner({ onOpenRegister }) {
-  const { seatsRemaining, currentPrice, currentTier, loading } = useRegistration();
+  const { seatsRemaining, currentPrice, currentTier, pricingLoading } = useRegistration();
   const [dismissed, setDismissed] = useState(false);
 
   if (dismissed) return null;
@@ -24,7 +24,7 @@ export default function EarlyBirdBanner({ onOpenRegister }) {
           </span>
           
           <div className="text-slate-200">
-            {!loading && <><span className="font-semibold text-white">{currentTier?.min}–{currentTier?.max ?? '1000+'} students: </span>
+            {!pricingLoading && <><span className="font-semibold text-white">{currentTier?.min}–{currentTier?.max ?? '1000+'} students: </span>
             <span className="text-cyan-300 font-bold font-mono text-sm sm:text-base">₹{currentPrice.toLocaleString('en-IN')}</span></>}
             <span className="hidden md:inline text-slate-300 ml-2">
               • {seatsRemaining == null ? (
@@ -49,7 +49,7 @@ export default function EarlyBirdBanner({ onOpenRegister }) {
             onClick={onOpenRegister}
             className="flex items-center gap-1 font-semibold text-xs text-black bg-cyan-400 hover:bg-cyan-300 px-2.5 sm:px-3 py-1 rounded-md transition-all shadow-sm hover:shadow-[0_0_12px_rgba(34,211,238,0.5)] active:scale-95 whitespace-nowrap"
           >
-            <span>Register{loading ? '' : ` · ₹${currentPrice.toLocaleString('en-IN')}`}</span>
+            <span>Register{pricingLoading ? '' : ` · ₹${currentPrice.toLocaleString('en-IN')}`}</span>
             <ArrowRight className="w-3 h-3" />
           </button>
 

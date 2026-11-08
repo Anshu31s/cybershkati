@@ -19,7 +19,7 @@ import { motion } from 'motion/react';
 import { useRegistration } from '../context/RegistrationContext';
 
 export default function TracksSection({ onOpenRegister }) {
-  const { currentPrice, loading } = useRegistration();
+  const { currentPrice, pricingLoading } = useRegistration();
   const [activeFilter, setActiveFilter] = useState('all');
   const [selectedTrack, setSelectedTrack] = useState(null);
 
@@ -226,7 +226,7 @@ export default function TracksSection({ onOpenRegister }) {
             onClick={onOpenRegister}
             className="w-full lg:w-auto shrink-0 px-5 sm:px-6 py-3 rounded-xl font-bold text-xs sm:text-sm text-white bg-gradient-to-r from-cyan-500 to-indigo-600 hover:from-cyan-400 hover:to-indigo-500 shadow-[0_0_20px_rgba(6,182,212,0.3)] transition-all flex items-center justify-center gap-2"
           >
-            <span>Register for All 7 Tracks{loading ? '' : ` (₹${currentPrice.toLocaleString('en-IN')})`}</span>
+            <span>Register for All 7 Tracks{pricingLoading ? '' : ` (₹${currentPrice.toLocaleString('en-IN')})`}</span>
             <ArrowRight className="w-4 h-4 shrink-0" />
           </button>
         </div>

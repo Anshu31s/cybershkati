@@ -64,28 +64,28 @@ export default function Navbar({ pathname, onNavigate }) {
   );
 
   return (
-    <header className="fixed inset-x-0 top-0 z-50">
+    <header className="fixed inset-x-0 top-0 z-50 w-full">
       <nav
         ref={navRef}
         aria-label="Main navigation"
-        className="relative mx-auto flex w-full max-w-[1600px] items-center gap-3 border-b border-slate-800 bg-[#06162a]/95 px-4 py-1.5 shadow-lg shadow-black/10 backdrop-blur-xl sm:px-8 lg:px-12"
+        className="relative mx-0 flex w-full max-w-none items-center gap-2 border-b border-slate-800 bg-[#06162a]/95 px-3 py-1.5 shadow-lg shadow-black/10 backdrop-blur-xl sm:mx-auto sm:max-w-[1600px] sm:gap-3 sm:px-8 lg:px-12"
       >
         <button
           type="button"
           onClick={() => goTo('/')}
-          className="flex min-w-0 shrink-0 items-center gap-3 rounded-md text-left group"
+          className="flex min-w-0 shrink items-center gap-2 rounded-md text-left group sm:shrink-0 sm:gap-3"
           aria-label="Cyber Shakti Foundation home"
         >
           <img
             src="/logo.png"
             alt="Cyber Shakti Foundation"
-            className="h-10 sm:h-12 md:h-14 w-auto max-w-[230px] sm:max-w-none object-contain transition-transform duration-200 group-hover:scale-105"
+            className="h-9 w-auto max-w-[118px] object-contain transition-transform duration-200 group-hover:scale-105 sm:h-12 sm:max-w-none md:h-14"
           />
-          <span aria-hidden="true" className="h-10 w-px shrink-0 bg-white/80 sm:h-12 md:h-14" />
+          <span aria-hidden="true" className="hidden h-10 w-px shrink-0 bg-white/80 sm:block sm:h-12 md:h-14" />
           <img
             src="/cybersecurity_council_logo.png"
             alt="Cybersecurity Council"
-            className="h-9 sm:h-10 md:h-11 w-auto object-contain transition-transform duration-200 group-hover:scale-105"
+            className="h-8 w-auto max-w-[72px] object-contain transition-transform duration-200 group-hover:scale-105 sm:h-10 sm:max-w-none md:h-11"
           />
         </button>
 

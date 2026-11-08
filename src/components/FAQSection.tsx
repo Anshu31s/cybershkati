@@ -4,7 +4,7 @@ import { PROGRAM_DATA } from '../data/programData';
 import { useRegistration } from '../context/RegistrationContext';
 
 export default function FAQSection({ onOpenRegister }) {
-  const { currentPrice, loading } = useRegistration();
+  const { currentPrice, pricingLoading } = useRegistration();
   const [openIndex, setOpenIndex] = useState(0);
 
   const toggleAccordion = (index) => {
@@ -55,7 +55,7 @@ export default function FAQSection({ onOpenRegister }) {
                 {isOpen && (
                   <div className="px-5 pb-6 sm:px-6 sm:pb-6 text-slate-300 text-xs sm:text-sm leading-relaxed border-t border-slate-800/60 pt-4 animate-fadeIn">
                     {faq.q === 'How is the registration fee set?'
-                      ? loading ? 'The current registration fee will appear once pricing has loaded. Fees are assigned by registration tier and shown again in Razorpay Checkout before payment.' : `The current registration fee is ₹${currentPrice.toLocaleString('en-IN')}. Fees are assigned by registration tier and shown again in Razorpay Checkout before payment.`
+                      ? pricingLoading ? 'The current registration fee will appear once pricing has loaded. Fees are assigned by registration tier and shown again in Razorpay Checkout before payment.' : `The current registration fee is ₹${currentPrice.toLocaleString('en-IN')}. Fees are assigned by registration tier and shown again in Razorpay Checkout before payment.`
                       : faq.a}
                   </div>
                 )}
@@ -74,7 +74,7 @@ export default function FAQSection({ onOpenRegister }) {
             onClick={onOpenRegister}
             className="px-5 py-2.5 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-black font-bold text-xs shrink-0 flex items-center gap-1.5 transition-colors"
           >
-            <span>Register Now{loading ? '' : ` (₹${currentPrice.toLocaleString('en-IN')})`}</span>
+            <span>Register Now{pricingLoading ? '' : ` (₹${currentPrice.toLocaleString('en-IN')})`}</span>
             <ArrowRight className="w-3.5 h-3.5" />
           </button>
         </div>

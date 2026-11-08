@@ -17,7 +17,7 @@ import XLogo from './XLogo';
 import { useRegistration } from '../context/RegistrationContext';
 
 export default function Footer({ onOpenRegister, actionLabel, programContext = 'general' }) {
-  const { currentPrice, loading } = useRegistration();
+  const { currentPrice, pricingLoading } = useRegistration();
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'auto' });
   };
@@ -116,7 +116,7 @@ export default function Footer({ onOpenRegister, actionLabel, programContext = '
                   onClick={onOpenRegister}
                   className="w-full py-2 px-3 rounded-lg bg-cyan-500/10 hover:bg-cyan-500/20 text-cyan-300 border border-cyan-500/30 text-xs font-bold font-mono transition-colors"
                 >
-                  {actionLabel || (loading ? 'Register Now' : `Register Now (₹${currentPrice.toLocaleString('en-IN')})`)}
+                  {actionLabel || (pricingLoading ? 'Register Now' : `Register Now (₹${currentPrice.toLocaleString('en-IN')})`)}
                 </button>
               </li>}
             </ul>
