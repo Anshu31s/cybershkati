@@ -2,6 +2,8 @@ import React, { createContext, useContext, useState, useEffect, useCallback } fr
 import { getCurrentPricing, getRegistrationCount } from '../lib/api';
 
 const RegistrationContext = createContext(null);
+const PRICING_CACHE_KEY = 'cyber-shakti-current-pricing';
+const PRICING_CACHE_MAX_AGE = 60_000;
 
 export function RegistrationProvider({ children }) {
   const [dbCount, setDbCount] = useState(0);
@@ -17,34 +19,60 @@ export function RegistrationProvider({ children }) {
     return () => clearTimeout(timer);
   }, []);
 
-  const fetchCount = useCallback(async () => {
-    const res = await getRegistrationCount();
-    setDbCount(res.count);
-    setDatabaseAvailable(res.databaseAvailable !== false);
-    setLoading(false);
-  }, []);
-
   const fetchPricing = useCallback(async () => {
     try {
       const currentPricing = await getCurrentPricing();
       setPricing(currentPricing);
+      if (!currentPricing.error) {
+        setDbCount(currentPricing.registrationCount ?? 0);
+        setDatabaseAvailable(currentPricing.databaseAvailable !== false);
+        if (currentPricing.databaseAvailable !== false) {
+          try {
+            localStorage.setItem(PRICING_CACHE_KEY, JSON.stringify({
+              pricing: currentPricing,
+              savedAt: Date.now(),
+            }));
+          } catch {
+            // Pricing remains usable when browser storage is unavailable.
+          }
+        }
+      } else {
+        const count = await getRegistrationCount();
+        setDbCount(count.count);
+        setDatabaseAvailable(false);
+      }
+      setLoading(false);
     } finally {
       setPricingLoading(false);
     }
   }, []);
 
   useEffect(() => {
-    fetchCount();
+    try {
+      const cached = JSON.parse(localStorage.getItem(PRICING_CACHE_KEY) || 'null');
+      if (
+        cached?.pricing &&
+        Date.now() - cached.savedAt < PRICING_CACHE_MAX_AGE
+      ) {
+        setPricing(cached.pricing);
+        setDbCount(cached.pricing.registrationCount ?? 0);
+        setLoading(false);
+        setPricingLoading(false);
+      }
+    } catch {
+      // Ignore expired or malformed cached pricing and load from the server.
+    }
+
     fetchPricing();
 
-    // Poll Prisma backend periodically for live seat count synchronization
+    // Pricing responses include the registration count, avoiding a duplicate
+    // database query while keeping both values current.
     const interval = setInterval(() => {
-      fetchCount();
       fetchPricing();
     }, databaseAvailable ? 15000 : 60000);
 
     return () => clearInterval(interval);
-  }, [databaseAvailable, fetchCount, fetchPricing]);
+  }, [databaseAvailable, fetchPricing]);
 
   const currentTier = pricing?.tier || pricing?.tiers?.[0] || null;
   const totalSeats = pricing?.mode === 'auto' ? currentTier?.max ?? null : null;
@@ -56,7 +84,6 @@ export function RegistrationProvider({ children }) {
   const notifyNewRegistration = () => {
     setDbCount(prev => prev + 1);
     triggerAnimation();
-    fetchCount();
     fetchPricing();
   };
 
@@ -75,7 +102,7 @@ export function RegistrationProvider({ children }) {
         loading,
         pricingLoading,
         justDecremented,
-        refreshCount: () => Promise.all([fetchCount(), fetchPricing()]),
+        refreshCount: fetchPricing,
         notifyNewRegistration
       }}
     >

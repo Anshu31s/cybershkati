@@ -48,6 +48,7 @@ model Registration {
   @@map("internship_registrations")
   @@index([email])
   @@index([applicationId])
+  @@index([status])
 }
 
 model PricingConfiguration {

@@ -61,7 +61,7 @@ export default function HeroSection({ onOpenRegister }) {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
         {/* Top Tag & Organization Announcement */}
-        <div className="flex flex-wrap items-center justify-center gap-2 mb-4 sm:mb-6 px-1 text-center">
+        <div className="flex flex-wrap items-center justify-start gap-2 mb-4 sm:mb-6 px-1 text-left">
           <div className="inline-flex flex-wrap items-center justify-center gap-1.5 sm:gap-2 px-3 py-1.5 rounded-full bg-slate-900/90 border border-cyan-500/40 text-cyan-300 text-[11px] sm:text-xs font-mono shadow-[0_0_15px_rgba(6,182,212,0.25)] max-w-full">
             <span className="flex h-2 w-2 rounded-full bg-cyan-400 animate-ping shrink-0" />
             <span className="font-bold tracking-wide uppercase">{PROGRAM_DATA.organization}</span>
@@ -76,15 +76,15 @@ export default function HeroSection({ onOpenRegister }) {
         </div>
 
         {/* Main Headline */}
-        <div className="text-center max-w-4xl mx-auto">
+        <div className="text-left max-w-4xl mx-auto">
           <h1 className="text-3xl xs:text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-white leading-tight sm:leading-[1.15] mb-4 sm:mb-6">
-            Build Skills That Defend{' '}
+            Build skills.
             <span className="bg-gradient-to-r from-cyan-400 via-sky-300 to-indigo-400 bg-clip-text text-transparent cyber-glow-cyan">
-              The Digital World With
+              <br />that Defend the<br />digital world.
             </span>
           </h1>
 
-          <p className="text-sm sm:text-lg md:text-xl text-slate-300 leading-relaxed max-w-3xl mx-auto mb-6 sm:mb-8 px-1">
+          <p className="text-sm sm:text-lg md:text-xl text-slate-300 leading-relaxed max-w-3xl mb-6 sm:mb-8 px-1">
             Cyber Shakti Winter Internship Program
           </p>
 
